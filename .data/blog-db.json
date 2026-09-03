@@ -1,0 +1,286 @@
+{
+  "users": [
+    {
+      "id": "usr_admin_seed",
+      "email": "admin@aethertech.com",
+      "passwordHash": "$2b$10$rk9mbCvWfKmc132fdXeZsuLhveKwYP7R.AueCmKLHAgCbU4LFqRXe",
+      "role": "ADMIN",
+      "createdAt": "2026-09-02T16:35:43.281Z",
+      "updatedAt": "2026-09-02T16:35:43.282Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "b52b7c112c39e993dc59a58ea5f90c5377b1553196987d15ebfeabd2cd0d20ed",
+      "userId": "usr_admin_seed",
+      "expiresAt": "2026-09-09T16:38:34.543Z",
+      "createdAt": "2026-09-02T16:38:34.543Z"
+    }
+  ],
+  "posts": [],
+  "categories": [
+    {
+      "id": "cat_ai-machine-learning",
+      "name": "AI & Machine Learning",
+      "slug": "ai-machine-learning",
+      "description": "Pragmatic techniques for production RAG pipelines, local models, document intelligence, and verifiable AI workflows.",
+      "topics": [
+        "Generative AI",
+        "RAG",
+        "AI agents",
+        "LLM applications",
+        "AI APIs",
+        "Local AI",
+        "AI automation",
+        "Document intelligence"
+      ],
+      "icon": "Sparkles"
+    },
+    {
+      "id": "cat_software-engineering",
+      "name": "Software Engineering",
+      "slug": "software-engineering",
+      "description": "Disciplined architecture, API contract design, relational database modeling, and typed full-stack patterns.",
+      "topics": [
+        "Architecture",
+        "APIs",
+        "Backend engineering",
+        "Frontend engineering",
+        "Databases",
+        "Testing",
+        "Code quality"
+      ],
+      "icon": "Code2"
+    },
+    {
+      "id": "cat_devops-cloud",
+      "name": "DevOps & Cloud",
+      "slug": "devops-cloud",
+      "description": "Reliable container deployment, automated testing pipelines, monitoring, observability, and resilient cloud configurations.",
+      "topics": [
+        "CI/CD",
+        "Docker",
+        "Kubernetes",
+        "Cloud deployment",
+        "Monitoring",
+        "Logging",
+        "Reliability",
+        "Infrastructure"
+      ],
+      "icon": "Server"
+    },
+    {
+      "id": "cat_education-technology",
+      "name": "Education Technology",
+      "slug": "education-technology",
+      "description": "Modernizing campus systems, digital attendance, paperless administrative records, and lightweight academic platforms.",
+      "topics": [
+        "School technology",
+        "College technology",
+        "Student platforms",
+        "Digital administration",
+        "Learning systems",
+        "Education automation"
+      ],
+      "icon": "GraduationCap"
+    },
+    {
+      "id": "cat_startup-engineering",
+      "name": "Startup Engineering",
+      "slug": "startup-engineering",
+      "description": "Pragmatic technical choices, MVP architecture, preventing premature complexity, and maximizing engineering leverage.",
+      "topics": [
+        "Building MVPs",
+        "Product development",
+        "Technical decisions",
+        "Startup architecture",
+        "Cost optimization",
+        "Scaling"
+      ],
+      "icon": "Rocket"
+    },
+    {
+      "id": "cat_cybersecurity",
+      "name": "Cybersecurity",
+      "slug": "cybersecurity",
+      "description": "Role-based access control, secure session management, API hardening, secret segregation, and defensible security standards.",
+      "topics": [
+        "Authentication",
+        "Authorization",
+        "Application security",
+        "Secure APIs",
+        "Data protection",
+        "Security best practices"
+      ],
+      "icon": "ShieldCheck"
+    }
+  ],
+  "tags": [
+    {
+      "id": "tag_rag",
+      "name": "RAG",
+      "slug": "rag"
+    },
+    {
+      "id": "tag_generative-ai",
+      "name": "Generative AI",
+      "slug": "generative-ai"
+    },
+    {
+      "id": "tag_vector-databases",
+      "name": "Vector Databases",
+      "slug": "vector-databases"
+    },
+    {
+      "id": "tag_document-intelligence",
+      "name": "Document Intelligence",
+      "slug": "document-intelligence"
+    },
+    {
+      "id": "tag_python",
+      "name": "Python",
+      "slug": "python"
+    },
+    {
+      "id": "tag_databases",
+      "name": "Databases",
+      "slug": "databases"
+    },
+    {
+      "id": "tag_postgresql",
+      "name": "PostgreSQL",
+      "slug": "postgresql"
+    },
+    {
+      "id": "tag_architecture",
+      "name": "Architecture",
+      "slug": "architecture"
+    },
+    {
+      "id": "tag_backend",
+      "name": "Backend",
+      "slug": "backend"
+    },
+    {
+      "id": "tag_performance",
+      "name": "Performance",
+      "slug": "performance"
+    },
+    {
+      "id": "tag_authentication",
+      "name": "Authentication",
+      "slug": "authentication"
+    },
+    {
+      "id": "tag_security",
+      "name": "Security",
+      "slug": "security"
+    },
+    {
+      "id": "tag_jwt",
+      "name": "JWT",
+      "slug": "jwt"
+    },
+    {
+      "id": "tag_rbac",
+      "name": "RBAC",
+      "slug": "rbac"
+    },
+    {
+      "id": "tag_typescript",
+      "name": "TypeScript",
+      "slug": "typescript"
+    },
+    {
+      "id": "tag_next-js",
+      "name": "Next.js",
+      "slug": "next-js"
+    },
+    {
+      "id": "tag_edtech",
+      "name": "EdTech",
+      "slug": "edtech"
+    },
+    {
+      "id": "tag_school-software",
+      "name": "School Software",
+      "slug": "school-software"
+    },
+    {
+      "id": "tag_pwa",
+      "name": "PWA",
+      "slug": "pwa"
+    },
+    {
+      "id": "tag_ux-design",
+      "name": "UX Design",
+      "slug": "ux-design"
+    },
+    {
+      "id": "tag_productivity",
+      "name": "Productivity",
+      "slug": "productivity"
+    },
+    {
+      "id": "tag_mvp",
+      "name": "MVP",
+      "slug": "mvp"
+    },
+    {
+      "id": "tag_startup",
+      "name": "Startup",
+      "slug": "startup"
+    },
+    {
+      "id": "tag_product-engineering",
+      "name": "Product Engineering",
+      "slug": "product-engineering"
+    },
+    {
+      "id": "tag_local-ai",
+      "name": "Local AI",
+      "slug": "local-ai"
+    },
+    {
+      "id": "tag_cloud-ai",
+      "name": "Cloud AI",
+      "slug": "cloud-ai"
+    },
+    {
+      "id": "tag_ollama",
+      "name": "Ollama",
+      "slug": "ollama"
+    },
+    {
+      "id": "tag_vllm",
+      "name": "vLLM",
+      "slug": "vllm"
+    },
+    {
+      "id": "tag_cost-optimization",
+      "name": "Cost Optimization",
+      "slug": "cost-optimization"
+    },
+    {
+      "id": "tag_docker",
+      "name": "Docker",
+      "slug": "docker"
+    },
+    {
+      "id": "tag_devops",
+      "name": "DevOps",
+      "slug": "devops"
+    },
+    {
+      "id": "tag_containers",
+      "name": "Containers",
+      "slug": "containers"
+    },
+    {
+      "id": "tag_ci-cd",
+      "name": "CI/CD",
+      "slug": "ci-cd"
+    }
+  ],
+  "media": []
+}

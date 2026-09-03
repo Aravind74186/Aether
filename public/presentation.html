@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether Technologies — Enterprise Pitch Deck</title>
+  <style>
+    :root {
+      --bg: #050811;
+      --surface: #0a0f1d;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --blue: #3b82f6;
+      --blue-glow: rgba(59, 130, 246, 0.2);
+      --emerald: #10b981;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Ambient background grid */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .glow-sphere {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Top Bar */
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 8, 17, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid var(--blue);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Main Viewport */
+    main {
+      position: relative;
+      z-index: 10;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1100px;
+      animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Typography */
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blue);
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    /* Cards Grid */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: all 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(59, 130, 246, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+    }
+
+    /* Footer Controls */
+    footer {
+      position: relative;
+      z-index: 10;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      background: rgba(5, 8, 17, 0.7);
+      backdrop-filter: blur(8px);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .nav-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      transition: all 0.15s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .progress-track {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .progress-dot {
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .progress-dot.active {
+      background: var(--blue);
+      width: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="glow-sphere" style="top: -100px; left: -100px;"></div>
+  <div class="glow-sphere" style="bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">&gt;_</div>
+      <span>Aether Technologies • Capabilities Deck</span>
+    </div>
+    <div id="slide-counter" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
+      Slide <strong style="color: white;">1</strong> / 5
+    </div>
+  </header>
+
+  <!-- Slide Viewport -->
+  <main>
+    <!-- Slide 1: Title -->
+    <div class="slide active">
+      <div class="tag">Enterprise Technology Startup</div>
+      <h1>Building Practical Software for the Next Generation.</h1>
+      <p style="max-width: 700px; margin-bottom: 2rem;">
+        Custom-engineered full-stack platforms for Schools, Colleges, Startups, and SMEs with 100% source code ownership and zero monthly per-user license fees.
+      </p>
+      <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
+        Use <kbd style="background: #1e293b; padding: 2px 6px; border-radius: 4px;">Space</kbd> or <kbd style="background: #1e293b; padding: 2px 6px; border-radius: 4px;">→</kbd> to navigate
+      </div>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div class="slide">
+      <div class="tag">The Industry Challenge</div>
+      <h2>Why Existing Solutions Cause Friction</h2>
+      <p>Organizations are trapped between rigid SaaS monopolies and fragile spreadsheets.</p>
+      <div class="grid-3">
+        <div class="card">
+          <h3 style="color: #f87171;">Bloated $15k/yr ERPs</h3>
+          <p>Over-designed systems with dozens of unused features and punitive recurring per-student subscription renewals.</p>
+        </div>
+        <div class="card">
+          <h3 style="color: #fbbf24;">Spreadsheet Desync</h3>
+          <p>Critical attendance, marks, and inventory stored in disconnected Excel files with zero concurrency protection.</p>
+        </div>
+        <div class="card">
+          <h3 style="color: #94a3b8;">Vulnerable Legacy Code</h3>
+          <p>Unmaintained PHP/WordPress plugins prone to security vulnerabilities and slow morning login load times.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Our Solution -->
+    <div class="slide">
+      <div class="tag">The Aether Difference</div>
+      <h2>Engineered for Performance & Ownership</h2>
+      <p>Clean, modern, and reliable architectures built on modern web standards.</p>
+      <div class="grid-3">
+        <div class="card">
+          <h3 style="color: #60a5fa;">100% Code Ownership</h3>
+          <p>You own all source code, PostgreSQL schemas, and Docker runbooks with zero vendor lock-in.</p>
+        </div>
+        <div class="card">
+          <h3 style="color: #34d399;">Sub-Second Speed</h3>
+          <p>Next.js 14 server-rendered interfaces that load in milliseconds on mobile classroom devices.</p>
+        </div>
+        <div class="card">
+          <h3 style="color: #a78bfa;">ACID Integrity</h3>
+          <p>PostgreSQL transactional guarantees ensure financial receipts and student grades never corrupt.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Target Sectors -->
+    <div class="slide">
+      <div class="tag">Core Sectors</div>
+      <h2>Tailored Across 4 Target Audiences</h2>
+      <p>Specific architectural solutions engineered to solve real daily operational headaches.</p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>🏫 Schools & Colleges</h3>
+          <p>Batch roll call attendance, dynamic PDF report cards, and automated SMS/WhatsApp alerts.</p>
+        </div>
+        <div class="card">
+          <h3>🚀 Startup MVPs</h3>
+          <p>Multi-tenant B2B SaaS boilerplates with Stripe payments built and launched in 4-6 weeks.</p>
+        </div>
+        <div class="card">
+          <h3>📦 SME Operations</h3>
+          <p>Custom internal tools, purchase order logs, and offline-capable mobile PWAs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Next Steps -->
+    <div class="slide" style="text-align: center;">
+      <div class="tag">Sprint 01 Kickoff</div>
+      <h2>Let's Build Your Platform Together.</h2>
+      <p style="max-width: 600px; margin: 0 auto 2rem auto;">
+        Schedule a technical scoping session with our lead architects to review your requirements and milestone timeline.
+      </p>
+      <div style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--blue);">
+        contact@aethertech.example.com • aethertech.example.com
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Navigation -->
+  <footer>
+    <div class="progress-track" id="progress-dots"></div>
+    <div style="display: flex; gap: 0.5rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()">← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()" style="background: var(--blue); color: white;">Next →</button>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const counter = document.getElementById('slide-counter');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const dotsContainer = document.getElementById('progress-dots');
+
+    // Build dots
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.className = `progress-dot ${idx === 0 ? 'active' : ''}`;
+      dot.onclick = () => goToSlide(idx);
+      dotsContainer.appendChild(dot);
+    });
+
+    function updateView() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      document.querySelectorAll('.progress-dot').forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentSlide);
+      });
+      counter.innerHTML = `Slide <strong style="color: white;">${currentSlide + 1}</strong> / ${totalSlides}`;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateView();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateView();
+      }
+    }
+
+    function goToSlide(idx) {
+      currentSlide = idx;
+      updateView();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    updateView();
+  </script>
+</body>
+</html>
