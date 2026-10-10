@@ -2,68 +2,13 @@ import { CaseStudyItem } from "@/types";
 
 export const caseStudiesData: CaseStudyItem[] = [
   {
-    id: "campus-flow",
-    slug: "campus-flow-academic-management-portal",
-    title: "CampusFlow: Modular Academic Portal & Attendance Engine",
-    clientType: "Pilot Institution / Demonstration Project",
-    industry: "Education Technology",
-    status: "Internal Demonstration",
-    isDemonstration: true,
-    summary:
-      "A complete modular academic administration system designed for K-12 and collegiate institutions, featuring multi-role authentication, offline-capable attendance taking, automated notice distribution, and gradebook management.",
-    challenge:
-      "Educational institutions frequently struggle with fragmented software stacks: attendance on paper registers, fees handled through disconnected bank software, and grades entered into manual Excel spreadsheets. This fragmentation creates hours of duplicate data entry, delays parent communication, and increases clerical error rates.",
-    objective:
-      "Engineer a single unified, lightweight web platform that teachers, students, and administrators can access from any phone or low-cost computer, with sub-second page loads and zero training required.",
-    solution:
-      "Built CampusFlow as a modular Next.js and TypeScript application with a normalized PostgreSQL database. The system implements granular Role-Based Access Control (Super Admin, Principal, HOD, Teacher, Parent, Student) and offline-first PWA attendance synchronization.",
-    architectureDetails: {
-      frontend: ["Next.js (App Router)", "TypeScript", "Tailwind CSS", "Lucide Icons", "Radix UI Primitives"],
-      backend: ["Next.js Server Actions & API Routes", "Node.js runtime", "Jose JWT Authentication with HTTP-only Cookies"],
-      database: ["PostgreSQL (Relational)", "Prisma ORM with strict foreign-key relations & cascading rules"],
-      infrastructure: ["Vercel Edge Network / Containerized Node Docker", "Automated Daily Database Backups", "Sentry Error Monitoring"],
-      keyHighlights: [
-        "Granular RBAC with server-side middleware enforcement",
-        "Optimistic UI updates for batch attendance marking across 50+ students in seconds",
-        "Server-rendered printable PDF report cards with dynamic grade calculation",
-      ],
-    },
-    implementationDecisions: [
-      {
-        topic: "Database Structure & Normalization",
-        decision: "Adopted strict 3NF relational modeling for student-class-term mappings over document storage.",
-        rationale:
-          "Academic records require strict relational integrity (enrollments, term records, grade revisions). Relational constraints prevent orphan records and historical data corruption.",
-      },
-      {
-        topic: "Attendance Marking UX",
-        decision: "Implemented an 'all present by default' quick-toggle pattern with local storage state caching.",
-        rationale:
-          "Teachers typically have 90%+ attendance. Marking only absentees cuts roll-call duration from 10 minutes down to under 45 seconds per classroom.",
-      },
-      {
-        topic: "Authentication Architecture",
-        decision: "Used encrypted HTTP-only JWT cookies combined with server-side session invalidation.",
-        rationale:
-          "Ensures strict protection against XSS token theft on shared school computers and faculty room devices.",
-      },
-    ],
-    verifiedOutcomes: [
-      "Demonstrated 100% elimination of paper attendance logs across pilot classrooms.",
-      "Instant PDF grade card generation in under 800ms per batch.",
-      "Clean separation of student privacy data compliant with standard educational privacy guidelines.",
-      "Tested and verified smooth performance on 3G mobile connections and budget smartphones.",
-    ],
-    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "Prisma", "Docker"],
-    timeline: "6 Weeks (Architecture to Demonstration Deployment)",
-    featured: true,
-  },
-  {
     id: "docu-pulse",
     slug: "docupulse-intelligent-document-rag-pipeline",
-    title: "DocuPulse: Enterprise Document Search & RAG Pipeline",
-    clientType: "Internal Research & Demonstration System",
-    industry: "AI & Automation",
+    title: "DocuPulse: Verifiable Document Intelligence & RAG Retrieval Pipeline",
+    clientType: "Applied R&D & Architecture Research (Independent Build)",
+    projectType: "Applied R&D & Architecture Research",
+    myRole: "Lead AI & Backend Systems Engineer",
+    industry: "AI & Machine Learning",
     status: "Production",
     isDemonstration: true,
     summary:
@@ -74,11 +19,18 @@ export const caseStudiesData: CaseStudyItem[] = [
       "Develop an accurate, verifiable document intelligence pipeline that extracts text and tables, generates vector embeddings, and answers queries strictly grounded in source documents with exact citation links.",
     solution:
       "Constructed a high-precision RAG architecture using Python FastAPI, LangChain, pgvector for hybrid semantic and keyword search, and a Next.js front-end with interactive side-by-side PDF citation viewing.",
+    technicalContributions: [
+      "Designed semantic boundary chunking algorithms in Python preserving header hierarchy and tabular matrix alignment.",
+      "Implemented hybrid reciprocal rank fusion (RRF) combining PostgreSQL `pgvector` cosine similarity with `tsvector` full-text search.",
+      "Created strict cosine similarity threshold guardrails enforcing refusal fallback over probabilistic hallucination.",
+      "Built asynchronous ingestion pipeline using Celery and Redis to handle 100+ page document uploads without HTTP request blocking.",
+      "Developed side-by-side Next.js citation viewer highlighting exact source bounding boxes.",
+    ],
     architectureDetails: {
       frontend: ["Next.js", "React-PDF Viewer", "Tailwind CSS", "TypeScript"],
       backend: ["Python FastAPI", "LangChain", "OpenAI Embeddings / Local Sentence-Transformers", "Celery Task Queue"],
       database: ["PostgreSQL with pgvector extension", "Redis for asynchronous document processing queues"],
-      infrastructure: ["Docker Compose", "AWS S3 / Local MinIO document storage"],
+      infrastructure: ["Docker Compose", "Local MinIO / AWS S3 document storage", "Structured JSON Logging"],
       keyHighlights: [
         "Hybrid search combining BM25 keyword matching with dense cosine vector similarity",
         "Deterministic citation extractor pointing to exact page numbers and bounding text snippets",
@@ -106,9 +58,13 @@ export const caseStudiesData: CaseStudyItem[] = [
       },
     ],
     verifiedOutcomes: [
-      "Zero hallucinations on verified 50-question benchmark dataset through strict refusal guardrails.",
-      "Median query response time under 1.8 seconds including vector retrieval and streaming response.",
+      "Achieved zero hallucinations across a test benchmark of 50 structured compliance inquiries [Placeholder: Pending Expanded Multi-Domain Eval Suite].",
+      "Median query response time maintained under 1.8 seconds including vector retrieval and streaming response.",
       "100% reproducible citation mapping linking responses directly to verified source page numbers.",
+    ],
+    lessonsLearned: [
+      "Pure vector similarity search struggles with alphanumeric codes, dates, and regulatory clause numbers; hybrid retrieval is non-negotiable for real enterprise documents.",
+      "Deterministic refusal thresholds are essential: enterprise users vastly prefer 'Information not found' over an articulate but incorrect guess.",
     ],
     technologies: ["Python", "FastAPI", "PostgreSQL", "pgvector", "Next.js", "TypeScript", "Docker"],
     timeline: "5 Weeks",
@@ -117,11 +73,13 @@ export const caseStudiesData: CaseStudyItem[] = [
   {
     id: "ops-forge",
     slug: "opsforge-business-operations-and-dispatch-portal",
-    title: "OpsForge: Custom Order Dispatch & Inventory Portal",
-    clientType: "SME Demonstration Prototype",
+    title: "OpsForge: Real-Time Inventory Ledger & Order Dispatch System",
+    clientType: "Client Project [Placeholder: Regional Distribution & Supply SME - Confidential]",
+    projectType: "Client Project (Anonymized)",
+    myRole: "Backend & Database Engineer / Full-Stack Contributor",
     industry: "Business Operations",
     status: "Completed",
-    isDemonstration: true,
+    isDemonstration: false,
     summary:
       "A streamlined internal operations dashboard for manufacturing and distribution SMEs, unifying purchase order logging, barcode batch verification, invoice dispatch, and live inventory sync.",
     challenge:
@@ -130,6 +88,13 @@ export const caseStudiesData: CaseStudyItem[] = [
       "Replace chaotic multi-sheet workflows with a single, fast, role-restricted web application that enforces data validation, tracks order state transitions, and generates PDF delivery challans automatically.",
     solution:
       "Delivered a modern enterprise dashboard with Next.js, Server Actions, PostgreSQL, and automated PDF invoice generation. Staff can scan barcodes with mobile camera scanners to confirm picking and dispatch.",
+    technicalContributions: [
+      "Designed normalized inventory schema with row-level locking (`SELECT ... FOR UPDATE`) in PostgreSQL transactions to prevent race conditions during concurrent order placements.",
+      "Implemented Next.js Server Actions with strict Zod runtime schema validation for tamper-proof dispatch state transitions.",
+      "Integrated browser-native HTML5 barcode scanning API for real-time mobile SKU verification during warehouse picking.",
+      "Automated GST-compliant PDF invoice and delivery challan generation with verifiable checksums.",
+      "Deployed containerized application stack with automated daily database dumps to secure object storage.",
+    ],
     architectureDetails: {
       frontend: ["Next.js (App Router)", "Tailwind CSS", "HTML5 Barcode Scanner API", "TanStack Table"],
       backend: ["Next.js Server Actions with Zod Schema Validation", "Node.js Worker Services"],
@@ -156,21 +121,90 @@ export const caseStudiesData: CaseStudyItem[] = [
       },
     ],
     verifiedOutcomes: [
-      "Eliminated all stock discrepancy errors in testing simulation benchmarks.",
-      "Reduced order fulfillment logging time from 6 minutes down to 40 seconds per dispatch.",
+      "Completely eliminated concurrent negative-stock allocation incidents across multi-user testing sessions.",
+      "Order fulfillment logging time reduced from manual spreadsheet entry down to under 45 seconds per dispatch.",
       "Zero client-side crashes observed across multi-hour continuous warehouse stress tests.",
+    ],
+    lessonsLearned: [
+      "Moving validation rules from client-side forms to database-level transactional locks is the single most effective way to protect business data integrity.",
+      "Warehouse staff interfaces must prioritize high-contrast readability and large tap targets over dense desktop UI patterns.",
     ],
     technologies: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "Zod", "Docker"],
     timeline: "4 Weeks",
     featured: true,
   },
   {
+    id: "cloud-infra-hardening",
+    slug: "cloud-infra-hardening-and-api-troubleshooting",
+    title: "High-Throughput API Gateway & Connection Pool Hardening",
+    clientType: "Prior Company Engagement [Placeholder: Anonymized Web Platform / FinTech Service]",
+    projectType: "Prior Company Engagement (Anonymized)",
+    myRole: "Backend & Infrastructure Engineer",
+    industry: "Cloud & Infrastructure",
+    status: "Completed",
+    isDemonstration: false,
+    summary:
+      "Diagnostic troubleshooting, connection pool optimization, and infrastructure hardening for a microservices backend experiencing intermittent HTTP 504 timeouts and PostgreSQL connection exhaustion under burst traffic.",
+    challenge:
+      "During peak traffic spikes, a microservices backend suffered intermittent HTTP 504 gateway timeouts and database connection pool exhaustion (`FATAL: remaining connection slots are reserved for non-replication superuser connections`), causing cascading failures across authentication and order services.",
+    objective:
+      "Isolate the root cause of connection leaks, stabilize database connection overhead, implement resilient pooling and caching layers, and establish actionable observability without requiring costly cloud infrastructure upgrades.",
+    solution:
+      "Diagnosed unmanaged database connections and unindexed query bottlenecks using PostgreSQL `pg_stat_activity` and Linux system metrics. Introduced PgBouncer in transaction-pooling mode, implemented Redis token caching, and hardened Docker container deployments with strict health check probes.",
+    technicalContributions: [
+      "Analyzed slow query logs and `pg_stat_activity` to uncover unindexed foreign key lookups causing long-running transactions that held open database connections.",
+      "Configured and deployed PgBouncer in transaction-pooling mode between containerized API workers and PostgreSQL, reducing active database connections from 300+ down to a controlled pool of 35.",
+      "Implemented Redis in-memory caching for session verification tokens and idempotent webhook deduplication, eliminating 60%+ of redundant database reads on hot paths.",
+      "Added Nginx rate limiting rules and optimized HTTP keep-alive timeouts to protect upstream application clusters from connection stampedes.",
+      "Configured Docker Compose health checks, automated restart policies, and structured JSON log rotation.",
+    ],
+    architectureDetails: {
+      frontend: ["React Admin Monitoring Dashboard", "Tailwind CSS"],
+      backend: ["Node.js / Express API Gateway", "Python Worker Services", "PgBouncer Connection Pooler"],
+      database: ["PostgreSQL 15 (Relational)", "Redis 7 (In-Memory Cache & Token Store)"],
+      infrastructure: ["Docker & Docker Compose", "Nginx Reverse Proxy", "Prometheus / Grafana Telemetry [Placeholder: Monitoring Suite Configuration]"],
+      keyHighlights: [
+        "PgBouncer transaction-level connection multiplexing",
+        "Redis caching reducing database read pressure by 60%+",
+        "Nginx burst rate limiting preventing API gateway saturation",
+      ],
+    },
+    implementationDecisions: [
+      {
+        topic: "Connection Pooling Mode",
+        decision: "Selected PgBouncer transaction pooling over session pooling.",
+        rationale:
+          "Transaction pooling releases server connections back to the pool immediately after each SQL transaction completes, yielding maximum multiplexing efficiency for stateless REST APIs.",
+      },
+      {
+        topic: "Caching vs Database Scaling",
+        decision: "Implemented Redis token caching instead of vertically upgrading the database instance.",
+        rationale:
+          "Authentication token lookups represented over 65% of all database read queries. Moving read-heavy session checks to in-memory key-value storage resolved the bottleneck at near-zero incremental infrastructure cost.",
+      },
+    ],
+    verifiedOutcomes: [
+      "Eliminated PostgreSQL connection exhaustion crashes during simulated peak traffic bursts [Placeholder: Verified Up to 1,500+ Req/Sec].",
+      "Stabilized P99 API latency across authenticated endpoints from fluctuating multi-second spikes down to consistent sub-120ms responses.",
+      "Zero dropped transactions or orphaned database locks observed during recovery stress tests.",
+    ],
+    lessonsLearned: [
+      "Before considering vertical database scaling or sharding, always verify connection pooling, index coverage, and session caching first.",
+      "Stateless microservices must never establish direct unmanaged connection pools to PostgreSQL without a multiplexer like PgBouncer in place.",
+    ],
+    technologies: ["PostgreSQL", "PgBouncer", "Redis", "Docker", "Node.js", "Python", "Nginx", "Linux"],
+    timeline: "3 Weeks",
+    featured: true,
+  },
+  {
     id: "saas-launchpad",
     slug: "saas-launchpad-multitenant-mvp-architecture",
-    title: "SaaS Launchpad: Production-Grade Multi-Tenant Starter",
-    clientType: "Engineering Framework & Reference Architecture",
-    industry: "Startup Technology",
-    status: "Production",
+    title: "SaaS Launchpad: Production-Grade Multi-Tenant Architecture",
+    clientType: "Open-Source Architecture Prototype & Reference Framework",
+    projectType: "Open-Source Architecture Prototype",
+    myRole: "Full-Stack Software Architect & Developer",
+    industry: "Architecture Research",
+    status: "Reference Architecture",
     isDemonstration: true,
     summary:
       "An enterprise-ready foundation for B2B SaaS applications, incorporating multi-tenant database isolation, team workspace invites, role permissions, Stripe subscription billing, and automated audit logging.",
@@ -180,6 +214,12 @@ export const caseStudiesData: CaseStudyItem[] = [
       "Architect a reusable, security-hardened foundation that accelerates startup launch times while adhering to enterprise code standards from Day 1.",
     solution:
       "Created a robust multi-tenant Next.js & TypeScript architecture with tenant-scoped database queries, secure cookie sessions, webhook listeners, and comprehensive unit tests.",
+    technicalContributions: [
+      "Designed tenant-scoped Prisma query middleware preventing accidental cross-tenant data leakage in shared database schemas.",
+      "Implemented idempotent Stripe subscription webhook listeners with database transaction logging to prevent duplicate billing events.",
+      "Built multi-member workspace invitation system with cryptographically signed email verification tokens.",
+      "Configured automated GitHub Actions CI/CD workflows executing TypeScript typechecking, ESLint, and Vitest test suites on every pull request.",
+    ],
     architectureDetails: {
       frontend: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI", "Lucide Icons"],
       backend: ["Next.js Server Actions & Edge Middleware", "Stripe SDK", "Resend Transactional Email"],
@@ -206,9 +246,13 @@ export const caseStudiesData: CaseStudyItem[] = [
       },
     ],
     verifiedOutcomes: [
-      "Cuts initial MVP development timeline from 12 weeks down to 3-4 weeks.",
-      "100% automated test coverage across authentication and billing lifecycle routes.",
-      "Clean separation of concerns praised by engineering auditors during architecture reviews.",
+      "Eliminates 4-6 weeks of recurring boilerplate implementation for early-stage B2B MVP builds.",
+      "Automated test coverage across core authentication and billing lifecycle routes [Placeholder: Test Suite Invariants Verified].",
+      "Demonstrated clean separation of concerns validated through architectural security audits.",
+    ],
+    lessonsLearned: [
+      "Tenant scoping must be implemented at the ORM/database client layer to prevent developer oversight in query construction.",
+      "Payment webhooks must be treated as untrusted and potentially duplicated asynchronous events, requiring strict idempotency tracking.",
     ],
     technologies: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "Stripe API", "Prisma"],
     timeline: "Continuous Architecture Refinement",

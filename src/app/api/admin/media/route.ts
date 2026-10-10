@@ -4,6 +4,7 @@ import path from "path";
 import crypto from "crypto";
 import { verifyAdminApi } from "@/lib/auth";
 import { getBlogDatabase, saveBlogDatabase } from "@/lib/blog-db";
+import { supabaseAdmin } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -54,17 +55,71 @@ export async function POST(req: NextRequest) {
     const hash = crypto.randomBytes(16).toString("hex");
     const safeFilename = `${Date.now()}_${hash}${extension}`;
 
-    // Storage abstraction: Write to public/uploads
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    let publicUrl = `/uploads/${safeFilename}`;
+    let storageProvider = "local";
+
+    // 1. Upload to Supabase Storage if configured
+    if (supabaseAdmin) {
+      const bucketName = process.env.STORAGE_BUCKET || "Blog post";
+      try {
+        const { error: uploadError } = await supabaseAdmin.storage
+          .from(bucketName)
+          .upload(safeFilename, buffer, {
+            contentType: file.type,
+            upsert: true,
+          });
+
+        if (uploadError) {
+          console.warn("[supabase-storage] Primary upload error:", uploadError.message);
+          // If bucket name formatting differs, attempt slugified fallback
+          const fallbackBucket = bucketName.toLowerCase().replace(/\s+/g, "-");
+          if (fallbackBucket !== bucketName) {
+            const { error: retryError } = await supabaseAdmin.storage
+              .from(fallbackBucket)
+              .upload(safeFilename, buffer, {
+                contentType: file.type,
+                upsert: true,
+              });
+            if (!retryError) {
+              const { data } = supabaseAdmin.storage
+                .from(fallbackBucket)
+                .getPublicUrl(safeFilename);
+              if (data?.publicUrl) {
+                publicUrl = data.publicUrl;
+                storageProvider = "supabase";
+              }
+            }
+          }
+        } else {
+          const { data } = supabaseAdmin.storage
+            .from(bucketName)
+            .getPublicUrl(safeFilename);
+
+          if (data?.publicUrl) {
+            publicUrl = data.publicUrl;
+            storageProvider = "supabase";
+          }
+        }
+      } catch (storageErr) {
+        console.warn("[supabase-storage] Exception during upload:", storageErr);
+      }
     }
 
-    const filePath = path.join(uploadsDir, safeFilename);
-    const bytes = await file.arrayBuffer();
-    fs.writeFileSync(filePath, Buffer.from(bytes));
-
-    const publicUrl = `/uploads/${safeFilename}`;
+    // 2. Save local backup copy in public/uploads for local development
+    try {
+      const uploadsDir = path.join(process.cwd(), "public", "uploads");
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+      }
+      const filePath = path.join(uploadsDir, safeFilename);
+      fs.writeFileSync(filePath, buffer);
+    } catch (fsErr) {
+      // If running on a serverless/read-only environment and Supabase succeeded, continue
+      if (storageProvider !== "supabase") throw fsErr;
+    }
 
     // Record media in database
     const db = getBlogDatabase();
@@ -80,11 +135,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "Image uploaded successfully.",
+      message: `Image uploaded successfully to ${storageProvider}.`,
       url: publicUrl,
       filename: safeFilename,
       size: file.size,
       mimeType: file.type,
+      storage: storageProvider,
     });
   } catch (error) {
     console.error("[POST /api/admin/media ERROR]:", error);

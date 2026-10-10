@@ -23,13 +23,13 @@ export default function AuditToolPage() {
         {/* Page Hero */}
         <div className="max-w-3xl space-y-4">
           <Badge variant="warning">Diagnostic Tool</Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
             Diagnose Software Bottlenecks & <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600">
               Modernization Roadmap.
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed pt-2">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed pt-2">
             Is your existing school portal, logistics spreadsheet, or legacy PHP app causing operational delays? Run our instant diagnostic audit to calculate your health score and modernization remedies.
           </p>
         </div>

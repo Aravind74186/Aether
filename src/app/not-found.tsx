@@ -7,20 +7,20 @@ import { Terminal, Home, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="py-24 sm:py-32">
+    <div className="py-24 sm:py-32 bg-white">
       <Container size="md">
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 sm:p-12 text-center space-y-6">
-          <div className="w-14 h-14 rounded-xl bg-slate-850 border border-slate-750 flex items-center justify-center text-orange-400 mx-auto">
+        <div className="rounded-3xl border border-slate-200/80 bg-slate-50/70 p-8 sm:p-12 text-center space-y-6 shadow-xs">
+          <div className="w-14 h-14 rounded-2xl bg-orange-50 border border-orange-200/80 flex items-center justify-center text-orange-600 mx-auto shadow-2xs">
             <Terminal className="w-7 h-7" />
           </div>
 
           <Badge variant="warning">HTTP 404 / Route Not Found</Badge>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Requested Resource Does Not Exist
           </h1>
 
-          <p className="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+          <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
             The page you are looking for may have been moved, renamed, or is currently under active development.
           </p>
 

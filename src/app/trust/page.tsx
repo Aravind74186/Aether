@@ -23,13 +23,13 @@ export default function TrustPage() {
         {/* Page Hero */}
         <div className="max-w-3xl space-y-4">
           <Badge variant="brand">Enterprise Governance</Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
             Security, Privacy & <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">
               Institutional Trust Center.
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed pt-2">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed pt-2">
             Whether deploying a campus-wide academic portal or scaling a high-velocity startup MVP, security and verifiable data privacy are engineered into every layer of our systems.
           </p>
         </div>

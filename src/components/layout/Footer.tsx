@@ -1,14 +1,23 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site-config";
 import { Container } from "@/components/ui/Container";
 import { Terminal, Github, Linkedin, ArrowUpRight, Shield } from "lucide-react";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function Footer() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
-    <footer className="border-t border-slate-200/90 bg-[#fafafc] text-slate-600 pt-16 pb-12">
+    <footer className="border-t border-slate-200/90 dark:border-slate-800/90 bg-[#fafafc] dark:bg-[#060910] text-slate-600 dark:text-slate-400 pt-16 pb-12 transition-colors duration-200">
       <Container size="xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-slate-200">
           {/* Brand Col */}
@@ -175,18 +184,23 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 font-mono">
-          <div>
-            © {currentYear} {siteConfig.name}. All rights reserved.
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <span>© {currentYear} {siteConfig.name}. All rights reserved.</span>
+            <span className="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-slate-400 dark:text-slate-500">Theme:</span>
+              <ThemeToggle variant="segmented" />
+            </div>
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-slate-900 transition-colors">
+            <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-slate-900 transition-colors">
+            <Link href="/terms" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               Terms of Service
             </Link>
-            <Link href="/cookies" className="hover:text-slate-900 transition-colors">
+            <Link href="/cookies" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               Cookie Policy
             </Link>
           </div>

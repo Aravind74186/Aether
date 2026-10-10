@@ -182,9 +182,9 @@ export function LeadDashboard() {
 
   if (isCheckingAuth) {
     return (
-      <div className="max-w-md mx-auto rounded-2xl border border-slate-800 bg-slate-900/60 p-12 text-center space-y-4">
-        <RefreshCw className="w-6 h-6 text-orange-400 animate-spin mx-auto" />
-        <p className="text-xs font-mono text-slate-400">Verifying admin session...</p>
+      <div className="max-w-md mx-auto rounded-3xl border border-stone-200 bg-white p-12 text-center space-y-4 shadow-xs">
+        <RefreshCw className="w-6 h-6 text-orange-600 animate-spin mx-auto" />
+        <p className="text-xs font-mono text-stone-500">Verifying admin session...</p>
       </div>
     );
   }
@@ -192,42 +192,42 @@ export function LeadDashboard() {
   // Login Gateway View
   if (!isAuthenticated) {
     return (
-      <div className="max-w-md mx-auto rounded-2xl border border-slate-800 bg-slate-900/90 p-8 space-y-6 shadow-2xl">
+      <div className="max-w-md mx-auto rounded-3xl border border-stone-200/90 bg-white p-8 space-y-6 shadow-xl shadow-stone-900/5">
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-xl bg-orange-950/80 border border-orange-800/40 flex items-center justify-center text-orange-400 mx-auto">
+          <div className="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-600 mx-auto shadow-2xs">
             <Shield className="w-6 h-6" />
           </div>
-          <h2 className="text-xl font-bold text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-extrabold text-stone-950 tracking-tight">
             Aether Lead Operations Gateway
           </h2>
-          <p className="text-xs text-slate-400 font-mono">
+          <p className="text-xs text-stone-500 font-mono">
             Enter internal engineering passphrase to access triage dashboard.
           </p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-2">
-            <label className="block text-xs font-mono uppercase tracking-wider text-slate-300">
+            <label className="block text-xs font-mono uppercase tracking-wider text-stone-700 font-bold">
               Passphrase
             </label>
             <div className="relative">
-              <Key className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Key className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 placeholder="Enter passphrase (hint: aether2025)"
                 value={passphrase}
                 onChange={(e) => setPassphrase(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-orange-500 font-mono"
+                className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-orange-500 focus:bg-white font-mono shadow-2xs transition-colors"
               />
             </div>
             {authError && (
-              <p className="text-xs text-red-400 font-mono">
+              <p className="text-xs text-red-600 font-mono">
                 Incorrect passphrase. Use `aether2025` for development access.
               </p>
             )}
           </div>
 
-          <Button type="submit" size="md" variant="primary" className="w-full justify-center" disabled={isLoading}>
+          <Button type="submit" size="md" variant="primary" className="w-full justify-center bg-orange-600 hover:bg-orange-700 text-white shadow-md shadow-orange-600/20" disabled={isLoading}>
             <span>{isLoading ? "Verifying..." : "Unlock Dashboard"}</span>
             <ChevronRight className="w-4 h-4" />
           </Button>
@@ -256,29 +256,29 @@ export function LeadDashboard() {
   return (
     <div className="space-y-8">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-emerald-400 font-semibold uppercase">
+            <span className="text-xs font-mono text-emerald-700 font-semibold uppercase">
               Internal Operations Portal
             </span>
             <Badge variant="success">Authenticated</Badge>
           </div>
-          <h2 className="text-2xl font-bold text-white tracking-tight mt-1">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight mt-1">
             Inbound Project Leads & Triage
           </h2>
         </div>
 
         <div className="flex items-center gap-3">
-          <Button size="sm" variant="outline" onClick={exportToCSV}>
+          <Button size="sm" variant="outline" onClick={exportToCSV} className="bg-white hover:bg-stone-50 border-stone-200 text-stone-700 shadow-2xs">
             <Download className="w-3.5 h-3.5" />
             <span>Export CSV</span>
           </Button>
-          <Button size="sm" variant="secondary" onClick={fetchLeads}>
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
+          <Button size="sm" variant="secondary" onClick={fetchLeads} className="bg-white hover:bg-stone-50 border-stone-200 text-stone-700 shadow-2xs">
+            <RefreshCw className={`w-3.5 h-3.5 text-orange-600 ${isLoading ? "animate-spin" : ""}`} />
             <span>Refresh</span>
           </Button>
-          <Button size="sm" variant="outline" onClick={handleLogout} className="text-slate-400 hover:text-red-400 hover:border-red-900/50">
+          <Button size="sm" variant="outline" onClick={handleLogout} className="text-stone-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 bg-white border-stone-200 shadow-2xs transition-colors">
             <LogOut className="w-3.5 h-3.5" />
             <span>Logout</span>
           </Button>
@@ -287,53 +287,53 @@ export function LeadDashboard() {
 
       {/* KPI Metric Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-          <div className="text-xs font-mono text-slate-500">Total Leads</div>
-          <div className="text-2xl font-bold text-white font-mono">{leads.length}</div>
+        <div className="p-5 rounded-3xl bg-white border border-stone-200 space-y-1 shadow-xs">
+          <div className="text-xs font-mono text-stone-500 font-medium">Total Leads</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-stone-900 font-mono">{leads.length}</div>
         </div>
-        <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-800/40 space-y-1">
-          <div className="text-xs font-mono text-amber-400">New / Uncontacted</div>
-          <div className="text-2xl font-bold text-amber-300 font-mono">
+        <div className="p-5 rounded-3xl bg-amber-50/70 border border-amber-200 space-y-1 shadow-xs">
+          <div className="text-xs font-mono text-amber-700 font-medium">New / Uncontacted</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-amber-800 font-mono">
             {leads.filter((l) => l.status === "New").length}
           </div>
         </div>
-        <div className="p-4 rounded-xl bg-orange-950/20 border border-orange-800/40 space-y-1">
-          <div className="text-xs font-mono text-orange-400">In Discovery</div>
-          <div className="text-2xl font-bold text-orange-300 font-mono">
+        <div className="p-5 rounded-3xl bg-orange-50/70 border border-orange-200 space-y-1 shadow-xs">
+          <div className="text-xs font-mono text-orange-700 font-medium">In Discovery</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-orange-800 font-mono">
             {leads.filter((l) => l.status === "Discovery Scheduled").length}
           </div>
         </div>
-        <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/40 space-y-1">
-          <div className="text-xs font-mono text-emerald-400">Active / Won</div>
-          <div className="text-2xl font-bold text-emerald-300 font-mono">
+        <div className="p-5 rounded-3xl bg-emerald-50/70 border border-emerald-200 space-y-1 shadow-xs">
+          <div className="text-xs font-mono text-emerald-700 font-medium">Active / Won</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-800 font-mono">
             {leads.filter((l) => l.status === "Active Client" || l.status === "Proposal Sent").length}
           </div>
         </div>
       </div>
 
       {/* Filter and Search */}
-      <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4 space-y-3">
+      <div className="rounded-3xl border border-stone-200 bg-white p-4 sm:p-5 space-y-3 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="relative flex-grow max-w-md">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search by name, organization, or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-orange-500 font-mono"
+              className="w-full pl-9 pr-4 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-900 placeholder-stone-400 focus:outline-none focus:border-orange-500 focus:bg-white font-mono shadow-2xs transition-colors"
             />
           </div>
 
-          <div className="flex flex-wrap gap-1 text-xs font-mono">
+          <div className="flex flex-wrap gap-1.5 text-xs font-mono">
             {statuses.map((st) => (
               <button
                 key={st}
                 onClick={() => setSelectedStatus(st)}
-                className={`px-2.5 py-1 rounded-md transition-colors ${
+                className={`px-3 py-1.5 rounded-xl transition-colors cursor-pointer ${
                   selectedStatus === st
-                    ? "bg-orange-600 text-white font-semibold"
-                    : "bg-slate-950 text-slate-400 hover:text-white border border-slate-800"
+                    ? "bg-orange-600 text-white font-bold shadow-xs"
+                    : "bg-stone-50 text-stone-700 hover:bg-stone-100 border border-stone-200"
                 }`}
               >
                 {st}
@@ -344,40 +344,40 @@ export function LeadDashboard() {
       </div>
 
       {/* Leads Table */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+      <div className="rounded-3xl border border-stone-200 bg-white overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-950/60 text-slate-400 uppercase">
-                <th className="py-3 px-4">Inquiry / Contact</th>
-                <th className="py-3 px-4">Organization & Type</th>
-                <th className="py-3 px-4">Budget Range</th>
-                <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4">Received At</th>
-                <th className="py-3 px-4 text-right">Actions</th>
+              <tr className="border-b border-stone-100 bg-stone-50/80 text-stone-500 uppercase tracking-wider">
+                <th className="py-3.5 px-4 font-semibold">Inquiry / Contact</th>
+                <th className="py-3.5 px-4 font-semibold">Organization & Type</th>
+                <th className="py-3.5 px-4 font-semibold">Budget Range</th>
+                <th className="py-3.5 px-4 font-semibold">Status</th>
+                <th className="py-3.5 px-4 font-semibold">Received At</th>
+                <th className="py-3.5 px-4 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-850">
+            <tbody className="divide-y divide-stone-100 text-stone-700">
               {leads.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-slate-500 font-mono">
+                  <td colSpan={6} className="py-12 text-center text-stone-400 font-mono">
                     No leads matching your current criteria.
                   </td>
                 </tr>
               ) : (
                 leads.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-slate-950/60 transition-colors">
-                    <td className="py-3 px-4">
-                      <div className="font-semibold text-white font-sans">{lead.fullName}</div>
-                      <div className="text-slate-400 text-[11px]">{lead.email}</div>
+                  <tr key={lead.id} className="hover:bg-stone-50/80 transition-colors">
+                    <td className="py-3.5 px-4">
+                      <div className="font-bold text-stone-950 font-sans">{lead.fullName}</div>
+                      <div className="text-stone-500 text-[11px]">{lead.email}</div>
                     </td>
-                    <td className="py-3 px-4">
-                      <div className="text-slate-300 font-sans">{lead.organization}</div>
-                      <div className="text-orange-400 text-[11px]">{lead.projectType}</div>
+                    <td className="py-3.5 px-4">
+                      <div className="text-stone-800 font-sans font-medium">{lead.organization}</div>
+                      <div className="text-orange-600 text-[11px] font-semibold">{lead.projectType}</div>
                     </td>
-                    <td className="py-3 px-4 text-emerald-400 font-semibold">{lead.budget}</td>
-                    <td className="py-3 px-4">{getStatusBadge(lead.status)}</td>
-                    <td className="py-3 px-4 text-slate-500">
+                    <td className="py-3.5 px-4 text-emerald-700 font-semibold">{lead.budget}</td>
+                    <td className="py-3.5 px-4">{getStatusBadge(lead.status)}</td>
+                    <td className="py-3.5 px-4 text-stone-500">
                       {new Date(lead.createdAt).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -385,10 +385,10 @@ export function LeadDashboard() {
                         minute: "2-digit",
                       })}
                     </td>
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right">
                       <button
                         onClick={() => setSelectedLead(lead)}
-                        className="text-orange-400 hover:text-orange-300 font-semibold inline-flex items-center gap-1 hover:underline"
+                        className="text-orange-600 hover:text-orange-700 font-bold inline-flex items-center gap-1 hover:underline cursor-pointer"
                       >
                         <span>Inspect & Update</span>
                         <ChevronRight className="w-3 h-3" />
@@ -404,69 +404,69 @@ export function LeadDashboard() {
 
       {/* Inspect & Triage Drawer Modal */}
       {selectedLead && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-950 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto text-stone-900">
+            <div className="flex items-center justify-between pb-4 border-b border-stone-100">
               <div>
-                <span className="text-xs font-mono text-orange-400 uppercase">
+                <span className="text-xs font-mono text-orange-600 uppercase font-bold tracking-wider">
                   Lead Details • {selectedLead.id}
                 </span>
-                <h3 className="text-xl font-bold text-white">{selectedLead.fullName}</h3>
+                <h3 className="text-xl font-bold text-stone-950 mt-0.5">{selectedLead.fullName}</h3>
               </div>
               <button
                 onClick={() => setSelectedLead(null)}
-                className="text-slate-500 hover:text-white font-mono text-sm"
+                className="text-stone-400 hover:text-stone-700 font-mono text-sm cursor-pointer"
               >
                 [Close ✕]
               </button>
             </div>
 
             {statusUpdateMsg && (
-              <div className="p-3 rounded-lg bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-xs font-mono flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4" />
+              <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono flex items-center gap-2 shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>{statusUpdateMsg}</span>
               </div>
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                <div className="text-slate-500">Organization</div>
-                <div className="text-white font-semibold mt-0.5">{selectedLead.organization}</div>
+              <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+                <div className="text-stone-500 font-medium">Organization</div>
+                <div className="text-stone-950 font-bold mt-0.5 text-sm">{selectedLead.organization}</div>
               </div>
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                <div className="text-slate-500">Email Address</div>
-                <a href={`mailto:${selectedLead.email}`} className="text-orange-400 hover:underline mt-0.5 block">
+              <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+                <div className="text-stone-500 font-medium">Email Address</div>
+                <a href={`mailto:${selectedLead.email}`} className="text-orange-600 hover:text-orange-700 font-bold hover:underline mt-0.5 block text-sm">
                   {selectedLead.email}
                 </a>
               </div>
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                <div className="text-slate-500">Project Type & Scope</div>
-                <div className="text-white mt-0.5">{selectedLead.projectType}</div>
+              <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+                <div className="text-stone-500 font-medium">Project Type & Scope</div>
+                <div className="text-stone-900 font-semibold mt-0.5">{selectedLead.projectType}</div>
               </div>
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                <div className="text-slate-500">Budget Range</div>
-                <div className="text-emerald-400 font-semibold mt-0.5">{selectedLead.budget}</div>
+              <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+                <div className="text-stone-500 font-medium">Budget Range</div>
+                <div className="text-emerald-700 font-bold mt-0.5 text-sm">{selectedLead.budget}</div>
               </div>
             </div>
 
             <div className="space-y-2">
-              <div className="text-xs font-mono uppercase text-slate-400 font-semibold">
+              <div className="text-xs font-mono uppercase text-stone-500 font-bold">
                 Project Requirements & Description:
               </div>
-              <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-200 leading-relaxed font-mono whitespace-pre-wrap">
+              <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs text-stone-800 leading-relaxed font-mono whitespace-pre-wrap shadow-2xs">
                 {selectedLead.description}
               </div>
             </div>
 
             {/* Change Status Buttons */}
-            <div className="space-y-3 pt-2 border-t border-slate-800">
+            <div className="space-y-3 pt-2 border-t border-stone-100">
               <div className="flex items-center justify-between">
-                <div className="text-xs font-mono uppercase text-slate-400 font-semibold">
+                <div className="text-xs font-mono uppercase text-stone-500 font-bold">
                   Update Lead Triage Status:
                 </div>
                 <button
                   onClick={() => handleDeleteLead(selectedLead.id)}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono text-red-400 hover:text-red-300 hover:bg-red-950/40 border border-transparent hover:border-red-850 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono text-red-600 hover:text-red-700 hover:bg-red-50 border border-transparent hover:border-red-200 transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Delete Lead</span>
@@ -479,10 +479,10 @@ export function LeadDashboard() {
                     <button
                       key={st}
                       onClick={() => handleUpdateStatus(st as LeadRecord["status"])}
-                      className={`px-3 py-1.5 rounded-lg border transition-colors ${
+                      className={`px-3 py-1.5 rounded-xl border transition-colors cursor-pointer ${
                         selectedLead.status === st
-                          ? "bg-orange-600 border-orange-500 text-white font-semibold"
-                          : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+                          ? "bg-orange-600 border-orange-600 text-white font-bold shadow-xs"
+                          : "bg-stone-50 hover:bg-stone-100 border-stone-200 text-stone-700"
                       }`}
                     >
                       {st}

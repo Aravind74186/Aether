@@ -108,7 +108,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   };
 
   return (
-    <div className="py-12 sm:py-16 space-y-16 bg-white">
+    <div className="py-12 sm:py-16 space-y-16">
       <ReadingProgress />
       <BackToTop />
 
@@ -201,15 +201,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <main className="lg:col-span-8 space-y-12">
             {/* Key Takeaways if available */}
             {post.keyTakeaways && post.keyTakeaways.length > 0 && (
-              <div className="p-6 sm:p-7 rounded-3xl border border-orange-200/80 bg-gradient-to-br from-orange-50/70 via-white to-amber-50/30 space-y-4 shadow-sm">
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-orange-700 font-bold">
+              <div className="p-6 sm:p-7 rounded-3xl border border-orange-200/80 dark:border-orange-500/30 bg-gradient-to-br from-orange-50/70 via-white to-amber-50/30 dark:from-[#0f172a] dark:via-[#131d33] dark:to-[#0f172a] space-y-4 shadow-sm dark:shadow-black/50">
+                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-orange-700 dark:text-orange-400 font-bold">
                   <Bookmark className="w-4 h-4" />
                   <span>Key Architectural Takeaways</span>
                 </div>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-stone-700">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-stone-700 dark:text-slate-300">
                   {post.keyTakeaways.map((takeaway, idx) => (
                     <li key={idx} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-orange-600 dark:text-orange-400 shrink-0 mt-0.5" />
                       <span className="leading-relaxed">{takeaway}</span>
                     </li>
                   ))}
@@ -253,17 +253,17 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
 
             {/* Required CTA */}
-            <div className="my-12 rounded-3xl border border-orange-200/80 bg-gradient-to-r from-orange-50/90 via-white to-amber-50/40 p-6 sm:p-8 shadow-md">
+            <div className="my-12 rounded-3xl border border-orange-200/80 dark:border-orange-500/30 bg-gradient-to-r from-orange-50/90 via-white to-amber-50/40 dark:from-[#0f172a] dark:via-[#131d33] dark:to-[#0f172a] p-6 sm:p-8 shadow-md dark:shadow-black/50">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div className="space-y-2 max-w-xl">
-                  <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-orange-700 uppercase tracking-wider">
+                  <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-orange-700 dark:text-orange-300 uppercase tracking-wider">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>Engineering Collaboration</span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-stone-950 tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-bold text-stone-950 dark:text-white tracking-tight">
                     Building something similar?
                   </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-stone-600 dark:text-slate-300 leading-relaxed">
                     We partner with schools, startups, and growing enterprises to design, architect, and engineer reliable digital platforms. Let&apos;s evaluate your technical requirements.
                   </p>
                 </div>

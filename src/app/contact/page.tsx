@@ -16,7 +16,7 @@ export const metadata = createMetadata({
 
 export default function ContactPage() {
   return (
-    <div className="py-12 sm:py-16 space-y-16 bg-white">
+    <div className="py-12 sm:py-16 space-y-16">
       <Container size="xl">
         <Breadcrumbs items={[{ name: "Contact" }]} />
 
@@ -103,9 +103,9 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-orange-50/60 border border-orange-200/80 text-xs font-mono text-slate-700 space-y-1">
-              <div className="text-orange-700 font-bold">// Our Commitment</div>
-              <p>No high-pressure sales reps. You communicate directly with engineers who will work on your software.</p>
+            <div className="p-4 rounded-2xl bg-orange-50/60 dark:bg-orange-950/25 border border-orange-200/80 dark:border-orange-800/60 text-xs font-mono text-slate-700 dark:text-slate-300 space-y-1">
+              <div className="text-orange-700 dark:text-orange-400 font-bold">// Our Commitment</div>
+              <p className="text-slate-700 dark:text-slate-300">No high-pressure sales reps. You communicate directly with engineers who will work on your software.</p>
             </div>
           </div>
 

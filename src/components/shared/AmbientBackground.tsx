@@ -54,7 +54,9 @@ export function AmbientBackground() {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Light, crisp connecting lines
+      const isDarkMode = document.documentElement.classList.contains("dark");
+
+      // Crisp connecting lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -65,14 +67,16 @@ export function AmbientBackground() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(234, 88, 12, ${0.08 * (1 - dist / 110)})`;
+            ctx.strokeStyle = isDarkMode
+              ? `rgba(249, 115, 22, ${0.16 * (1 - dist / 110)})`
+              : `rgba(234, 88, 12, ${0.08 * (1 - dist / 110)})`;
             ctx.lineWidth = 0.75;
             ctx.stroke();
           }
         }
       }
 
-      // Draw light particles
+      // Draw particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         p.x += p.vx;
@@ -85,7 +89,9 @@ export function AmbientBackground() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(234, 88, 12, ${p.opacity})`;
+        ctx.fillStyle = isDarkMode
+          ? `rgba(251, 146, 60, ${p.opacity * 1.6})`
+          : `rgba(234, 88, 12, ${p.opacity})`;
         ctx.fill();
       }
 
@@ -102,21 +108,21 @@ export function AmbientBackground() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {/* Light atmospheric ambient glows */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[500px] rounded-full bg-orange-500/[0.035] blur-[130px] animate-pulse-glow" />
+      {/* Atmospheric ambient glows */}
+      <div className="absolute top-0 left-1/4 w-[600px] h-[500px] rounded-full bg-orange-500/[0.035] dark:bg-orange-500/[0.07] blur-[130px] animate-pulse-glow" />
       <div
-        className="absolute bottom-1/4 right-1/4 w-[650px] h-[550px] rounded-full bg-orange-500/[0.03] blur-[150px] animate-pulse-glow"
+        className="absolute bottom-1/4 right-1/4 w-[650px] h-[550px] rounded-full bg-orange-500/[0.03] dark:bg-orange-600/[0.05] blur-[150px] animate-pulse-glow"
         style={{ animationDelay: "3s" }}
       />
       <div
-        className="absolute top-1/2 right-10 w-[400px] h-[400px] rounded-full bg-sky-500/[0.025] blur-[120px] animate-pulse-glow"
+        className="absolute top-1/2 right-10 w-[400px] h-[400px] rounded-full bg-sky-500/[0.025] dark:bg-sky-500/[0.05] blur-[120px] animate-pulse-glow"
         style={{ animationDelay: "1.5s" }}
       />
 
-      {/* Light subtle tech grid */}
-      <div className="absolute inset-0 tech-grid-light opacity-60" />
+      {/* Subtle tech grid */}
+      <div className="absolute inset-0 tech-grid-light opacity-60 dark:opacity-40" />
 
-      {/* Light interactive particle constellation */}
+      {/* Interactive particle constellation */}
       <canvas ref={canvasRef} className="absolute inset-0" />
     </div>
   );

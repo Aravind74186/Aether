@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   Search,
   Command,
@@ -15,11 +15,15 @@ import {
   Sparkles,
   ArrowRight,
   ExternalLink,
+  Sun,
+  Moon,
+  Laptop,
 } from "lucide-react";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface SearchItem {
   title: string;
-  category: "Navigation" | "Services" | "Case Studies" | "Tools & Simulators" | "Trust & Security";
+  category: "Navigation" | "Services" | "Case Studies" | "Tools & Simulators" | "Trust & Security" | "Preferences";
   href: string;
   description: string;
 }
@@ -57,18 +61,29 @@ const searchItems: SearchItem[] = [
   { title: "Live System Health & Status Console", category: "Trust & Security", href: "/status", description: "Real-time service health, 90-day uptime bars, and latency metrics." },
 
   // Case Studies
-  { title: "CampusFlow School Management Portal", category: "Case Studies", href: "/case-studies/campus-flow-academic-management-portal", description: "Digitizing attendance and automated PDF report cards for 1,200 students." },
   { title: "DocuPulse Intelligent RAG Pipeline", category: "Case Studies", href: "/case-studies/docupulse-intelligent-document-rag-pipeline", description: "Fast vector search over compliance PDFs with verified citations." },
-  { title: "OpsForge Logistics Dispatch Portal", category: "Case Studies", href: "/case-studies/opsforge-business-operations-and-dispatch-portal", description: "Internal operations tool replacing fragile spreadsheet workflows." },
+  { title: "OpsForge Inventory & Dispatch System", category: "Case Studies", href: "/case-studies/opsforge-business-operations-and-dispatch-portal", description: "ACID transactions and row-level locking for multi-user inventory." },
+  { title: "API Gateway & Connection Pool Hardening", category: "Case Studies", href: "/case-studies/cloud-infra-hardening-and-api-troubleshooting", description: "PgBouncer pooling, Redis caching, and connection leak elimination." },
   { title: "SaaS Launchpad Multi-Tenant MVP", category: "Case Studies", href: "/case-studies/saas-launchpad-multitenant-mvp-architecture", description: "Multi-tenant B2B SaaS boilerplate launched in 5 weeks." },
+
+  // Appearance & Theme Preferences
+  { title: "Switch to Dark Mode", category: "Preferences", href: "#theme:dark", description: "Toggle high-contrast obsidian dark theme." },
+  { title: "Switch to Light Mode", category: "Preferences", href: "#theme:light", description: "Toggle clean studio light theme." },
+  { title: "Use System Theme", category: "Preferences", href: "#theme:system", description: "Match device operating system appearance setting." },
 ];
 
 export function CommandPalette() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { setTheme } = useTheme();
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   // Global Keyboard shortcut listener
   useEffect(() => {
@@ -111,6 +126,11 @@ export function CommandPalette() {
 
   const handleSelect = (href: string) => {
     setIsOpen(false);
+    if (href.startsWith("#theme:")) {
+      const themeValue = href.replace("#theme:", "") as "light" | "dark" | "system";
+      setTheme(themeValue);
+      return;
+    }
     router.push(href);
   };
 
@@ -130,24 +150,24 @@ export function CommandPalette() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-sm flex items-start justify-center pt-20 p-4 animate-in fade-in duration-100">
-      <div className="bg-white border border-slate-200 rounded-3xl max-w-xl w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-100">
+    <div className="fixed inset-0 z-[100] bg-slate-900/50 backdrop-blur-sm flex items-start justify-center pt-20 p-4 animate-in fade-in duration-100">
+      <div className="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-3xl max-w-xl w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-100">
         {/* Search Bar */}
-        <div className="p-4 border-b border-slate-100 flex items-center gap-3">
+        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
           <Search className="w-5 h-5 text-slate-400 shrink-0" />
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search pages, tools, case studies, or architectural specs..."
+            placeholder="Search pages, tools, case studies, or switch theme..."
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
               setSelectedIndex(0);
             }}
             onKeyDown={handleListKeyDown}
-            className="w-full bg-transparent text-sm text-slate-900 placeholder-slate-400 focus:outline-none font-mono"
+            className="w-full bg-transparent text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none font-mono"
           />
-          <kbd className="hidden sm:inline-block px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-[10px] font-mono text-slate-500 shadow-2xs">
+          <kbd className="hidden sm:inline-block px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-500 dark:text-slate-400 shadow-2xs">
             ESC
           </kbd>
         </div>
@@ -168,20 +188,20 @@ export function CommandPalette() {
                   onMouseEnter={() => setSelectedIndex(idx)}
                   className={`p-3 rounded-2xl transition-all cursor-pointer flex items-center justify-between gap-3 ${
                     isSelected
-                      ? "bg-orange-50/80 border border-orange-200 text-slate-900 shadow-2xs"
-                      : "hover:bg-slate-50 text-slate-700 border border-transparent"
+                      ? "bg-orange-50/80 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800 text-slate-900 dark:text-slate-100 shadow-2xs"
+                      : "hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-300 border border-transparent"
                   }`}
                 >
                   <div className="space-y-0.5 truncate">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold font-mono text-slate-900">{item.title}</span>
-                      <span className="text-[10px] font-mono text-orange-700 bg-orange-50 px-2 py-0.2 rounded-full border border-orange-200 font-medium">
+                      <span className="text-xs font-bold font-mono text-slate-900 dark:text-slate-100">{item.title}</span>
+                      <span className="text-[10px] font-mono text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/50 px-2 py-0.2 rounded-full border border-orange-200 dark:border-orange-800/60 font-medium">
                         {item.category}
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 truncate">{item.description}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{item.description}</p>
                   </div>
-                  <ArrowRight className={`w-4 h-4 shrink-0 transition-transform ${isSelected ? "text-orange-600 translate-x-0.5" : "text-slate-400"}`} />
+                  <ArrowRight className={`w-4 h-4 shrink-0 transition-transform ${isSelected ? "text-orange-600 dark:text-orange-400 translate-x-0.5" : "text-slate-400"}`} />
                 </div>
               );
             })
@@ -189,7 +209,7 @@ export function CommandPalette() {
         </div>
 
         {/* Footer info */}
-        <div className="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[10px] font-mono text-slate-500 px-4">
+        <div className="p-3 bg-slate-50 dark:bg-[#0b101e] border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400 px-4">
           <div className="flex items-center gap-2">
             <span>↑↓ Navigate</span>
             <span>↵ Select</span>

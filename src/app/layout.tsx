@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { ScopingAssistant } from "@/components/chat/ScopingAssistant";
-import { CommandPalette } from "@/components/search/CommandPalette";
-import { AmbientBackground } from "@/components/shared/AmbientBackground";
+import { AppShell } from "@/components/layout/AppShell";
 import { siteConfig } from "@/data/site-config";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,14 +34,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="min-h-screen flex flex-col bg-white text-slate-900 font-sans relative overflow-x-hidden selection:bg-orange-600 selection:text-white">
-        <AmbientBackground />
-        <Navbar />
-        <main className="flex-grow pt-20 relative z-10 animate-page-reveal">{children}</main>
-        <Footer />
-        <ScopingAssistant />
-        <CommandPalette />
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var saved = localStorage.getItem('aether-theme');
+                if (saved === 'light') {
+                  document.documentElement.classList.remove('dark');
+                  document.documentElement.setAttribute('data-theme', 'light');
+                  document.documentElement.style.colorScheme = 'light';
+                } else {
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                  document.documentElement.style.colorScheme = 'dark';
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body
+        className="min-h-screen flex flex-col bg-white dark:bg-[#090d16] text-slate-900 dark:text-slate-100 font-sans relative overflow-x-hidden selection:bg-orange-600 selection:text-white transition-colors duration-200"
+        suppressHydrationWarning
+      >
+        <ThemeProvider>
+          <AppShell>{children}</AppShell>
+        </ThemeProvider>
       </body>
     </html>
   );

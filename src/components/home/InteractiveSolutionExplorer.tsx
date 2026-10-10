@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import {
-  GraduationCap,
+  Server,
   Bot,
   Truck,
   Rocket,
@@ -39,28 +39,28 @@ interface SolutionArchetype {
 
 const archetypes: SolutionArchetype[] = [
   {
-    id: "education",
-    name: "CampusFlow Academic Engine",
-    category: "Education & Schools",
-    icon: GraduationCap,
-    tagline: "High-concurrency roll call & automated gradebook portal for schools & colleges",
+    id: "infra",
+    name: "API Gateway & Connection Pool",
+    category: "Cloud & Infrastructure",
+    icon: Server,
+    tagline: "PgBouncer connection multiplexing, Redis token caching & zero connection leaks",
     description:
-      "Engineered specifically for low-connectivity classroom tablets and high-volume morning attendance bursts. Generates official term report cards in 1 click without spreadsheet errors.",
-    stack: ["Next.js 14 PWA", "PostgreSQL 16", "IndexedDB Offline Sync", "WhatsApp Alerts"],
+      "Engineered to diagnose and eliminate PostgreSQL connection exhaustion and HTTP 504 timeouts under burst traffic, stabilizing P99 latencies without unnecessary cloud scaling costs.",
+    stack: ["PostgreSQL 15", "PgBouncer Pooling", "Redis 7 Cache", "Docker Compose"],
     metrics: [
-      { label: "P99 Roll Call Latency", value: "< 45ms", detail: "Instant offline cache write" },
-      { label: "Gradebook Calculations", value: "100%", detail: "Zero manual Excel formulas" },
-      { label: "Morning Surge Load", value: "3,500+", detail: "Concurrent student check-ins" },
+      { label: "Active DB Connections", value: "300 -> 35", detail: "Transaction-level multiplexing" },
+      { label: "P99 Response Latency", value: "< 120ms", detail: "Eliminated lock contention" },
+      { label: "Redundant DB Reads", value: "-60%", detail: "In-memory token cache hits" },
     ],
     keyFeatures: [
-      "Offline-first PWA caching for classrooms with weak Wi-Fi",
-      "Cryptographically verified roll call and attendance logs",
-      "Automated PDF report card generation with custom school crests",
-      "Instant transactional WhatsApp & SMS absence notifications",
+      "PgBouncer transaction-level connection pooling eliminating connection leaks",
+      "Redis in-memory caching for session tokens and idempotent webhook deduplication",
+      "Nginx burst rate limiting and optimized HTTP keep-alive timeouts",
+      "Containerized Docker stack with health check probes and structured logging",
     ],
     architectureHighlights:
-      "Client-side IndexedDB buffer queues attendance mutations and synchronizes with PostgreSQL upon reconnection using idempotency keys.",
-    caseStudySlug: "campus-flow-academic-management-portal",
+      "Stateless API workers query PostgreSQL strictly through PgBouncer in transaction mode, returning connections immediately upon transaction commit.",
+    caseStudySlug: "cloud-infra-hardening-and-api-troubleshooting",
     badgeColor: "bg-orange-50 text-orange-700 border-orange-200",
   },
   {
@@ -141,13 +141,13 @@ const archetypes: SolutionArchetype[] = [
 ];
 
 export function InteractiveSolutionExplorer() {
-  const [activeTab, setActiveTab] = useState<string>("education");
+  const [activeTab, setActiveTab] = useState<string>("ai-rag");
 
   const active = archetypes.find((a) => a.id === activeTab) || archetypes[0];
   const Icon = active.icon;
 
   return (
-    <section className="py-20 bg-slate-50/70 border-t border-slate-200 relative overflow-hidden">
+    <section className="py-20 bg-slate-50/70 dark:bg-transparent border-t border-slate-200 dark:border-slate-800 relative overflow-hidden">
       <Container size="xl" className="relative">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <SectionHeader
@@ -160,7 +160,7 @@ export function InteractiveSolutionExplorer() {
 
           <Link
             href="/estimator"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-stone-200 text-xs font-mono text-stone-700 hover:text-orange-600 hover:border-orange-300 transition-all shrink-0 shadow-2xs"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-xs font-mono text-stone-700 dark:text-slate-300 hover:text-orange-600 hover:border-orange-300 dark:hover:border-orange-500/50 transition-all shrink-0 shadow-2xs"
           >
             <Sparkles className="w-3.5 h-3.5 text-orange-600" />
             <span>Customize in Cost Estimator</span>
@@ -179,24 +179,24 @@ export function InteractiveSolutionExplorer() {
                 onClick={() => setActiveTab(arch.id)}
                 className={`p-4 rounded-2xl border text-left transition-all duration-200 flex items-start gap-3.5 cursor-pointer ${
                   isSelected
-                    ? "border-orange-600 bg-white shadow-md shadow-orange-500/10 ring-2 ring-orange-500/20 -translate-y-0.5"
-                    : "border-stone-200/90 bg-white hover:bg-stone-50/80 text-stone-600 hover:border-orange-300 shadow-2xs"
+                    ? "border-orange-600 bg-white dark:bg-slate-900 shadow-md shadow-orange-500/10 ring-2 ring-orange-500/20 -translate-y-0.5"
+                    : "border-stone-200/90 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:bg-stone-50/80 dark:hover:bg-slate-800/80 text-stone-600 dark:text-slate-300 hover:border-orange-300 dark:hover:border-orange-500/40 shadow-2xs"
                 }`}
               >
                 <div
                   className={`p-2.5 rounded-xl border shrink-0 transition-colors ${
                     isSelected
                       ? "bg-orange-600 text-white border-orange-600 shadow-2xs"
-                      : "bg-orange-50/80 border-orange-100 text-orange-600"
+                      : "bg-orange-50/80 dark:bg-orange-950/60 border-orange-100 dark:border-orange-800/60 text-orange-600"
                   }`}
                 >
                   <TabIcon className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono text-stone-500 uppercase font-semibold">
+                  <div className="text-[11px] font-mono text-stone-500 dark:text-slate-400 uppercase font-semibold">
                     {arch.category}
                   </div>
-                  <div className="text-sm font-bold text-stone-950 tracking-tight mt-0.5">
+                  <div className="text-sm font-bold text-stone-950 dark:text-white tracking-tight mt-0.5">
                     {arch.name}
                   </div>
                 </div>
@@ -207,18 +207,18 @@ export function InteractiveSolutionExplorer() {
 
         {/* Active Archetype Showcase Card */}
         <div className="rounded-3xl studio-card p-6 sm:p-10 space-y-8">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-stone-100">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-stone-100 dark:border-slate-800">
             <div className="space-y-2">
               <div className="flex items-center gap-2.5">
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono border font-semibold bg-orange-50 text-orange-700 border-orange-200">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono border font-semibold bg-orange-50 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800/80">
                   {active.category}
                 </span>
-                <span className="text-xs font-mono text-stone-500">Production Verified Blueprint</span>
+                <span className="text-xs font-mono text-stone-500 dark:text-slate-400">Production Verified Blueprint</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-stone-950 tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-bold text-stone-950 dark:text-white tracking-tight">
                 {active.name}
               </h3>
-              <p className="text-sm sm:text-base text-stone-600 max-w-3xl leading-relaxed">
+              <p className="text-sm sm:text-base text-stone-600 dark:text-slate-300 max-w-3xl leading-relaxed">
                 {active.description}
               </p>
             </div>
@@ -239,16 +239,16 @@ export function InteractiveSolutionExplorer() {
             {active.metrics.map((metric, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-1"
+                className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-950/60 border border-stone-200/80 dark:border-slate-800 space-y-1"
               >
-                <div className="text-xs font-mono text-stone-500 flex items-center justify-between">
+                <div className="text-xs font-mono text-stone-500 dark:text-slate-400 flex items-center justify-between">
                   <span>{metric.label}</span>
                   <Zap className="w-3 h-3 text-orange-600" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-stone-950 font-mono tracking-tight">
+                <div className="text-2xl sm:text-3xl font-extrabold text-stone-950 dark:text-white font-mono tracking-tight">
                   {metric.value}
                 </div>
-                <div className="text-[11px] font-mono text-stone-500">{metric.detail}</div>
+                <div className="text-[11px] font-mono text-stone-500 dark:text-slate-400">{metric.detail}</div>
               </div>
             ))}
           </div>
@@ -256,14 +256,14 @@ export function InteractiveSolutionExplorer() {
           {/* Technical Deep Dive Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
             {/* Key Capabilities */}
-            <div className="lg:col-span-7 p-6 rounded-2xl bg-white border border-stone-200 space-y-4 shadow-2xs">
-              <div className="text-xs font-mono uppercase text-orange-700 font-bold flex items-center gap-1.5">
+            <div className="lg:col-span-7 p-6 rounded-2xl bg-white dark:bg-slate-950/60 border border-stone-200 dark:border-slate-800 space-y-4 shadow-2xs">
+              <div className="text-xs font-mono uppercase text-orange-700 dark:text-orange-400 font-bold flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-orange-600" />
                 <span>Verified Technical Capabilities</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {active.keyFeatures.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-stone-700">
+                  <div key={idx} className="flex items-start gap-2.5 text-xs text-stone-700 dark:text-slate-300">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <span>{feat}</span>
                   </div>
@@ -272,24 +272,24 @@ export function InteractiveSolutionExplorer() {
             </div>
 
             {/* Architecture Invariants */}
-            <div className="lg:col-span-5 p-6 rounded-2xl bg-white border border-stone-200 space-y-4 flex flex-col justify-between shadow-2xs">
+            <div className="lg:col-span-5 p-6 rounded-2xl bg-white dark:bg-slate-950/60 border border-stone-200 dark:border-slate-800 space-y-4 flex flex-col justify-between shadow-2xs">
               <div className="space-y-3">
-                <div className="text-xs font-mono uppercase text-stone-800 font-bold flex items-center gap-1.5">
+                <div className="text-xs font-mono uppercase text-stone-800 dark:text-slate-200 font-bold flex items-center gap-1.5">
                   <Database className="w-4 h-4 text-orange-600" />
                   <span>Architecture & Dataflow</span>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed font-mono">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-mono">
                   {active.architectureHighlights}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-slate-100">
-                <div className="text-[11px] font-mono text-slate-500 mb-2 uppercase font-medium">Core Tech Stack:</div>
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2 uppercase font-medium">Core Tech Stack:</div>
                 <div className="flex flex-wrap gap-1.5">
                   {active.stack.map((item, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-50 text-slate-700 border border-slate-200"
+                      className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
                     >
                       {item}
                     </span>

@@ -43,20 +43,20 @@ export function NewsletterSection() {
   };
 
   return (
-    <section className="rounded-3xl border border-orange-200/80 bg-gradient-to-br from-orange-50/80 via-white to-amber-50/40 p-8 sm:p-12 relative overflow-hidden shadow-sm">
+    <section className="rounded-3xl border border-orange-200/80 dark:border-orange-500/30 bg-gradient-to-br from-orange-50/80 via-white to-amber-50/40 dark:from-[#0f172a] dark:via-[#131d33] dark:to-[#0f172a] p-8 sm:p-12 relative overflow-hidden shadow-sm dark:shadow-black/50">
       {/* Background radial accent */}
-      <div className="absolute -right-20 -top-20 w-80 h-80 bg-orange-500/[0.06] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -right-20 -top-20 w-80 h-80 bg-orange-500/[0.06] dark:bg-orange-500/[0.1] rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-2xl mx-auto text-center space-y-4 relative z-10">
-        <div className="w-12 h-12 rounded-2xl bg-orange-100/80 border border-orange-200 flex items-center justify-center text-orange-700 mx-auto shadow-2xs">
+        <div className="w-12 h-12 rounded-2xl bg-orange-100/80 dark:bg-orange-950/60 border border-orange-200 dark:border-orange-800/80 flex items-center justify-center text-orange-700 dark:text-orange-300 mx-auto shadow-2xs">
           <Mail className="w-6 h-6" />
         </div>
 
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-950 dark:text-white tracking-tight">
           Aether Engineering Dispatch
         </h2>
 
-        <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg mx-auto">
+        <p className="text-xs sm:text-sm text-stone-600 dark:text-slate-300 leading-relaxed max-w-lg mx-auto">
           Get occasional deep dives into database architectures, RAG design, and verified lessons from production builds. Zero marketing spam.
         </p>
 
@@ -70,7 +70,7 @@ export function NewsletterSection() {
                 placeholder="your.engineering.email@company.com"
                 aria-label="Email address for technical newsletter"
                 disabled={status === "loading" || status === "success"}
-                className="w-full px-4 py-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-orange-500 font-mono transition-colors disabled:opacity-50 shadow-2xs"
+                className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-700 text-xs sm:text-sm text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-slate-500 focus:outline-none focus:border-orange-500 font-mono transition-colors disabled:opacity-50 shadow-2xs"
               />
             </div>
             <button

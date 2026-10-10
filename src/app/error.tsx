@@ -17,23 +17,23 @@ export default function ErrorBoundary({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="py-24 sm:py-32">
+    <div className="py-24 sm:py-32 bg-white">
       <Container size="md">
-        <div className="rounded-2xl border border-red-900/40 bg-slate-900/80 p-8 sm:p-12 text-center space-y-6 shadow-2xl backdrop-blur-sm">
-          <div className="w-14 h-14 rounded-2xl bg-red-950/80 border border-red-800/60 flex items-center justify-center text-red-400 mx-auto">
+        <div className="rounded-3xl border border-red-200/80 bg-red-50/40 p-8 sm:p-12 text-center space-y-6 shadow-xs">
+          <div className="w-14 h-14 rounded-2xl bg-red-100 border border-red-200 flex items-center justify-center text-red-600 mx-auto shadow-2xs">
             <AlertTriangle className="w-7 h-7" />
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-red-500/10 border border-red-500/30 text-red-400">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-red-100/80 border border-red-200 text-red-800">
             <span>Application Runtime Error</span>
-            {error.digest && <span className="text-slate-500">#{error.digest.slice(0, 8)}</span>}
+            {error.digest && <span className="text-red-600">#{error.digest.slice(0, 8)}</span>}
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Something unexpected occurred while rendering this page
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
             An isolated component error was caught by the application safety boundary. You can attempt to re-render or return to the homepage.
           </p>
 
@@ -41,14 +41,14 @@ export default function ErrorBoundary({ error, reset }: ErrorProps) {
             <button
               onClick={() => reset()}
               type="button"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white text-xs font-semibold font-mono transition-colors shadow-lg shadow-orange-600/20"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold font-mono transition-colors shadow-xs cursor-pointer"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Try Again</span>
             </button>
             <Link
               href="/"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 text-xs font-semibold font-mono border border-slate-700 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 text-xs font-semibold font-mono border border-slate-300 transition-colors shadow-2xs"
             >
               <Home className="w-4 h-4" />
               <span>Return to Homepage</span>

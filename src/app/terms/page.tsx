@@ -20,17 +20,17 @@ export default function TermsPage() {
 
         <div className="space-y-4">
           <Badge variant="brand">Legal & Governance</Badge>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
             Terms of Service
           </h1>
-          <p className="text-xs font-mono text-slate-400">
+          <p className="text-xs font-mono text-slate-500">
             Last Updated: January 1, 2025 • Version 1.0
           </p>
         </div>
 
-        <div className="space-y-8 text-sm text-slate-300 leading-relaxed pt-6">
+        <div className="space-y-8 text-sm text-slate-700 leading-relaxed pt-6">
           <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white tracking-tight">
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">
               1. Acceptance of Terms
             </h2>
             <p>
@@ -39,7 +39,7 @@ export default function TermsPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white tracking-tight">
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">
               2. Intellectual Property & Code Ownership
             </h2>
             <p>
@@ -48,7 +48,7 @@ export default function TermsPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white tracking-tight">
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">
               3. Limitation of Liability
             </h2>
             <p>
@@ -57,7 +57,7 @@ export default function TermsPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white tracking-tight">
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">
               4. Governing Law & Jurisdiction
             </h2>
             <p>

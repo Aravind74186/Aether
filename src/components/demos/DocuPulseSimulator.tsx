@@ -56,43 +56,43 @@ export function DocuPulseSimulator() {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 sm:p-8 space-y-6 shadow-xl">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+    <div className="rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 space-y-6 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-orange-400 font-semibold uppercase">
+            <span className="text-xs font-mono text-orange-600 dark:text-orange-400 font-semibold uppercase">
               RAG Pipeline Live Sandbox
             </span>
             <Badge variant="demo">Verifiable Citations</Badge>
           </div>
-          <h3 className="text-lg font-bold text-white tracking-tight mt-1">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight mt-1">
             DocuPulse Citation & Ground Truth Search
           </h3>
         </div>
 
-        <div className="text-xs font-mono text-slate-400 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-850">
+        <div className="text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs">
           pgvector • Hybrid BM25
         </div>
       </div>
 
       {/* Preset Query Buttons */}
       <div className="space-y-2">
-        <div className="text-xs font-mono uppercase text-slate-400 font-semibold">
+        <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400 font-semibold">
           Select Sample Document Inquiries:
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-mono">
           {sampleKnowledgeBase.map((item, idx) => (
             <button
               key={idx}
               onClick={() => handleSelectQuery(idx)}
-              className={`p-3 rounded-xl border text-left transition-all ${
+              className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer shadow-2xs ${
                 selectedPreset === idx
-                  ? "border-orange-500 bg-orange-950/40 text-white font-semibold"
-                  : "border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700 hover:text-slate-200"
+                  ? "border-orange-500 bg-orange-50 dark:bg-orange-950/40 text-orange-950 dark:text-orange-200 font-semibold"
+                  : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900"
               }`}
             >
               <div className="truncate font-semibold">{item.question}</div>
-              <div className="text-[10px] text-slate-500 mt-1 truncate">
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 truncate">
                 Doc: {item.sourceDoc}
               </div>
             </button>
@@ -103,44 +103,44 @@ export function DocuPulseSimulator() {
       {/* Result Display Box */}
       <div className="space-y-4 pt-2">
         {isSearching ? (
-          <div className="p-8 rounded-xl bg-slate-950 border border-slate-800 text-center font-mono text-xs text-orange-400 animate-pulse">
+          <div className="p-8 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 text-center font-mono text-xs text-orange-600 dark:text-orange-400 animate-pulse">
             Computing vector embeddings & ranking semantic chunks...
           </div>
         ) : (
-          <div className="rounded-xl border border-slate-800 bg-slate-950/90 p-5 space-y-4">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-5 space-y-4">
             {/* Generated Answer */}
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-400 font-semibold uppercase flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-orange-400" />
+                <span className="text-slate-700 dark:text-slate-300 font-semibold uppercase flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
                   <span>Synthesized Verified Answer</span>
                 </span>
-                <span className="text-[11px] text-orange-400 font-mono">
+                <span className="text-[11px] text-orange-800 dark:text-orange-300 font-mono font-bold bg-orange-50 dark:bg-orange-950/40 px-2 py-0.5 rounded-md border border-orange-200 dark:border-orange-900/50">
                   Similarity: {activeResult.confidenceScore}
                 </span>
               </div>
-              <p className="text-sm text-slate-200 leading-relaxed font-sans bg-slate-900/80 p-3.5 rounded-lg border border-slate-800">
+              <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-sans bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs">
                 {activeResult.answer}
               </p>
             </div>
 
             {/* Source Grounding Quote Box */}
-            <div className="p-3.5 rounded-lg bg-orange-950/20 border border-orange-800/40 space-y-2 text-xs font-mono">
-              <div className="flex items-center justify-between text-orange-300 font-semibold">
+            <div className="p-3.5 rounded-xl bg-orange-50/80 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 space-y-2 text-xs font-mono">
+              <div className="flex items-center justify-between text-orange-900 dark:text-orange-200 font-semibold">
                 <span className="flex items-center gap-1.5">
-                  <Bookmark className="w-3.5 h-3.5" />
+                  <Bookmark className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
                   <span>Exact Source Bounding Box & Page Reference</span>
                 </span>
                 {activeResult.pageNumber > 0 && (
-                  <span className="bg-orange-900/60 px-2 py-0.5 rounded text-white text-[10px]">
+                  <span className="bg-orange-600 px-2 py-0.5 rounded text-white text-[10px] font-bold">
                     Page {activeResult.pageNumber}
                   </span>
                 )}
               </div>
-              <div className="text-slate-400 italic text-[11px] leading-relaxed">
+              <div className="text-slate-700 dark:text-slate-300 italic text-[11px] leading-relaxed">
                 {activeResult.quoteSnippet}
               </div>
-              <div className="text-[10px] text-slate-500 truncate pt-1 border-t border-orange-900/40">
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate pt-1 border-t border-orange-200 dark:border-orange-900/50">
                 Source Document: {activeResult.sourceDoc}
               </div>
             </div>
@@ -148,9 +148,9 @@ export function DocuPulseSimulator() {
         )}
       </div>
 
-      <div className="text-[11px] font-mono text-slate-500 flex items-center justify-between pt-2 border-t border-slate-800/60">
+      <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
         <span>// Verifiability Benchmark</span>
-        <span className="text-emerald-400 font-semibold">0% Hallucination Rate Enforced</span>
+        <span className="text-emerald-700 dark:text-emerald-400 font-semibold">0% Hallucination Rate Enforced</span>
       </div>
     </div>
   );

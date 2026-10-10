@@ -26,18 +26,18 @@ export default function TechnologyPage() {
         {/* Page Hero */}
         <div className="max-w-3xl space-y-4">
           <Badge variant="brand">Our Technology Ecosystem</Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-stone-950 leading-tight">
             Battle-Tested Stacks, <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">
               Zero Unnecessary Complexity.
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed pt-2">
+          <p className="text-base sm:text-lg text-stone-600 leading-relaxed pt-2">
             We pick technologies based on reliability, strong typing, long-term maintainability, and active community support. Here is the software stack we deploy.
           </p>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-400 mt-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-stone-50 border border-stone-200 text-xs font-mono text-stone-700 mt-2 shadow-2xs">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>
               We only display technologies our engineers actively build with. No fake corporate partner claims.
             </span>
@@ -55,39 +55,39 @@ export default function TechnologyPage() {
         </div>
 
         {/* Technology Categories */}
-        <div className="mt-16 space-y-12">
+        <div className="mt-16 space-y-10">
           {technologiesData.map((cat, idx) => (
             <div
               key={idx}
-              className="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 sm:p-10 space-y-6"
+              className="rounded-3xl border border-stone-200 bg-white p-8 sm:p-10 space-y-6 shadow-xs"
             >
-              <div className="border-b border-slate-800/80 pb-4">
-                <div className="text-xs font-mono text-orange-400 uppercase font-semibold">
+              <div className="border-b border-stone-200 pb-5">
+                <div className="text-xs font-mono text-orange-600 uppercase font-bold tracking-wider">
                   Category 0{idx + 1}
                 </div>
-                <h2 className="text-2xl font-bold text-white tracking-tight mt-1">
+                <h2 className="text-2xl font-bold text-stone-900 tracking-tight mt-1">
                   {cat.category}
                 </h2>
-                <p className="text-sm text-slate-400 mt-1">
+                <p className="text-sm text-stone-600 mt-1">
                   {cat.description}
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
                 {cat.items.map((item, iIdx) => (
                   <div
                     key={iIdx}
-                    className="p-4 rounded-xl bg-slate-950/80 border border-slate-850 space-y-2 hover:border-slate-700 transition-colors"
+                    className="p-5 rounded-2xl bg-stone-50/80 border border-stone-200/90 flex flex-col justify-between gap-3 hover:border-orange-300 hover:bg-white hover:shadow-xs transition-all shadow-2xs group h-full"
                   >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-bold text-white font-mono">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-sm font-bold text-stone-900 font-mono group-hover:text-orange-600 transition-colors leading-snug">
                         {item.name}
                       </h3>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-850 text-orange-300 border border-slate-750">
+                      <span className="shrink-0 text-[10px] font-mono px-2.5 py-0.5 rounded-md bg-orange-50 text-orange-700 border border-orange-200/80 font-bold whitespace-nowrap">
                         {item.role}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-400 leading-relaxed">
+                    <p className="text-xs text-stone-600 leading-relaxed mt-auto">
                       {item.useCase}
                     </p>
                   </div>

@@ -92,19 +92,19 @@ export function CapabilitiesSection() {
 
                 <div className="space-y-4 relative">
                   <div className="flex items-center justify-between">
-                    <div className="w-11 h-11 rounded-2xl border border-orange-100 bg-orange-50/80 text-orange-600 flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600 group-hover:scale-105 group-hover:shadow-md group-hover:shadow-orange-500/25 transition-all duration-300 shadow-2xs">
+                    <div className="w-11 h-11 rounded-2xl border border-orange-100 dark:border-orange-900/60 bg-orange-50/80 dark:bg-orange-950/60 text-orange-600 flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600 group-hover:scale-105 group-hover:shadow-md group-hover:shadow-orange-500/25 transition-all duration-300 shadow-2xs">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[11px] font-mono font-medium text-stone-600 bg-stone-50 px-2.5 py-1 rounded-full border border-stone-200/90">
+                    <span className="text-[11px] font-mono font-medium text-stone-600 dark:text-slate-300 bg-stone-50 dark:bg-slate-800 px-2.5 py-1 rounded-full border border-stone-200/90 dark:border-slate-700">
                       {cap.badge}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-bold text-stone-950 tracking-tight group-hover:text-orange-600 transition-colors">
+                    <h3 className="text-lg font-bold text-stone-950 dark:text-white tracking-tight group-hover:text-orange-600 transition-colors">
                       {cap.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-stone-600 mt-2 leading-relaxed font-normal">
+                    <p className="text-xs sm:text-sm text-stone-600 dark:text-slate-300 mt-2 leading-relaxed font-normal">
                       {cap.description}
                     </p>
                   </div>
@@ -114,7 +114,7 @@ export function CapabilitiesSection() {
                     {cap.stack.map((item, sIdx) => (
                       <span
                         key={sIdx}
-                        className="px-2 py-0.5 rounded text-[11px] font-mono bg-stone-50 text-stone-600 border border-stone-200/80 group-hover:border-orange-200 group-hover:text-stone-800 transition-colors"
+                        className="px-2 py-0.5 rounded text-[11px] font-mono bg-stone-50 dark:bg-slate-800 text-stone-600 dark:text-slate-300 border border-stone-200/80 dark:border-slate-700 group-hover:border-orange-200 dark:group-hover:border-orange-500/50 group-hover:text-stone-800 dark:group-hover:text-white transition-colors"
                       >
                         {item}
                       </span>
@@ -122,7 +122,7 @@ export function CapabilitiesSection() {
                   </div>
                 </div>
 
-                <div className="pt-6 mt-5 border-t border-stone-100 relative">
+                <div className="pt-6 mt-5 border-t border-stone-100 dark:border-slate-800 relative">
                   <Link
                     href={cap.href}
                     className="inline-flex items-center gap-1.5 text-xs font-mono text-orange-600 hover:text-orange-700 font-semibold group-hover:translate-x-1 transition-transform"

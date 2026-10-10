@@ -34,11 +34,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       brand:
         "bg-orange-600 hover:bg-orange-700 text-white shadow-xs hover:shadow-md hover:shadow-orange-500/25 border border-orange-600 font-semibold",
       secondary:
-        "bg-white hover:bg-stone-50 text-stone-900 border border-stone-200/90 shadow-xs hover:shadow-sm hover:border-stone-300 font-medium",
+        "bg-white dark:bg-slate-900 hover:bg-stone-50 dark:hover:bg-slate-800 text-stone-900 dark:text-stone-100 border border-stone-200/90 dark:border-slate-800 shadow-xs hover:shadow-sm hover:border-stone-300 dark:hover:border-slate-700 font-medium",
       outline:
-        "bg-transparent hover:bg-orange-50/60 text-stone-800 hover:text-orange-700 border border-stone-200 hover:border-orange-300 font-medium",
+        "bg-transparent hover:bg-orange-50/60 dark:hover:bg-orange-950/40 text-stone-800 dark:text-stone-200 hover:text-orange-700 dark:hover:text-orange-400 border border-stone-200 dark:border-slate-800 hover:border-orange-300 dark:hover:border-orange-800 font-medium",
       ghost:
-        "bg-transparent hover:bg-stone-100/70 text-stone-700 hover:text-orange-700",
+        "bg-transparent hover:bg-stone-100/70 dark:hover:bg-slate-800/70 text-stone-700 dark:text-stone-300 hover:text-orange-700 dark:hover:text-orange-400",
       danger:
         "bg-red-600 hover:bg-red-700 text-white border border-red-600 shadow-xs",
     };

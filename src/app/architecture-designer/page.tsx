@@ -23,13 +23,13 @@ export default function ArchitectureDesignerPage() {
         {/* Page Hero */}
         <div className="max-w-3xl space-y-4">
           <Badge variant="brand">Visual Infrastructure Studio</Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
             Design Your Production <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">
               System Architecture.
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed pt-2">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed pt-2">
             Select your required client interfaces, backend gateways, persistence models, and edge services. Get instant monthly cloud hosting estimates and download a complete Scope of Work (SOW) blueprint.
           </p>
         </div>
