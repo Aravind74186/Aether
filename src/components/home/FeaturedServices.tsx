@@ -16,7 +16,7 @@ export function FeaturedServices() {
   };
 
   return (
-    <section className="py-20 bg-slate-50/70 border-t border-slate-200">
+    <section className="py-20 bg-slate-50/70 dark:bg-transparent border-t border-slate-200 dark:border-slate-800">
       <Container size="xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <SectionHeader
@@ -44,27 +44,27 @@ export function FeaturedServices() {
                 className="group rounded-3xl studio-card p-7 flex flex-col justify-between"
               >
                 <div className="space-y-4">
-                  <div className="w-11 h-11 rounded-2xl bg-orange-50/80 border border-orange-100 flex items-center justify-center text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600 group-hover:scale-105 group-hover:shadow-md group-hover:shadow-orange-500/25 transition-all duration-300 shadow-2xs">
+                  <div className="w-11 h-11 rounded-2xl bg-orange-50/80 dark:bg-orange-950/60 border border-orange-100 dark:border-orange-900/60 flex items-center justify-center text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600 group-hover:scale-105 group-hover:shadow-md group-hover:shadow-orange-500/25 transition-all duration-300 shadow-2xs">
                     <Icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-stone-950 tracking-tight group-hover:text-orange-600 transition-colors">
+                    <h3 className="text-lg font-bold text-stone-950 dark:text-white tracking-tight group-hover:text-orange-600 transition-colors">
                       {service.title}
                     </h3>
-                    <p className="mt-2 text-sm text-stone-600 leading-relaxed">
+                    <p className="mt-2 text-sm text-stone-600 dark:text-slate-300 leading-relaxed">
                       {service.shortDescription}
                     </p>
                   </div>
 
                   <div className="pt-2">
-                    <div className="text-[11px] font-mono text-stone-600 mb-2 uppercase font-medium">
+                    <div className="text-[11px] font-mono text-stone-600 dark:text-slate-400 mb-2 uppercase font-medium">
                       Core Modules
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {service.typicalDeliverables.slice(0, 3).map((cap, i) => (
                         <span
                           key={i}
-                          className="text-[11px] px-2.5 py-1 rounded-md bg-stone-50 border border-stone-200/80 text-stone-700 font-mono"
+                          className="text-[11px] px-2.5 py-1 rounded-md bg-stone-50 dark:bg-slate-800 border border-stone-200/80 dark:border-slate-700 text-stone-700 dark:text-slate-300 font-mono"
                         >
                           {cap}
                         </span>
@@ -73,7 +73,7 @@ export function FeaturedServices() {
                   </div>
                 </div>
 
-                <div className="pt-5 mt-6 border-t border-stone-100 flex items-center justify-between">
+                <div className="pt-5 mt-6 border-t border-stone-100 dark:border-slate-800 flex items-center justify-between">
                   <Link
                     href={`/services#${service.id}`}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-orange-600 hover:text-orange-700 group"
@@ -81,7 +81,7 @@ export function FeaturedServices() {
                     <span>View Specifications</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </Link>
-                  <span className="text-[11px] font-mono text-slate-600">
+                  <span className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
                     Production Grade
                   </span>
                 </div>

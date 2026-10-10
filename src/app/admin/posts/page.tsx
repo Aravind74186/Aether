@@ -399,40 +399,40 @@ export default function AdminPostsPage() {
 
       {/* Floating Bulk Action Bar */}
       {selectedIds.length > 0 && (
-        <div className="sticky top-4 z-40 p-3.5 rounded-2xl bg-slate-900 text-white shadow-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3 animate-in fade-in slide-in-from-top-2 duration-150">
+        <div className="sticky top-4 z-40 p-4 rounded-3xl bg-white text-stone-900 shadow-xl border border-stone-200 flex flex-wrap items-center justify-between gap-3 animate-in fade-in slide-in-from-top-2 duration-150">
           <div className="flex items-center gap-2.5 text-xs font-mono">
-            <span className="px-2 py-0.5 rounded-md bg-orange-600 font-bold">
+            <span className="px-2.5 py-0.5 rounded-lg bg-orange-600 text-white font-bold">
               {selectedIds.length}
             </span>
-            <span>selected article{selectedIds.length > 1 ? "s" : ""}</span>
+            <span className="font-semibold text-stone-800">selected article{selectedIds.length > 1 ? "s" : ""}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => handleBulkAction("publish")}
               disabled={bulkLoading}
-              className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-mono font-medium transition-colors cursor-pointer disabled:opacity-50"
+              className="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-mono font-semibold transition-colors cursor-pointer disabled:opacity-50 shadow-2xs"
             >
               Bulk Publish
             </button>
             <button
               onClick={() => handleBulkAction("unpublish")}
               disabled={bulkLoading}
-              className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-mono font-medium transition-colors cursor-pointer disabled:opacity-50"
+              className="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-mono font-semibold transition-colors cursor-pointer disabled:opacity-50 shadow-2xs"
             >
               Bulk Unpublish
             </button>
             <button
               onClick={() => setBulkDeleteModalOpen(true)}
               disabled={bulkLoading}
-              className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-mono font-medium transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-mono font-semibold transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-1.5 shadow-sm shadow-red-600/20"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>Bulk Delete</span>
             </button>
             <button
               onClick={() => setSelectedIds([])}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono transition-colors cursor-pointer ml-1"
+              className="px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-mono transition-colors cursor-pointer ml-1"
             >
               Deselect
             </button>

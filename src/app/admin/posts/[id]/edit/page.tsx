@@ -43,7 +43,7 @@ export default async function EditPostPage({ params }: EditPageProps) {
           <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
             <Link
               href="/admin/posts"
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-white text-xs font-mono font-semibold transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-stone-900 text-xs font-mono font-semibold transition-colors shadow-2xs"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to All Posts</span>

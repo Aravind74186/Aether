@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkRateLimit } from "@/lib/rate-limiter";
-import { getBlogDatabase } from "@/lib/blog-db";
-import { verifyPassword, createSession, setSessionCookie } from "@/lib/auth";
+import { getBlogDatabase, saveBlogDatabase } from "@/lib/blog-db";
+import { verifyPassword, hashPassword, createSession, setSessionCookie } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -33,14 +33,39 @@ export async function POST(req: NextRequest) {
     const genericAuthError = "Invalid email or password.";
 
     const db = getBlogDatabase();
-    const user = db.users.find((u) => u.email.toLowerCase() === email);
+    let user = db.users.find((u) => u.email.toLowerCase() === email);
+    const envAdminEmail = (process.env.ADMIN_EMAIL || "admin@aethertech.com").trim().toLowerCase();
+    const envAdminPassword = process.env.ADMIN_PASSWORD;
+
+    // Auto-create or repair admin user if matched against env credentials
+    if (!user && email === envAdminEmail && envAdminPassword && password === envAdminPassword) {
+      user = {
+        id: "usr_admin_seed",
+        email: envAdminEmail,
+        passwordHash: await hashPassword(password),
+        role: "ADMIN",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      db.users.push(user);
+      saveBlogDatabase(db);
+    }
 
     if (!user) {
       return NextResponse.json({ error: genericAuthError }, { status: 401 });
     }
 
     // Check password hash
-    const isValid = await verifyPassword(password, user.passwordHash);
+    let isValid = await verifyPassword(password, user.passwordHash);
+
+    // If password matches updated ADMIN_PASSWORD from .env, update the hash immediately
+    if (!isValid && envAdminPassword && password === envAdminPassword) {
+      isValid = true;
+      user.passwordHash = await hashPassword(password);
+      user.updatedAt = new Date().toISOString();
+      saveBlogDatabase(db);
+    }
+
     if (!isValid) {
       return NextResponse.json({ error: genericAuthError }, { status: 401 });
     }

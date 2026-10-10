@@ -85,7 +85,7 @@ export function ProcessSnapshot() {
   const [activeStep, setActiveStep] = useState<number>(0);
 
   return (
-    <section className="py-20 bg-white border-t border-slate-200 relative overflow-hidden">
+    <section className="py-20 bg-white dark:bg-transparent border-t border-slate-200 dark:border-slate-800 relative overflow-hidden">
       <Container size="xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14">
           <SectionHeader
@@ -107,7 +107,7 @@ export function ProcessSnapshot() {
         {/* Interactive Progress Timeline Tracker */}
         <div className="hidden lg:flex items-center justify-between relative mb-12 px-6">
           {/* Background Track Line */}
-          <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-0.5 bg-stone-200 z-0" />
+          <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-0.5 bg-stone-200 dark:bg-slate-800 z-0" />
           {/* Active Filled Progress Line */}
           <div
             className="absolute left-8 top-1/2 -translate-y-1/2 h-0.5 bg-orange-600 transition-all duration-300 z-0"
@@ -130,17 +130,17 @@ export function ProcessSnapshot() {
                     isActive
                       ? "bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-500/20 scale-110"
                       : isCompleted
-                      ? "bg-orange-50 text-orange-700 border-orange-200"
-                      : "bg-white text-stone-400 border-stone-200 group-hover:border-orange-300"
+                      ? "bg-orange-50 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800/80"
+                      : "bg-white dark:bg-slate-900 text-stone-400 dark:text-slate-500 border-stone-200 dark:border-slate-800 group-hover:border-orange-300 dark:group-hover:border-orange-500/50"
                   }`}
                 >
-                  {isCompleted ? <CheckCircle2 className="w-5 h-5 text-emerald-600" /> : step.num}
+                  {isCompleted ? <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" /> : step.num}
                 </div>
                 <span
                   className={`mt-2 text-xs font-mono font-medium transition-colors ${
                     isActive
                       ? "text-orange-600 font-bold"
-                      : "text-stone-500 group-hover:text-stone-800"
+                      : "text-stone-500 dark:text-slate-400 group-hover:text-stone-800 dark:group-hover:text-slate-200"
                   }`}
                 >
                   {step.name}
@@ -162,7 +162,7 @@ export function ProcessSnapshot() {
                 onClick={() => setActiveStep(idx)}
                 className={`p-7 rounded-3xl transition-all duration-300 cursor-pointer flex flex-col justify-between group ${
                   isActive
-                    ? "bg-white border-2 border-orange-600 shadow-xl shadow-orange-500/10 -translate-y-1"
+                    ? "bg-white dark:bg-slate-900 border-2 border-orange-600 shadow-xl shadow-orange-500/10 -translate-y-1"
                     : "studio-card"
                 }`}
               >
@@ -170,7 +170,7 @@ export function ProcessSnapshot() {
                   <div className="flex items-center justify-between">
                     <span
                       className={`text-2xl font-mono font-extrabold tracking-tight transition-colors ${
-                        isActive ? "text-orange-600" : "text-stone-400"
+                        isActive ? "text-orange-600" : "text-stone-400 dark:text-slate-500"
                       }`}
                     >
                       {step.num}
@@ -179,7 +179,7 @@ export function ProcessSnapshot() {
                       className={`w-10 h-10 rounded-2xl border flex items-center justify-center transition-colors ${
                         isActive
                           ? "bg-orange-600 text-white border-orange-600 shadow-xs"
-                          : "bg-orange-50/80 text-orange-600 border-orange-100 group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600"
+                          : "bg-orange-50/80 dark:bg-orange-950/60 text-orange-600 border-orange-100 dark:border-orange-900/60 group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600"
                       }`}
                     >
                       <Icon className="w-5 h-5" />
@@ -187,27 +187,27 @@ export function ProcessSnapshot() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-bold text-slate-950 tracking-tight">
+                    <h3 className="text-lg font-bold text-slate-950 dark:text-white tracking-tight">
                       {step.name}
                     </h3>
-                    <p className="text-xs font-mono text-slate-500 font-medium mt-0.5">
+                    <p className="text-xs font-mono text-slate-500 dark:text-slate-400 font-medium mt-0.5">
                       {step.shortDesc}
                     </p>
-                    <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                       {step.detail}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-slate-100 space-y-1.5">
-                  <div className="text-[11px] font-mono text-slate-600 uppercase font-semibold">
+                <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
+                  <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 uppercase font-semibold">
                     Key Deliverables:
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {step.deliverables.map((item) => (
                       <span
                         key={item}
-                        className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-700"
+                        className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
                       >
                         {item}
                       </span>

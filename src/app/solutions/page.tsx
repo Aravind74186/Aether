@@ -33,7 +33,7 @@ export default function SolutionsPage() {
   };
 
   return (
-    <div className="py-12 sm:py-16 space-y-20 bg-white">
+    <div className="py-12 sm:py-16 space-y-20">
       <Container size="xl">
         <Breadcrumbs items={[{ name: "Solutions" }]} />
 
@@ -136,19 +136,19 @@ export default function SolutionsPage() {
                   </div>
 
                   {/* Step 2: Our Technical Approach */}
-                  <div className="rounded-2xl border border-orange-100 bg-orange-50/40 p-6 space-y-4 shadow-2xs">
-                    <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-orange-700 font-bold">
-                      <Lightbulb className="w-4 h-4 text-orange-600" />
+                  <div className="rounded-2xl border border-orange-100 dark:border-orange-900/50 bg-orange-50/40 dark:bg-orange-950/25 p-6 space-y-4 shadow-2xs">
+                    <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-orange-700 dark:text-orange-400 font-bold">
+                      <Lightbulb className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                       <span>Our Engineering Approach</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                       {sol.approach}
                     </p>
-                    <div className="pt-2 border-t border-orange-100">
-                      <div className="text-[11px] font-mono uppercase text-slate-500 mb-2 font-medium">
+                    <div className="pt-2 border-t border-orange-100 dark:border-orange-900/40">
+                      <div className="text-[11px] font-mono uppercase text-slate-500 dark:text-slate-400 mb-2 font-medium">
                         Key Architectural Principle:
                       </div>
-                      <div className="text-xs text-orange-800 font-mono bg-white p-2.5 rounded-lg border border-orange-200 shadow-2xs">
+                      <div className="text-xs text-orange-800 dark:text-orange-300 font-mono bg-white dark:bg-slate-900 p-2.5 rounded-lg border border-orange-200 dark:border-orange-800/60 shadow-2xs">
                         Modular deployment • Zero vendor lock-in • Granular role isolation
                       </div>
                     </div>
@@ -157,19 +157,19 @@ export default function SolutionsPage() {
 
                 {/* Step 3: Delivered Solutions Matrix */}
                 <div className="space-y-4 pt-4">
-                  <div className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold">
+                  <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">
                     Delivered Software Components:
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {sol.deliveredSolutions.map((item, dIdx) => (
                       <div
                         key={dIdx}
-                        className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 hover:border-slate-300 transition-colors shadow-2xs"
+                        className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-2 hover:border-slate-300 dark:hover:border-slate-700 transition-colors shadow-2xs"
                       >
-                        <div className="text-xs font-bold text-slate-900 font-mono">
+                        <div className="text-xs font-bold text-slate-900 dark:text-slate-100 font-mono">
                           {item.title}
                         </div>
-                        <p className="text-xs text-slate-600 leading-relaxed">
+                        <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                           {item.description}
                         </p>
                       </div>
@@ -178,15 +178,15 @@ export default function SolutionsPage() {
                 </div>
 
                 {/* Step 4: Expected Outcomes */}
-                <div className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6 space-y-3 shadow-2xs">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-950/25 p-6 space-y-3 shadow-2xs">
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-800 dark:text-emerald-400 font-bold">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span>Expected Measurable Outcomes</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700 dark:text-slate-300">
                     {sol.expectedOutcomes.map((outc, oIdx) => (
                       <div key={oIdx} className="flex items-start gap-2">
-                        <span className="text-emerald-600 font-bold">•</span>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
                         <span>{outc}</span>
                       </div>
                     ))}

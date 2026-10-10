@@ -46,7 +46,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const articles = getPostsByCategory(category.slug);
 
   return (
-    <div className="py-12 sm:py-16 space-y-16 bg-white">
+    <div className="py-12 sm:py-16 space-y-16">
       <Container size="xl">
         <Breadcrumbs
           items={[

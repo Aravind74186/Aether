@@ -38,11 +38,11 @@ export function SectionHeader({
           {badge}
         </Badge>
       )}
-      <TitleTag className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 text-balance">
+      <TitleTag className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white text-balance">
         {title}
       </TitleTag>
       {description && (
-        <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed text-balance">
+        <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed text-balance">
           {description}
         </p>
       )}

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getLeads, updateLeadStatus, deleteLead } from "@/lib/lead-store";
+import { getLeads, getLeadsAsync, updateLeadStatus, deleteLead } from "@/lib/lead-store";
 
 function isAuthorized(req: NextRequest): boolean {
   const sessionCookie = req.cookies.get("aether_admin_session");
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
     const statusFilter = searchParams.get("status");
     const searchQuery = searchParams.get("q")?.toLowerCase();
 
-    let leads = getLeads();
+    let leads = await getLeadsAsync();
 
     if (statusFilter && statusFilter !== "All") {
       leads = leads.filter((l) => l.status === statusFilter);

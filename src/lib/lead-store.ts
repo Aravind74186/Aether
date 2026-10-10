@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { supabaseAdmin } from "@/lib/supabase";
 
 export interface LeadRecord {
   id: string;
@@ -119,6 +120,46 @@ export function getLeads(): LeadRecord[] {
   );
 }
 
+/**
+ * Asynchronously loads leads from Supabase if configured, falling back to local file.
+ */
+export async function getLeadsAsync(): Promise<LeadRecord[]> {
+  if (supabaseAdmin) {
+    try {
+      const { data, error } = await supabaseAdmin
+        .from("leads")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        // Map Supabase rows to LeadRecord structure
+        const mappedLeads: LeadRecord[] = data.map((row: any) => ({
+          id: row.id,
+          type: (row.project_type?.toLowerCase().includes("intake") ? "intake_wizard" : "contact") as any,
+          fullName: row.name || "Anonymous",
+          email: row.email,
+          organization: row.organization || "",
+          projectType: row.project_type || "General Inquiry",
+          budget: row.budget || "Not specified",
+          timeline: row.timeline || undefined,
+          description: row.description || "",
+          status: (row.status || "New") as any,
+          createdAt: row.created_at || new Date().toISOString(),
+        }));
+
+        // Merge with local store to keep everything synced
+        leadsStore = mappedLeads;
+        persistLeads();
+        return mappedLeads;
+      }
+    } catch (err) {
+      console.warn("[lead-store] Supabase fetch failed, using local store:", err);
+    }
+  }
+
+  return getLeads();
+}
+
 export function addLead(lead: Omit<LeadRecord, "id" | "createdAt" | "status">): LeadRecord {
   const newLead: LeadRecord = {
     ...lead,
@@ -128,6 +169,37 @@ export function addLead(lead: Omit<LeadRecord, "id" | "createdAt" | "status">): 
   };
   leadsStore.unshift(newLead);
   persistLeads();
+
+  // Asynchronously sync to Supabase
+  if (supabaseAdmin) {
+    Promise.resolve(
+      supabaseAdmin
+        .from("leads")
+        .upsert({
+          id: newLead.id,
+          name: newLead.fullName,
+          email: newLead.email,
+          organization: newLead.organization || "",
+          project_type: newLead.projectType,
+          timeline: newLead.timeline || "Not specified",
+          budget: newLead.budget,
+          description: newLead.description,
+          status: newLead.status,
+          created_at: newLead.createdAt,
+        })
+    )
+      .then(({ error }) => {
+        if (error) {
+          console.warn("[supabase] Failed to sync new lead to Supabase:", error.message);
+        } else {
+          console.log("[supabase] Successfully saved lead to Supabase:", newLead.id);
+        }
+      })
+      .catch((err: unknown) => {
+        console.warn("[supabase] Exception syncing lead to Supabase:", err);
+      });
+  }
+
   return newLead;
 }
 
@@ -140,6 +212,28 @@ export function updateLeadStatus(id: string, status: LeadRecord["status"], inter
     leadsStore[leadIndex].internalNotes = internalNotes;
   }
   persistLeads();
+
+  // Asynchronously update Supabase
+  if (supabaseAdmin) {
+    Promise.resolve(
+      supabaseAdmin
+        .from("leads")
+        .update({
+          status,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", id)
+    )
+      .then(({ error }) => {
+        if (error) {
+          console.warn("[supabase] Failed to update lead status in Supabase:", error.message);
+        }
+      })
+      .catch((err: unknown) => {
+        console.warn("[supabase] Exception updating lead in Supabase:", err);
+      });
+  }
+
   return leadsStore[leadIndex];
 }
 
@@ -148,6 +242,25 @@ export function deleteLead(id: string): boolean {
   leadsStore = leadsStore.filter((l) => l.id !== id);
   if (leadsStore.length !== initialLength) {
     persistLeads();
+
+    // Asynchronously delete from Supabase
+    if (supabaseAdmin) {
+      Promise.resolve(
+        supabaseAdmin
+          .from("leads")
+          .delete()
+          .eq("id", id)
+      )
+        .then(({ error }) => {
+          if (error) {
+            console.warn("[supabase] Failed to delete lead from Supabase:", error.message);
+          }
+        })
+        .catch((err: unknown) => {
+          console.warn("[supabase] Exception deleting lead from Supabase:", err);
+        });
+    }
+
     return true;
   }
   return false;

@@ -23,18 +23,18 @@ export default function ClientPortalPreviewPage() {
         {/* Page Hero */}
         <div className="max-w-3xl space-y-4">
           <Badge variant="brand">Client Experience & Transparency</Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
             How You Track & Review Your <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">
               Active Software Sprints.
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed pt-2">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed pt-2">
             No guessing what engineers are doing. When you partner with Aether, you get access to a private client workspace featuring real-time sprint milestones, live staging URLs, and verified deliverable checklists.
           </p>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-400 mt-2">
-            <Eye className="w-4 h-4 text-orange-400 shrink-0" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-orange-50/80 border border-orange-200 text-xs font-mono text-orange-950 mt-2">
+            <Eye className="w-4 h-4 text-orange-600 shrink-0" />
             <span>
               Interactive demonstration of our client collaboration dashboard.
             </span>

@@ -81,64 +81,64 @@ export default function AdminCategoriesPage() {
 
   return (
     <div className="space-y-8 max-w-5xl">
-      <div className="pb-6 border-b border-slate-850">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+      <div className="pb-6 border-b border-stone-200">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-950">
           Category Taxonomy
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 font-mono mt-1">
+        <p className="text-xs sm:text-sm text-stone-500 font-mono mt-1">
           Manage core engineering disciplines and topic groupings
         </p>
       </div>
 
       {notification && (
         <div
-          className={`p-4 rounded-xl border text-xs font-mono flex items-center justify-between ${
+          className={`p-4 rounded-2xl border text-xs font-mono flex items-center justify-between shadow-2xs ${
             notification.type === "success"
-              ? "bg-emerald-950/40 border-emerald-800/60 text-emerald-300"
-              : "bg-red-950/40 border-red-800/60 text-red-300"
+              ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+              : "bg-red-50 border-red-200 text-red-800"
           }`}
         >
           <span>{notification.message}</span>
-          <button onClick={() => setNotification(null)}>✕</button>
+          <button onClick={() => setNotification(null)} className="text-stone-400 hover:text-stone-700 ml-3 text-sm">✕</button>
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Create Category Form */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4 h-fit">
-          <h2 className="text-sm font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
-            <Plus className="w-4 h-4 text-orange-400" />
+        <div className="rounded-3xl border border-stone-200 bg-white p-6 space-y-4 h-fit shadow-xs">
+          <h2 className="text-sm font-bold text-stone-900 font-mono uppercase tracking-wider flex items-center gap-2">
+            <Plus className="w-4 h-4 text-orange-600" />
             <span>Add New Category</span>
           </h2>
 
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-slate-300 font-semibold">Category Name *</label>
+              <label className="text-xs font-mono text-stone-700 font-bold">Category Name *</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Distributed Systems"
                 required
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-orange-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-xs font-mono text-stone-900 placeholder-stone-400 focus:outline-none focus:border-orange-500 focus:bg-white shadow-2xs transition-colors"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-slate-300">Description</label>
+              <label className="text-xs font-mono text-stone-700 font-bold">Description</label>
               <textarea
                 rows={3}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Short summary of this technical category..."
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-orange-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-900 placeholder-stone-400 focus:outline-none focus:border-orange-500 focus:bg-white shadow-2xs transition-colors leading-relaxed"
               />
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white text-xs font-mono font-semibold transition-colors disabled:opacity-50"
+              className="w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs font-mono font-semibold transition-colors disabled:opacity-50 shadow-sm shadow-orange-600/20 cursor-pointer"
             >
               {submitting ? "Creating..." : "Save Category"}
             </button>
@@ -146,34 +146,36 @@ export default function AdminCategoriesPage() {
         </div>
 
         {/* Existing Categories List */}
-        <div className="lg:col-span-2 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
-          <h2 className="text-sm font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
-            <FolderTree className="w-4 h-4 text-orange-400" />
+        <div className="lg:col-span-2 rounded-3xl border border-stone-200 bg-white p-6 space-y-4 shadow-xs">
+          <h2 className="text-sm font-bold text-stone-900 font-mono uppercase tracking-wider flex items-center gap-2">
+            <FolderTree className="w-4 h-4 text-orange-600" />
             <span>Configured Categories ({categories.length})</span>
           </h2>
 
           {loading ? (
-            <div className="p-8 text-center text-slate-400 font-mono text-xs flex items-center justify-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin text-orange-400" />
+            <div className="p-8 text-center text-stone-500 font-mono text-xs flex items-center justify-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin text-orange-600" />
               <span>Loading categories...</span>
             </div>
           ) : (
-            <div className="divide-y divide-slate-850">
+            <div className="divide-y divide-stone-100">
               {categories.map((c) => (
                 <div key={c.id} className="py-4 flex items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-white text-sm">{c.name}</span>
-                      <code className="text-[11px] font-mono text-slate-500">/blog/category/{c.slug}</code>
+                      <span className="font-bold text-stone-900 text-sm">{c.name}</span>
+                      <code className="text-[11px] font-mono text-orange-700 bg-orange-50 border border-orange-200/70 px-2 py-0.5 rounded-md">
+                        /blog/category/{c.slug}
+                      </code>
                     </div>
                     {c.description && (
-                      <p className="text-xs text-slate-400 max-w-lg leading-relaxed">{c.description}</p>
+                      <p className="text-xs text-stone-600 max-w-lg leading-relaxed">{c.description}</p>
                     )}
                   </div>
 
                   <button
                     onClick={() => handleDelete(c.id)}
-                    className="p-2 rounded-lg bg-slate-950 hover:bg-red-950/60 text-slate-500 hover:text-red-400 border border-slate-850 hover:border-red-900/40 transition-colors"
+                    className="p-2 rounded-xl bg-stone-50 hover:bg-red-50 text-stone-400 hover:text-red-600 border border-stone-200 hover:border-red-200 transition-colors shadow-2xs cursor-pointer"
                     title="Delete Category"
                   >
                     <Trash2 className="w-3.5 h-3.5" />

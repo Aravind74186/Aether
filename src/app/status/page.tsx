@@ -22,13 +22,13 @@ export default function StatusPage() {
         {/* Page Hero */}
         <div className="max-w-3xl space-y-4">
           <Badge variant="success">Real-Time Telemetry</Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
             System Reliability & <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
               Operational Status.
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed pt-2">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed pt-2">
             Continuous health telemetry, sub-second latency tracking, and transparent uptime metrics for all active Aether gateways and database clusters.
           </p>
         </div>

@@ -20,17 +20,17 @@ export default function CookiesPage() {
 
         <div className="space-y-4">
           <Badge variant="brand">Privacy & Tracking</Badge>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
             Cookie Policy
           </h1>
-          <p className="text-xs font-mono text-slate-400">
+          <p className="text-xs font-mono text-slate-500">
             Last Updated: January 1, 2025 • Minimal Privacy Policy
           </p>
         </div>
 
-        <div className="space-y-8 text-sm text-slate-300 leading-relaxed pt-6">
+        <div className="space-y-8 text-sm text-slate-700 leading-relaxed pt-6">
           <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white tracking-tight">
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">
               1. Our Minimal Cookie Policy
             </h2>
             <p>
@@ -39,20 +39,20 @@ export default function CookiesPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white tracking-tight">
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">
               2. Essential Cookies
             </h2>
             <p>
               We only use essential technical cookies required for the secure operation of our web application:
             </p>
-            <ul className="list-disc pl-5 space-y-1 text-slate-400">
+            <ul className="list-disc pl-5 space-y-1.5 text-slate-600">
               <li>Session security tokens (CSRF protection) preventing request tampering.</li>
               <li>User theme / visual preferences (dark mode state).</li>
             </ul>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white tracking-tight">
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">
               3. Managing Cookies in Your Browser
             </h2>
             <p>

@@ -36,7 +36,7 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="py-12 sm:py-16 space-y-20 bg-white">
+    <div className="py-12 sm:py-16 space-y-20">
       <Container size="xl">
         <Breadcrumbs items={[{ name: "About Us" }]} />
 

@@ -1,5 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dispatchLeadWebhook } from "@/lib/webhook-dispatcher";
+import { isSupabaseConfigured, testSupabaseConnection } from "@/lib/supabase";
+
+export async function GET() {
+  const supabaseStatus = await testSupabaseConnection();
+
+  return NextResponse.json({
+    timestamp: new Date().toISOString(),
+    supabase: {
+      configured: isSupabaseConfigured,
+      connected: supabaseStatus.connected,
+      message: supabaseStatus.message,
+    },
+    webhook: {
+      configured: !!process.env.LEAD_WEBHOOK_URL,
+    },
+    email: {
+      configured: !!process.env.RESEND_API_KEY,
+    },
+  });
+}
 
 export async function POST(req: NextRequest) {
   try {

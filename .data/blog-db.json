@@ -3,18 +3,18 @@
     {
       "id": "usr_admin_seed",
       "email": "admin@aethertech.com",
-      "passwordHash": "$2b$10$rk9mbCvWfKmc132fdXeZsuLhveKwYP7R.AueCmKLHAgCbU4LFqRXe",
+      "passwordHash": "$2b$10$DohusSy824Qp6P2y/s9xReAZ7J/NWVSl3hNUkodsbIGctZ4svKQne",
       "role": "ADMIN",
       "createdAt": "2026-09-02T16:35:43.281Z",
-      "updatedAt": "2026-09-02T16:35:43.282Z"
+      "updatedAt": "2026-10-10T15:57:29.758Z"
     }
   ],
   "sessions": [
     {
-      "id": "b52b7c112c39e993dc59a58ea5f90c5377b1553196987d15ebfeabd2cd0d20ed",
+      "id": "d26e700f25948e365226d9a3eb0dc3ebcf61ad248caaa061d5f17e72ba6a3a62",
       "userId": "usr_admin_seed",
-      "expiresAt": "2026-09-09T16:38:34.543Z",
-      "createdAt": "2026-09-02T16:38:34.543Z"
+      "expiresAt": "2026-10-17T15:57:29.764Z",
+      "createdAt": "2026-10-10T15:57:29.764Z"
     }
   ],
   "posts": [],
@@ -280,7 +280,21 @@
       "id": "tag_ci-cd",
       "name": "CI/CD",
       "slug": "ci-cd"
+    },
+    {
+      "id": "tag_1788605427012_3gj",
+      "name": "TR08",
+      "slug": "tr08"
     }
   ],
-  "media": []
+  "media": [
+    {
+      "id": "med_1788605415269",
+      "filename": "1788605415260_d2f1b732df117bd5a3aab8321d124757.png",
+      "url": "/uploads/1788605415260_d2f1b732df117bd5a3aab8321d124757.png",
+      "size": 2207941,
+      "mimeType": "image/png",
+      "uploadedAt": "2026-09-05T10:50:15.269Z"
+    }
+  ]
 }

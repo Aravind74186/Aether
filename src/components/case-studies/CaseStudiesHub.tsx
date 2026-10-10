@@ -8,8 +8,8 @@ import {
   ShieldAlert,
   CheckCircle2,
   ArrowRight,
-  Filter,
   Search,
+  Code2,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -18,97 +18,56 @@ interface CaseStudiesHubProps {
 }
 
 export function CaseStudiesHub({ initialStudies }: CaseStudiesHubProps) {
-  const [selectedIndustry, setSelectedIndustry] = useState<string>("All");
-  const [selectedStatus, setSelectedStatus] = useState<string>("All");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-
-  const industries = useMemo(() => {
-    const set = new Set<string>();
-    initialStudies.forEach((s) => set.add(s.industry));
-    return ["All", ...Array.from(set)];
-  }, [initialStudies]);
+  const [searchQuery, setSearchQuery] = useState<string>("" );
 
   const filteredStudies = useMemo(() => {
+    if (!searchQuery.trim()) return initialStudies;
+    const q = searchQuery.toLowerCase();
     return initialStudies.filter((study) => {
-      const matchIndustry =
-        selectedIndustry === "All" || study.industry === selectedIndustry;
-      const matchStatus =
-        selectedStatus === "All" || study.status === selectedStatus;
-      const matchSearch =
-        searchQuery === "" ||
-        study.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        study.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        study.technologies.some((t) =>
-          t.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-      return matchIndustry && matchStatus && matchSearch;
+      return (
+        study.title.toLowerCase().includes(q) ||
+        study.summary.toLowerCase().includes(q) ||
+        study.industry.toLowerCase().includes(q) ||
+        study.myRole?.toLowerCase().includes(q) ||
+        study.technologies.some((t) => t.toLowerCase().includes(q)) ||
+        study.technicalContributions?.some((c) => c.toLowerCase().includes(q))
+      );
     });
-  }, [initialStudies, selectedIndustry, selectedStatus, searchQuery]);
+  }, [initialStudies, searchQuery]);
 
   return (
     <div className="space-y-8">
-      {/* Filtering Bar */}
-      <div className="rounded-3xl border border-slate-200/90 bg-white p-5 space-y-4 shadow-xs">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          {/* Search */}
-          <div className="relative flex-grow max-w-md">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search by project, technology, or problem..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-orange-500 font-mono transition-colors"
-            />
-          </div>
-
-          <div className="text-xs font-mono text-slate-500">
-            Showing <strong className="text-slate-900">{filteredStudies.length}</strong> of{" "}
-            {initialStudies.length} Case Studies
-          </div>
+      {/* Search Bar */}
+      <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+        <div className="relative flex-grow max-w-lg">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            placeholder="Search by tech, architecture problem, role, or keyword..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder-slate-400 font-mono transition-colors focus:outline-none focus:border-orange-500"
+          />
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-100 text-xs">
-          <div className="flex items-center gap-1.5 font-mono text-slate-500 font-medium">
-            <Filter className="w-3.5 h-3.5 text-orange-600" />
-            <span>Industry:</span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {industries.map((ind) => (
-              <button
-                key={ind}
-                onClick={() => setSelectedIndustry(ind)}
-                className={`px-3 py-1 rounded-lg font-mono transition-colors ${
-                  selectedIndustry === ind
-                    ? "bg-orange-600 text-white font-semibold shadow-xs"
-                    : "bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200"
-                }`}
-              >
-                {ind}
-              </button>
-            ))}
-          </div>
+        <div className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          Showing <strong className="text-slate-900 dark:text-white">{filteredStudies.length}</strong> of{" "}
+          {initialStudies.length} Case Studies
         </div>
       </div>
 
       {/* Case Study Cards Grid */}
       {filteredStudies.length === 0 ? (
-        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-12 text-center space-y-3 shadow-xs">
-          <p className="text-slate-500 font-mono text-sm">
-            No case studies match your current filter parameters.
+        <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-12 text-center space-y-3 shadow-xs">
+          <p className="text-slate-500 dark:text-slate-400 font-mono text-sm">
+            No case studies match your search query.
           </p>
           <Button
             size="sm"
             variant="outline"
-            onClick={() => {
-              setSelectedIndustry("All");
-              setSelectedStatus("All");
-              setSearchQuery("");
-            }}
+            onClick={() => setSearchQuery("")}
           >
-            Reset Filters
+            Clear Search
           </Button>
         </div>
       ) : (
@@ -116,66 +75,93 @@ export function CaseStudiesHub({ initialStudies }: CaseStudiesHubProps) {
           {filteredStudies.map((study) => (
             <div
               key={study.id}
-              className="rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-8 hover:border-orange-300 hover:shadow-lg transition-all flex flex-col justify-between space-y-6 shadow-xs"
+              className="rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 p-7 sm:p-8 hover:border-orange-300 dark:hover:border-slate-700 hover:shadow-lg transition-all flex flex-col justify-between space-y-6 shadow-xs"
             >
               <div className="space-y-4">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-mono text-orange-700 font-bold">
-                    {study.industry}
-                  </span>
+                {/* Header Metadata Badges */}
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-mono text-orange-700 dark:text-orange-400 font-bold">
+                      {study.industry}
+                    </span>
+                    <span className="text-slate-300 dark:text-slate-700">•</span>
+                    <span className="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-orange-50 dark:bg-orange-950/40 text-orange-800 dark:text-orange-300 border border-orange-200 dark:border-orange-900/50 font-semibold">
+                      {study.projectType}
+                    </span>
+                  </div>
                   <Badge variant={study.isDemonstration ? "demo" : "success"}>
                     {study.status}
                   </Badge>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 tracking-tight">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight leading-snug">
                     <Link
                       href={`/case-studies/${study.slug}`}
-                      className="hover:text-orange-600 transition-colors"
+                      className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       {study.title}
                     </Link>
                   </h3>
-                  <div className="text-xs text-slate-500 font-mono mt-1">
-                    Client Context: {study.clientType} • {study.timeline}
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-1">
+                    Role: <strong className="text-slate-800 dark:text-slate-200">{study.myRole}</strong> • {study.timeline}
                   </div>
-                  <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                  <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                     {study.summary}
                   </p>
                 </div>
 
-                <div className="space-y-3 pt-2">
-                  <div className="bg-red-50/50 p-3.5 rounded-xl border border-red-200">
-                    <div className="text-[11px] font-mono text-red-700 font-bold uppercase mb-1 flex items-center gap-1.5">
-                      <ShieldAlert className="w-3.5 h-3.5 text-red-600" />
-                      <span>The Challenge</span>
+                {/* Technical Contributions Highlight */}
+                {study.technicalContributions && study.technicalContributions.length > 0 && (
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 space-y-2">
+                    <div className="text-[11px] font-mono text-slate-700 dark:text-slate-300 font-bold uppercase flex items-center gap-1.5">
+                      <Code2 className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
+                      <span>Key Technical Contributions:</span>
                     </div>
-                    <p className="text-xs text-slate-700 leading-relaxed">
+                    <ul className="space-y-1 text-xs text-slate-600 dark:text-slate-300 font-mono">
+                      {study.technicalContributions.slice(0, 2).map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5">
+                          <span className="text-orange-500 shrink-0">•</span>
+                          <span className="leading-snug">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Challenge & Verified Outcome */}
+                <div className="space-y-3 pt-1">
+                  <div className="bg-red-50/50 dark:bg-red-950/20 p-3.5 rounded-xl border border-red-200/80 dark:border-red-900/50">
+                    <div className="text-[11px] font-mono text-red-700 dark:text-red-400 font-bold uppercase mb-1 flex items-center gap-1.5">
+                      <ShieldAlert className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
+                      <span>The Engineering Challenge</span>
+                    </div>
+                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed line-clamp-3">
                       {study.challenge}
                     </p>
                   </div>
 
-                  <div className="bg-emerald-50/50 p-3.5 rounded-xl border border-emerald-200">
-                    <div className="text-[11px] font-mono text-emerald-800 font-bold uppercase mb-1 flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <div className="bg-emerald-50/50 dark:bg-emerald-950/20 p-3.5 rounded-xl border border-emerald-200/80 dark:border-emerald-900/50">
+                    <div className="text-[11px] font-mono text-emerald-800 dark:text-emerald-400 font-bold uppercase mb-1 flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       <span>Verified Outcome</span>
                     </div>
-                    <p className="text-xs text-slate-700 leading-relaxed">
+                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                       {study.verifiedOutcomes[0]}
                     </p>
                   </div>
                 </div>
 
+                {/* Stack Pills */}
                 <div className="pt-2">
-                  <div className="text-[11px] font-mono text-slate-500 uppercase mb-1.5 font-medium">
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase mb-1.5 font-medium">
                     Stack:
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {study.technologies.map((t, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-50 text-slate-700 border border-slate-200"
+                        className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
                       >
                         {t}
                       </span>
@@ -184,10 +170,11 @@ export function CaseStudiesHub({ initialStudies }: CaseStudiesHubProps) {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+              {/* Card Footer Link */}
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <Link
                   href={`/case-studies/${study.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-orange-600 hover:text-orange-700 group"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 group"
                 >
                   <span>Full Architecture & Implementation Decisions</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

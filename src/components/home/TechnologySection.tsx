@@ -94,7 +94,7 @@ export function TechnologySection() {
   const selectedNode = techNodes.find((n) => n.id === activeNode) || techNodes[0];
 
   return (
-    <section className="py-20 bg-slate-50/70 border-y border-slate-200 relative overflow-hidden">
+    <section className="py-20 bg-slate-50/70 dark:bg-transparent border-y border-slate-200 dark:border-slate-800 relative overflow-hidden">
       {/* Background ambient accents */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-orange-500/[0.03] rounded-full blur-3xl pointer-events-none" />
 
@@ -130,8 +130,8 @@ export function TechnologySection() {
                   onMouseEnter={() => setActiveNode(node.id)}
                   className={`p-6 rounded-3xl border text-left transition-all duration-200 flex flex-col justify-between group cursor-pointer ${
                     isActive
-                      ? "bg-white border-orange-600 shadow-lg shadow-orange-500/10 ring-2 ring-orange-500/20 -translate-y-0.5"
-                      : "bg-white hover:bg-stone-50/80 border-stone-200/90 hover:border-orange-300 shadow-2xs"
+                      ? "bg-white dark:bg-slate-900 border-orange-600 shadow-lg shadow-orange-500/10 ring-2 ring-orange-500/20 -translate-y-0.5"
+                      : "bg-white dark:bg-slate-900/60 hover:bg-stone-50/80 dark:hover:bg-slate-800/80 border-stone-200/90 dark:border-slate-800 hover:border-orange-300 dark:hover:border-orange-500/40 shadow-2xs"
                   }`}
                 >
                   <div className="space-y-3.5">
@@ -140,12 +140,12 @@ export function TechnologySection() {
                         className={`w-10 h-10 rounded-2xl border flex items-center justify-center transition-all duration-200 ${
                           isActive
                             ? "bg-orange-600 text-white border-orange-600 shadow-xs"
-                            : "bg-orange-50/80 text-orange-600 border-orange-100 group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600 group-hover:scale-105"
+                            : "bg-orange-50/80 dark:bg-orange-950/60 text-orange-600 border-orange-100 dark:border-orange-800/60 group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600 group-hover:scale-105"
                         }`}
                       >
                         <Icon className="w-5 h-5" />
                       </div>
-                      <span className="text-[11px] font-mono text-stone-500 font-medium">
+                      <span className="text-[11px] font-mono text-stone-500 dark:text-slate-400 font-medium">
                         {node.discipline}
                       </span>
                     </div>
@@ -153,24 +153,24 @@ export function TechnologySection() {
                     <div>
                       <h3
                         className={`text-base font-bold tracking-tight transition-colors ${
-                          isActive ? "text-stone-950" : "text-stone-900 group-hover:text-orange-600"
+                          isActive ? "text-stone-950 dark:text-white" : "text-stone-900 dark:text-slate-200 group-hover:text-orange-600"
                         }`}
                       >
                         {node.name}
                       </h3>
-                      <p className="text-xs text-stone-500 font-mono mt-0.5">
+                      <p className="text-xs text-stone-500 dark:text-slate-400 font-mono mt-0.5">
                         {node.primaryTech}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
-                    <span className="text-stone-500 font-medium font-mono text-[11px]">
+                  <div className="mt-4 pt-3 border-t border-stone-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                    <span className="text-stone-500 dark:text-slate-400 font-medium font-mono text-[11px]">
                       {node.stack.slice(0, 2).join(" • ")}
                     </span>
                     <span
                       className={`text-xs font-mono font-semibold transition-opacity ${
-                        isActive ? "text-orange-600 opacity-100" : "text-stone-400 opacity-0 group-hover:opacity-100"
+                        isActive ? "text-orange-600 opacity-100" : "text-stone-400 dark:text-slate-500 opacity-0 group-hover:opacity-100"
                       }`}
                     >
                       Inspect →
@@ -183,16 +183,16 @@ export function TechnologySection() {
 
           {/* Right Column: Central Node Deep-Dive Inspection Panel */}
           <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-stone-200/90 bg-white p-7 sm:p-8 shadow-xl shadow-stone-900/5 relative overflow-hidden card-hover-lift">
+            <div className="rounded-3xl border border-stone-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 p-7 sm:p-8 shadow-xl shadow-stone-900/5 dark:shadow-black/50 relative overflow-hidden card-hover-lift">
               {/* Header Bar */}
-              <div className="flex items-center justify-between pb-4 border-b border-stone-100 mb-6">
+              <div className="flex items-center justify-between pb-4 border-b border-stone-100 dark:border-slate-800 mb-6">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-orange-600 animate-pulse" />
-                  <span className="text-xs font-mono text-stone-700 font-semibold uppercase tracking-wider">
+                  <span className="text-xs font-mono text-stone-700 dark:text-slate-300 font-semibold uppercase tracking-wider">
                     Node Telemetry Inspection
                   </span>
                 </div>
-                <span className="text-xs font-mono text-orange-700 bg-orange-50 px-2.5 py-0.5 rounded-full border border-orange-200 font-medium">
+                <span className="text-xs font-mono text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/60 px-2.5 py-0.5 rounded-full border border-orange-200 dark:border-orange-800/80 font-medium">
                   Connected
                 </span>
               </div>
@@ -200,38 +200,38 @@ export function TechnologySection() {
               {/* Selected Node Details */}
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-stone-100 text-stone-700 text-xs font-mono">
+                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-stone-100 dark:bg-slate-800 text-stone-700 dark:text-slate-300 text-xs font-mono">
                     <Terminal className="w-3.5 h-3.5 text-orange-600" />
                     <span>{selectedNode.primaryTech}</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-stone-950 tracking-tight">
+                  <h3 className="text-2xl font-bold text-stone-950 dark:text-white tracking-tight">
                     {selectedNode.name}
                   </h3>
-                  <p className="text-sm text-stone-600 leading-relaxed">
+                  <p className="text-sm text-stone-600 dark:text-slate-300 leading-relaxed">
                     {selectedNode.description}
                   </p>
                 </div>
 
                 {/* Key Metric Spotlight */}
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-orange-50/80 to-amber-50/40 border border-orange-100">
-                  <div className="text-[11px] font-mono text-orange-700 uppercase font-semibold">
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-orange-50/80 to-amber-50/40 dark:from-orange-950/40 dark:to-slate-950/50 border border-orange-100 dark:border-orange-900/50">
+                  <div className="text-[11px] font-mono text-orange-700 dark:text-orange-400 uppercase font-semibold">
                     Target Performance Benchmark
                   </div>
-                  <div className="text-lg font-extrabold text-stone-950 mt-0.5">
+                  <div className="text-lg font-extrabold text-stone-950 dark:text-white mt-0.5">
                     {selectedNode.metrics}
                   </div>
                 </div>
 
                 {/* Full Stack Chips */}
                 <div className="space-y-2.5">
-                  <div className="text-xs font-mono text-slate-700 uppercase tracking-wider">
+                  <div className="text-xs font-mono text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                     Production Stack Components:
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {selectedNode.stack.map((item) => (
                       <span
                         key={item}
-                        className="text-xs font-mono px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-medium shadow-2xs"
+                        className="text-xs font-mono px-3 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium shadow-2xs"
                       >
                         {item}
                       </span>
@@ -240,7 +240,7 @@ export function TechnologySection() {
                 </div>
 
                 {/* Integration Guarantee */}
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 font-mono">
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 font-mono">
                   <span>✓ 100% Code Ownership</span>
                   <span>✓ Zero Proprietary Lock-In</span>
                 </div>

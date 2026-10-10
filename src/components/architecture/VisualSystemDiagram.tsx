@@ -217,16 +217,16 @@ export function VisualSystemDiagram() {
   return (
     <div className="w-full space-y-6">
       {/* Top Architecture Console Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 p-6 rounded-3xl border border-slate-800 bg-slate-950/90 backdrop-blur-xl shadow-2xl">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 p-6 sm:p-7 rounded-3xl border border-stone-200 bg-white shadow-xs">
         <div>
-          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase text-emerald-400 font-semibold mb-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase text-emerald-600 font-bold mb-1">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>Interactive Architecture Topology Engine</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight font-sans">
+          <h2 className="text-xl sm:text-2xl font-bold text-stone-900 tracking-tight font-sans">
             Aether System Architecture Blueprint
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-0.5 font-sans">
+          <p className="text-xs sm:text-sm text-stone-600 max-w-xl mt-0.5 font-sans">
             Inspect how high-concurrency requests traverse between Edge Security, Node.js Kernels, and PostgreSQL Storage.
           </p>
         </div>
@@ -234,13 +234,13 @@ export function VisualSystemDiagram() {
         {/* View Style Switcher & Trace Button */}
         <div className="flex flex-wrap items-center gap-3">
           {/* Visual Paradigm Selector */}
-          <div className="inline-flex p-1 rounded-2xl bg-slate-900/90 border border-slate-800 font-mono text-xs shadow-inner">
+          <div className="inline-flex p-1 rounded-2xl bg-stone-100 dark:bg-slate-900 border border-stone-200 dark:border-slate-800 font-mono text-xs shadow-inner">
             <button
               onClick={() => setViewMode("pcb-chip")}
               className={`px-3.5 py-2 rounded-xl flex items-center gap-2 transition-all ${
                 viewMode === "pcb-chip"
-                  ? "bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-950/50"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-emerald-600 text-white font-bold shadow-sm"
+                  : "text-stone-600 dark:text-slate-400 hover:text-stone-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60"
               }`}
             >
               <Cpu className="w-4 h-4" />
@@ -250,8 +250,8 @@ export function VisualSystemDiagram() {
               onClick={() => setViewMode("orbital-radar")}
               className={`px-3.5 py-2 rounded-xl flex items-center gap-2 transition-all ${
                 viewMode === "orbital-radar"
-                  ? "bg-cyan-600 text-white font-bold shadow-lg shadow-cyan-950/50"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-sky-600 text-white font-bold shadow-sm"
+                  : "text-stone-600 dark:text-slate-400 hover:text-stone-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60"
               }`}
             >
               <Compass className="w-4 h-4" />
@@ -261,8 +261,8 @@ export function VisualSystemDiagram() {
               onClick={() => setViewMode("pipeline-highway")}
               className={`px-3.5 py-2 rounded-xl flex items-center gap-2 transition-all ${
                 viewMode === "pipeline-highway"
-                  ? "bg-orange-600 text-white font-bold shadow-lg shadow-orange-950/50"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-orange-600 text-white font-bold shadow-sm"
+                  : "text-stone-600 dark:text-slate-400 hover:text-stone-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60"
               }`}
             >
               <Workflow className="w-4 h-4" />
@@ -303,24 +303,24 @@ export function VisualSystemDiagram() {
           {/* 1. SILICON PCB MICROCHIP BOARD VIEW */}
           {/* ========================================================================= */}
           {viewMode === "pcb-chip" && (
-            <div className="relative rounded-3xl border border-emerald-500/30 bg-[#030d0a] p-6 sm:p-8 min-h-[560px] shadow-[0_0_60px_rgba(16,185,129,0.1)] overflow-hidden">
-              {/* Copper PCB Matrix Circuit Grid Background */}
+            <div className="relative rounded-3xl border border-stone-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 min-h-[560px] shadow-xs overflow-hidden">
+              {/* Copper / Orange PCB Matrix Circuit Grid Background */}
               <div
-                className="absolute inset-0 opacity-20 pointer-events-none"
+                className="absolute inset-0 opacity-40 pointer-events-none"
                 style={{
                   backgroundImage:
-                    "linear-gradient(to right, #10b981 1px, transparent 1px), linear-gradient(to bottom, #10b981 1px, transparent 1px)",
+                    "linear-gradient(to right, rgba(234, 88, 12, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(234, 88, 12, 0.08) 1px, transparent 1px)",
                   backgroundSize: "32px 32px",
                 }}
               />
 
               {/* Silicon Board Watermark & Status */}
-              <div className="relative flex items-center justify-between pb-4 border-b border-emerald-900/40 font-mono text-xs mb-6">
-                <div className="flex items-center gap-2 text-emerald-400 font-bold">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <div className="relative flex items-center justify-between pb-4 border-b border-orange-100 dark:border-slate-800 font-mono text-xs mb-6">
+                <div className="flex items-center gap-2 text-orange-700 dark:text-orange-400 font-bold">
+                  <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping" />
                   <span>AETHER_SILICON_MOTHERBOARD // REV 4.2</span>
                 </div>
-                <div className="text-[11px] text-emerald-600 hidden sm:block">
+                <div className="text-[11px] text-stone-500 dark:text-slate-400 hidden sm:block">
                   STATUS: BUS_ACTIVE • VOLTAGE: 3.3V • CLOCK: 100MHz
                 </div>
               </div>
@@ -329,9 +329,9 @@ export function VisualSystemDiagram() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
                 {/* Column 1: Client Layer */}
                 <div className="space-y-4">
-                  <div className="text-[11px] font-mono font-bold uppercase text-cyan-400 border-b border-cyan-900/50 pb-1 flex items-center justify-between">
+                  <div className="text-[11px] font-mono font-bold uppercase text-stone-800 dark:text-slate-200 border-b border-stone-200 dark:border-slate-800 pb-1 flex items-center justify-between">
                     <span>01. Clients</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                   </div>
                   {systemNodes
                     .filter((n) => n.category === "client")
@@ -342,26 +342,26 @@ export function VisualSystemDiagram() {
                         <div
                           key={node.id}
                           onClick={() => setActiveNodeId(node.id)}
-                          className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 relative group select-none ${
+                          className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 relative group select-none flex flex-col justify-between h-[124px] ${
                             isSelected
-                              ? "border-cyan-400 bg-cyan-950/80 shadow-[0_0_30px_rgba(6,182,212,0.4)] scale-[1.03]"
-                              : "border-slate-800 bg-[#081512]/90 hover:border-cyan-600 hover:bg-[#0c1f1a]"
+                              ? "border-orange-500 bg-orange-50/95 dark:bg-orange-950/60 shadow-md ring-2 ring-orange-400 scale-[1.03]"
+                              : "border-stone-200 dark:border-slate-800 bg-stone-50/90 dark:bg-slate-950/70 hover:border-orange-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900 shadow-2xs"
                           }`}
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-mono text-cyan-400 font-bold">
+                            <span className="text-[10px] font-mono text-orange-600 dark:text-orange-400 font-bold">
                               {node.chipCode.split(":")[0]}
                             </span>
-                            <div className="p-1.5 rounded-lg bg-cyan-950 border border-cyan-800 text-cyan-300">
+                            <div className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-orange-600 dark:text-orange-400 shadow-2xs">
                               <Icon className="w-3.5 h-3.5" />
                             </div>
                           </div>
-                          <div className="text-xs font-bold text-white font-mono tracking-tight leading-snug">
+                          <div className="text-xs font-bold text-stone-900 dark:text-slate-100 font-mono tracking-tight leading-snug">
                             {node.name}
                           </div>
-                          <div className="text-[10px] font-mono text-slate-400 mt-2 flex items-center justify-between">
+                          <div className="text-[10px] font-mono text-stone-500 dark:text-slate-400 mt-2 flex items-center justify-between">
                             <span>{node.latency}</span>
-                            <span className="text-emerald-400">● LIVE</span>
+                            <span className="text-emerald-700 dark:text-emerald-400 font-bold">● LIVE</span>
                           </div>
                         </div>
                       );
@@ -370,9 +370,9 @@ export function VisualSystemDiagram() {
 
                 {/* Column 2: Edge Security */}
                 <div className="space-y-4">
-                  <div className="text-[11px] font-mono font-bold uppercase text-emerald-400 border-b border-emerald-900/50 pb-1 flex items-center justify-between">
+                  <div className="text-[11px] font-mono font-bold uppercase text-stone-800 dark:text-slate-200 border-b border-stone-200 dark:border-slate-800 pb-1 flex items-center justify-between">
                     <span>02. Edge WAF</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   </div>
                   {systemNodes
                     .filter((n) => n.category === "edge")
@@ -383,26 +383,26 @@ export function VisualSystemDiagram() {
                         <div
                           key={node.id}
                           onClick={() => setActiveNodeId(node.id)}
-                          className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 relative group select-none ${
+                          className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 relative group select-none flex flex-col justify-between h-[124px] ${
                             isSelected
-                              ? "border-emerald-400 bg-emerald-950/80 shadow-[0_0_30px_rgba(16,185,129,0.4)] scale-[1.03]"
-                              : "border-slate-800 bg-[#081512]/90 hover:border-emerald-600 hover:bg-[#0c1f1a]"
+                              ? "border-emerald-500 bg-emerald-50/95 dark:bg-emerald-950/60 shadow-md ring-2 ring-emerald-400 scale-[1.03]"
+                              : "border-stone-200 dark:border-slate-800 bg-stone-50/90 dark:bg-slate-950/70 hover:border-emerald-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900 shadow-2xs"
                           }`}
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-mono text-emerald-400 font-bold">
+                            <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-bold">
                               {node.chipCode.split(":")[0]}
                             </span>
-                            <div className="p-1.5 rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-300">
+                            <div className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-emerald-600 dark:text-emerald-400 shadow-2xs">
                               <Icon className="w-3.5 h-3.5" />
                             </div>
                           </div>
-                          <div className="text-xs font-bold text-white font-mono tracking-tight leading-snug">
+                          <div className="text-xs font-bold text-stone-900 dark:text-slate-100 font-mono tracking-tight leading-snug">
                             {node.name}
                           </div>
-                          <div className="text-[10px] font-mono text-slate-400 mt-2 flex items-center justify-between">
+                          <div className="text-[10px] font-mono text-stone-500 dark:text-slate-400 mt-2 flex items-center justify-between">
                             <span>{node.latency}</span>
-                            <span className="text-emerald-400">● SECURE</span>
+                            <span className="text-emerald-700 dark:text-emerald-400 font-bold">● SECURE</span>
                           </div>
                         </div>
                       );
@@ -411,9 +411,9 @@ export function VisualSystemDiagram() {
 
                 {/* Column 3: Compute & AI */}
                 <div className="space-y-4">
-                  <div className="text-[11px] font-mono font-bold uppercase text-orange-400 border-b border-orange-900/50 pb-1 flex items-center justify-between">
+                  <div className="text-[11px] font-mono font-bold uppercase text-stone-800 dark:text-slate-200 border-b border-stone-200 dark:border-slate-800 pb-1 flex items-center justify-between">
                     <span>03. App Kernel</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-600" />
                   </div>
                   {systemNodes
                     .filter((n) => n.category === "compute")
@@ -424,26 +424,26 @@ export function VisualSystemDiagram() {
                         <div
                           key={node.id}
                           onClick={() => setActiveNodeId(node.id)}
-                          className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 relative group select-none ${
+                          className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 relative group select-none flex flex-col justify-between h-[124px] ${
                             isSelected
-                              ? "border-orange-400 bg-orange-950/80 shadow-[0_0_30px_rgba(99,102,241,0.4)] scale-[1.03]"
-                              : "border-slate-800 bg-[#081512]/90 hover:border-orange-600 hover:bg-[#0c1f1a]"
+                              ? "border-orange-500 bg-orange-50/95 dark:bg-orange-950/60 shadow-md ring-2 ring-orange-400 scale-[1.03]"
+                              : "border-stone-200 dark:border-slate-800 bg-stone-50/90 dark:bg-slate-950/70 hover:border-orange-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900 shadow-2xs"
                           }`}
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-mono text-orange-400 font-bold">
+                            <span className="text-[10px] font-mono text-orange-600 dark:text-orange-400 font-bold">
                               {node.chipCode.split(":")[0]}
                             </span>
-                            <div className="p-1.5 rounded-lg bg-orange-950 border border-orange-800 text-orange-300">
+                            <div className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-orange-600 dark:text-orange-400 shadow-2xs">
                               <Icon className="w-3.5 h-3.5" />
                             </div>
                           </div>
-                          <div className="text-xs font-bold text-white font-mono tracking-tight leading-snug">
+                          <div className="text-xs font-bold text-stone-900 dark:text-slate-100 font-mono tracking-tight leading-snug">
                             {node.name}
                           </div>
-                          <div className="text-[10px] font-mono text-slate-400 mt-2 flex items-center justify-between">
+                          <div className="text-[10px] font-mono text-stone-500 dark:text-slate-400 mt-2 flex items-center justify-between">
                             <span>{node.latency}</span>
-                            <span className="text-orange-400">● EXEC</span>
+                            <span className="text-orange-700 dark:text-orange-400 font-bold">● EXEC</span>
                           </div>
                         </div>
                       );
@@ -452,9 +452,9 @@ export function VisualSystemDiagram() {
 
                 {/* Column 4: Storage & Vectors */}
                 <div className="space-y-4">
-                  <div className="text-[11px] font-mono font-bold uppercase text-sky-400 border-b border-sky-900/50 pb-1 flex items-center justify-between">
+                  <div className="text-[11px] font-mono font-bold uppercase text-stone-800 dark:text-slate-200 border-b border-stone-200 dark:border-slate-800 pb-1 flex items-center justify-between">
                     <span>04. Data Vault</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
                   </div>
                   {systemNodes
                     .filter((n) => n.category === "storage")
@@ -465,26 +465,26 @@ export function VisualSystemDiagram() {
                         <div
                           key={node.id}
                           onClick={() => setActiveNodeId(node.id)}
-                          className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 relative group select-none ${
+                          className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 relative group select-none flex flex-col justify-between h-[124px] ${
                             isSelected
-                              ? "border-sky-400 bg-sky-950/80 shadow-[0_0_30px_rgba(56,189,248,0.4)] scale-[1.03]"
-                              : "border-slate-800 bg-[#081512]/90 hover:border-sky-600 hover:bg-[#0c1f1a]"
+                              ? "border-sky-500 bg-sky-50/95 dark:bg-sky-950/60 shadow-md ring-2 ring-sky-400 scale-[1.03]"
+                              : "border-stone-200 dark:border-slate-800 bg-stone-50/90 dark:bg-slate-950/70 hover:border-sky-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900 shadow-2xs"
                           }`}
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-mono text-sky-400 font-bold">
+                            <span className="text-[10px] font-mono text-sky-700 dark:text-sky-400 font-bold">
                               {node.chipCode.split(":")[0]}
                             </span>
-                            <div className="p-1.5 rounded-lg bg-sky-950 border border-sky-800 text-sky-300">
+                            <div className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-sky-600 dark:text-sky-400 shadow-2xs">
                               <Icon className="w-3.5 h-3.5" />
                             </div>
                           </div>
-                          <div className="text-xs font-bold text-white font-mono tracking-tight leading-snug">
+                          <div className="text-xs font-bold text-stone-900 dark:text-slate-100 font-mono tracking-tight leading-snug">
                             {node.name}
                           </div>
-                          <div className="text-[10px] font-mono text-slate-400 mt-2 flex items-center justify-between">
+                          <div className="text-[10px] font-mono text-stone-500 dark:text-slate-400 mt-2 flex items-center justify-between">
                             <span>{node.latency}</span>
-                            <span className="text-sky-400">● ACID</span>
+                            <span className="text-sky-700 dark:text-sky-400 font-bold">● ACID</span>
                           </div>
                         </div>
                       );
@@ -493,22 +493,22 @@ export function VisualSystemDiagram() {
               </div>
 
               {/* Silicon PCB Bus Footer */}
-              <div className="mt-8 pt-4 border-t border-emerald-950/80 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-emerald-400">
+              <div className="mt-8 pt-4 border-t border-stone-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-stone-600 dark:text-slate-400">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span className="text-[11px]">TLS 1.3 BUS</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-orange-400" />
+                    <span className="w-2 h-2 rounded-full bg-orange-500" />
                     <span className="text-[11px]">V8 RUNTIME BUS</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-sky-400" />
+                    <span className="w-2 h-2 rounded-full bg-sky-500" />
                     <span className="text-[11px]">SERIALIZABLE ACID BUS</span>
                   </div>
                 </div>
-                <div className="text-[11px] text-emerald-500 font-bold">
+                <div className="text-[11px] text-orange-700 dark:text-orange-400 font-bold">
                   OVERALL P99 LATENCY: 38ms
                 </div>
               </div>
@@ -519,20 +519,20 @@ export function VisualSystemDiagram() {
           {/* 2. ORBITAL RADAR TOPOLOGY VIEW */}
           {/* ========================================================================= */}
           {viewMode === "orbital-radar" && (
-            <div className="relative rounded-3xl border border-cyan-500/30 bg-[#020b18] p-6 sm:p-8 min-h-[560px] shadow-[0_0_60px_rgba(6,182,212,0.15)] flex flex-col justify-between overflow-hidden">
+            <div className="relative rounded-3xl border border-stone-200 dark:border-slate-800 bg-gradient-to-b from-stone-50 via-white to-orange-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-orange-950/20 p-6 sm:p-8 min-h-[560px] shadow-xs flex flex-col justify-between overflow-hidden">
               {/* Concentric Radar Rings */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-25">
-                <div className="w-[180px] h-[180px] rounded-full border border-cyan-400/60 animate-ping" style={{ animationDuration: "6s" }} />
-                <div className="absolute w-[340px] h-[340px] rounded-full border border-cyan-400/40" />
-                <div className="absolute w-[500px] h-[500px] rounded-full border border-cyan-400/20" />
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+                <div className="w-[180px] h-[180px] rounded-full border border-orange-400/40 animate-ping" style={{ animationDuration: "6s" }} />
+                <div className="absolute w-[340px] h-[340px] rounded-full border border-orange-200/60 dark:border-orange-500/20" />
+                <div className="absolute w-[500px] h-[500px] rounded-full border border-stone-200/80 dark:border-slate-800/80" />
               </div>
 
               {/* Central Core Satellite */}
               <div className="relative z-10 flex flex-col items-center justify-center my-auto py-12 space-y-6">
-                <div className="p-6 rounded-full bg-cyan-950/80 border-2 border-cyan-400 shadow-[0_0_50px_rgba(6,182,212,0.6)] flex flex-col items-center justify-center text-center space-y-2 max-w-[200px]">
-                  <Server className="w-8 h-8 text-cyan-300 animate-pulse" />
-                  <div className="text-xs font-bold text-white font-mono">NEXT.JS 14 CORE</div>
-                  <div className="text-[10px] font-mono text-cyan-400">Zero-Trust Kernel</div>
+                <div className="p-6 rounded-full bg-white dark:bg-slate-900 border-2 border-orange-500 shadow-[0_0_40px_rgba(249,115,22,0.25)] flex flex-col items-center justify-center text-center space-y-2 max-w-[200px]">
+                  <Server className="w-8 h-8 text-orange-600 dark:text-orange-400 animate-pulse" />
+                  <div className="text-xs font-bold text-stone-950 dark:text-slate-100 font-mono">NEXT.JS 14 CORE</div>
+                  <div className="text-[10px] font-mono text-orange-700 dark:text-orange-400 font-bold">Zero-Trust Kernel</div>
                 </div>
 
                 {/* Orbiting Nodes Grid */}
@@ -549,17 +549,17 @@ export function VisualSystemDiagram() {
                           onClick={() => setActiveNodeId(node.id)}
                           className={`p-3.5 rounded-2xl border cursor-pointer text-center space-y-2 transition-all ${
                             isSelected
-                              ? "border-cyan-400 bg-cyan-950/90 shadow-xl scale-105"
-                              : "border-slate-800 bg-slate-950/80 hover:border-cyan-600"
+                              ? "border-orange-500 bg-orange-50/95 dark:bg-orange-950/60 shadow-md ring-2 ring-orange-400 scale-105"
+                              : "border-stone-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-orange-300 dark:hover:border-slate-700 hover:shadow-md shadow-2xs"
                           }`}
                         >
-                          <div className="w-8 h-8 mx-auto rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-cyan-400">
+                          <div className="w-8 h-8 mx-auto rounded-xl bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/50 flex items-center justify-center text-orange-600 dark:text-orange-400">
                             <Icon className="w-4 h-4" />
                           </div>
-                          <div className="text-xs font-bold text-white truncate font-mono">
+                          <div className="text-xs font-bold text-stone-900 dark:text-slate-100 truncate font-mono">
                             {node.name}
                           </div>
-                          <div className="text-[10px] font-mono text-cyan-400">
+                          <div className="text-[10px] font-mono text-orange-700 dark:text-orange-400 font-bold">
                             {node.latency}
                           </div>
                         </div>
@@ -574,8 +574,8 @@ export function VisualSystemDiagram() {
           {/* 3. DATA HIGHWAY PIPELINE VIEW */}
           {/* ========================================================================= */}
           {viewMode === "pipeline-highway" && (
-            <div className="rounded-3xl border border-orange-500/30 bg-slate-950 p-6 sm:p-8 min-h-[560px] shadow-2xl space-y-6">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-850 font-mono text-xs text-orange-400">
+            <div className="rounded-3xl border border-stone-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 min-h-[560px] shadow-xs space-y-6">
+              <div className="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-slate-800 font-mono text-xs text-orange-700 dark:text-orange-400 font-bold">
                 <span>STAGE-BY-STAGE REQUEST PIPELINE</span>
                 <span>STREAM: TLS 1.3 ➔ ZOD ➔ POSTGRES</span>
               </div>
@@ -590,30 +590,30 @@ export function VisualSystemDiagram() {
                       onClick={() => setActiveNodeId(node.id)}
                       className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-center justify-between gap-4 ${
                         isSelected
-                          ? "border-orange-400 bg-orange-950/70 shadow-lg scale-[1.01]"
-                          : "border-slate-800 bg-slate-900/60 hover:border-slate-700"
+                          ? "border-orange-500 bg-orange-50/95 dark:bg-orange-950/60 shadow-md ring-1 ring-orange-400 scale-[1.01]"
+                          : "border-stone-200 dark:border-slate-800 bg-stone-50/80 dark:bg-slate-950/70 hover:border-orange-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900 shadow-2xs"
                       }`}
                     >
                       <div className="flex items-center gap-3.5">
-                        <span className="w-7 h-7 rounded-xl bg-orange-950 border border-orange-800 text-orange-400 flex items-center justify-center font-mono font-bold text-xs">
+                        <span className="w-7 h-7 rounded-xl bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/50 text-orange-700 dark:text-orange-400 flex items-center justify-center font-mono font-bold text-xs">
                           {idx + 1}
                         </span>
-                        <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
+                        <div className="p-2 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-orange-600 dark:text-orange-400 shadow-2xs">
                           <Icon className="w-4 h-4" />
                         </div>
                         <div>
-                          <div className="text-sm font-bold text-white font-mono">
+                          <div className="text-sm font-bold text-stone-900 dark:text-slate-100 font-mono">
                             {node.name}
                           </div>
-                          <div className="text-xs text-slate-400 font-sans">
+                          <div className="text-xs text-stone-600 dark:text-slate-400 font-sans">
                             {node.description}
                           </div>
                         </div>
                       </div>
 
                       <div className="text-right shrink-0 font-mono text-xs">
-                        <div className="text-emerald-400 font-bold">{node.latency}</div>
-                        <div className="text-slate-500 text-[10px]">{node.tag}</div>
+                        <div className="text-emerald-700 dark:text-emerald-400 font-bold">{node.latency}</div>
+                        <div className="text-stone-500 dark:text-slate-400 text-[10px]">{node.tag}</div>
                       </div>
                     </div>
                   );
@@ -625,18 +625,18 @@ export function VisualSystemDiagram() {
 
         {/* Right: 4 Cols - Real-Time Telemetry & Oscilloscope Inspector */}
         <div className="lg:col-span-4">
-          <div className="sticky top-24 rounded-3xl border border-slate-800 bg-slate-950/95 p-6 space-y-6 shadow-2xl backdrop-blur-xl">
+          <div className="sticky top-24 rounded-3xl border border-stone-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6 shadow-xs">
             {/* Selected Component Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-slate-850">
+            <div className="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-slate-800">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-2xl bg-emerald-950/80 border border-emerald-800 text-emerald-400 shadow-sm">
+                <div className="p-2.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-400 shadow-2xs">
                   <selectedNode.icon className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono text-emerald-400 uppercase font-bold tracking-wider">
+                  <div className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 uppercase font-bold tracking-wider">
                     {selectedNode.chipCode}
                   </div>
-                  <h3 className="text-base font-bold text-white font-sans">
+                  <h3 className="text-base font-bold text-stone-900 dark:text-slate-100 font-sans">
                     {selectedNode.name}
                   </h3>
                 </div>
@@ -646,55 +646,56 @@ export function VisualSystemDiagram() {
 
             {/* Performance Telemetry */}
             <div className="grid grid-cols-2 gap-3 font-mono text-xs">
-              <div className="p-3 rounded-2xl bg-slate-900/80 border border-slate-850 space-y-1">
-                <div className="text-[10px] text-slate-400 uppercase">Response Latency</div>
-                <div className="text-emerald-400 font-bold text-sm">{selectedNode.latency}</div>
+              <div className="p-3.5 rounded-2xl bg-stone-50 dark:bg-slate-950/60 border border-stone-200 dark:border-slate-800 space-y-1">
+                <div className="text-[10px] text-stone-500 dark:text-slate-400 uppercase font-semibold">Response Latency</div>
+                <div className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">{selectedNode.latency}</div>
               </div>
-              <div className="p-3 rounded-2xl bg-slate-900/80 border border-slate-850 space-y-1">
-                <div className="text-[10px] text-slate-400 uppercase">Throughput Bus</div>
-                <div className="text-cyan-400 font-bold text-sm">{selectedNode.throughput}</div>
+              <div className="p-3.5 rounded-2xl bg-stone-50 dark:bg-slate-950/60 border border-stone-200 dark:border-slate-800 space-y-1">
+                <div className="text-[10px] text-stone-500 dark:text-slate-400 uppercase font-semibold">Throughput Bus</div>
+                <div className="text-sky-600 dark:text-sky-400 font-bold text-sm">{selectedNode.throughput}</div>
               </div>
             </div>
 
             {/* Function & Role Overview */}
             <div className="space-y-1.5">
-              <div className="text-xs font-mono uppercase text-slate-400 font-semibold">
+              <div className="text-xs font-mono uppercase text-stone-500 dark:text-slate-400 font-semibold">
                 Architectural Role & Scope
               </div>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+              <p className="text-xs sm:text-sm text-stone-700 dark:text-slate-300 leading-relaxed font-sans">
                 {selectedNode.description}
               </p>
             </div>
 
             {/* Code Verification Invariant */}
-            <div className="p-3.5 rounded-2xl bg-[#030d12] border border-slate-800 space-y-1.5 font-mono text-xs">
-              <div className="text-[10px] text-cyan-400 uppercase font-bold flex items-center gap-1.5">
-                <Code2 className="w-3.5 h-3.5" />
+            <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-950/60 border border-stone-200 dark:border-slate-800 space-y-2 font-mono text-xs shadow-2xs">
+              <div className="text-[10px] text-orange-600 dark:text-orange-400 uppercase font-bold flex items-center gap-1.5">
+                <Code2 className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
                 <span>Production Code Contract:</span>
               </div>
-              <div className="text-slate-300 text-[11px] truncate bg-slate-950 p-2 rounded-xl border border-slate-850">
+              <div className="text-stone-800 dark:text-slate-200 text-[11px] truncate bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-stone-200 dark:border-slate-800 font-semibold shadow-xs">
                 {selectedNode.codeSnippet}
               </div>
             </div>
 
             {/* Anti-Pattern & Vulnerability Prevented */}
-            <div className="p-4 rounded-2xl border border-red-900/50 bg-red-950/20 space-y-1">
-              <div className="text-xs font-mono uppercase text-red-400 font-bold flex items-center gap-1.5">
-                <span>✕ Vulnerability Prevented</span>
+            <div className="p-4 rounded-2xl border border-orange-200/90 dark:border-orange-900/50 bg-orange-50/60 dark:bg-orange-950/30 space-y-1 shadow-2xs">
+              <div className="text-xs font-mono uppercase text-orange-700 dark:text-orange-400 font-bold flex items-center gap-1.5">
+                <span className="w-4 h-4 rounded-full bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-400 flex items-center justify-center text-[10px] font-bold">✕</span>
+                <span>Vulnerability Prevented</span>
               </div>
-              <p className="text-xs text-red-300/90 leading-relaxed font-sans">
+              <p className="text-xs text-stone-700 dark:text-slate-300 leading-relaxed font-sans pt-0.5">
                 {selectedNode.vulnerabilityPrevented}
               </p>
             </div>
 
             {/* Live Trace Status Indicator */}
             {isTracing && (
-              <div className="p-3.5 rounded-2xl border border-orange-500/60 bg-orange-950/50 font-mono text-xs text-orange-300 animate-pulse space-y-1">
+              <div className="p-3.5 rounded-2xl border border-orange-300 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/40 font-mono text-xs text-orange-800 dark:text-orange-300 animate-pulse space-y-1">
                 <div className="font-bold flex items-center gap-1.5">
-                  <Activity className="w-3.5 h-3.5 text-amber-400" />
+                  <Activity className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
                   <span>Request Packet Flowing:</span>
                 </div>
-                <div className="text-[11px] text-slate-200">
+                <div className="text-[11px] text-stone-700 dark:text-slate-300">
                   Step {traceStep}/5: Active on {selectedNode.name}
                 </div>
               </div>

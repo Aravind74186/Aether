@@ -29,7 +29,7 @@ export default function SearchPage() {
   const categories = db.categories.map((c) => ({ slug: c.slug, name: c.name }));
 
   return (
-    <div className="py-12 sm:py-16 space-y-16 bg-white">
+    <div className="py-12 sm:py-16 space-y-16">
       <Container size="xl">
         <Breadcrumbs
           items={[

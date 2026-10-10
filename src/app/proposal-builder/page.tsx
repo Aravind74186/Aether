@@ -21,13 +21,13 @@ export default function ProposalBuilderPage() {
         {/* Page Hero */}
         <div className="max-w-3xl space-y-4 print:hidden">
           <Badge variant="brand">Board-Ready Documentation</Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
             Institutional Technical <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">
               Proposal & SOW Builder.
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed pt-2">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed pt-2">
             Configure project parameters to generate a clean, itemized Scope of Work and milestone proposal ready for review by school boards, university committees, or investors.
           </p>
         </div>

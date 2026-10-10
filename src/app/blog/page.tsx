@@ -153,12 +153,12 @@ export default function BlogPage() {
         </div>
 
         {/* Topics Cloud */}
-        <div className="mt-16 p-8 rounded-3xl border border-stone-200/90 bg-stone-50/70 space-y-4">
+        <div className="mt-16 p-8 rounded-3xl border border-stone-200/90 dark:border-slate-800 bg-stone-50/70 dark:bg-slate-900/50 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-stone-900 font-mono uppercase tracking-wider">
+            <h3 className="text-sm font-bold text-stone-900 dark:text-stone-100 font-mono uppercase tracking-wider">
               Explore Popular Technology Tags
             </h3>
-            <span className="text-xs font-mono text-stone-500">
+            <span className="text-xs font-mono text-stone-500 dark:text-slate-400">
               {tags.length} Active Tags
             </span>
           </div>
@@ -168,10 +168,10 @@ export default function BlogPage() {
               <Link
                 key={t.name}
                 href={`/blog/tag/${encodeURIComponent(t.name.toLowerCase())}`}
-                className="text-xs font-mono px-3 py-1.5 rounded-lg bg-white border border-stone-200/90 text-stone-700 hover:text-orange-600 hover:border-orange-300 hover:shadow-2xs transition-all flex items-center gap-1.5"
+                className="text-xs font-mono px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-stone-200/90 dark:border-slate-700 text-stone-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-300 dark:hover:border-orange-500/50 hover:shadow-2xs transition-all flex items-center gap-1.5"
               >
                 <span>#{t.name}</span>
-                <span className="text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.2 rounded-full">
+                <span className="text-[10px] text-slate-400 bg-slate-100 dark:bg-slate-700 px-1.5 py-0.2 rounded-full">
                   {t.count}
                 </span>
               </Link>

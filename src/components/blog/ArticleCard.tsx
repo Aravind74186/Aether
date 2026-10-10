@@ -12,11 +12,11 @@ interface ArticleCardProps {
 export function ArticleCard({ article, featured = false }: ArticleCardProps) {
   if (featured) {
     return (
-      <article className="group relative rounded-3xl border border-orange-200/80 bg-gradient-to-br from-orange-50/70 via-white to-amber-50/30 p-6 sm:p-10 shadow-lg shadow-orange-500/5 hover:border-orange-300 hover:shadow-xl transition-all duration-300">
+      <article className="group relative rounded-3xl border border-orange-200/80 dark:border-orange-500/30 bg-gradient-to-br from-orange-50/70 via-white to-amber-50/30 dark:from-[#0f172a] dark:via-[#131d33] dark:to-[#0f172a] p-6 sm:p-10 shadow-lg shadow-orange-500/5 dark:shadow-black/50 hover:border-orange-300 dark:hover:border-orange-500/50 hover:shadow-xl transition-all duration-300">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
           <div className="space-y-4 max-w-3xl">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-orange-100/80 border border-orange-200 text-orange-700">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-orange-100/80 dark:bg-orange-950/60 border border-orange-200 dark:border-orange-800/80 text-orange-700 dark:text-orange-300">
                 <Sparkles className="w-3.5 h-3.5" />
                 Featured Publication
               </span>
@@ -28,11 +28,11 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
               </Link>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-stone-950 group-hover:text-orange-600 transition-colors">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-stone-950 dark:text-white group-hover:text-orange-600 transition-colors">
               <Link href={`/blog/${article.slug}`}>{article.title}</Link>
             </h2>
 
-            <p className="text-sm sm:text-base text-stone-600 leading-relaxed line-clamp-3 font-normal">
+            <p className="text-sm sm:text-base text-stone-600 dark:text-slate-300 leading-relaxed line-clamp-3 font-normal">
               {article.excerpt}
             </p>
 

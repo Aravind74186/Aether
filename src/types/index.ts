@@ -39,13 +39,21 @@ export interface CaseStudyItem {
   slug: string;
   title: string;
   clientType: string;
+  projectType:
+    | "Client Project (Anonymized)"
+    | "Prior Company Engagement (Anonymized)"
+    | "Independent Full-Stack Project"
+    | "Applied R&D & Architecture Research"
+    | "Open-Source Architecture Prototype";
+  myRole: string;
   industry: string;
-  status: "Completed" | "Production" | "In Development" | "Internal Demonstration";
+  status: "Completed" | "Production" | "In Development" | "Internal Demonstration" | "Reference Architecture";
   isDemonstration: boolean;
   summary: string;
   challenge: string;
   objective: string;
   solution: string;
+  technicalContributions: string[];
   architectureDetails: {
     frontend: string[];
     backend: string[];
@@ -59,6 +67,7 @@ export interface CaseStudyItem {
     rationale: string;
   }[];
   verifiedOutcomes: string[];
+  lessonsLearned: string[];
   technologies: string[];
   timeline: string;
   featured?: boolean;

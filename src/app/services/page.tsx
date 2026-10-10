@@ -36,7 +36,7 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="py-12 sm:py-16 space-y-20 bg-white">
+    <div className="py-12 sm:py-16 space-y-20">
       <Container size="xl">
         <Breadcrumbs items={[{ name: "Services" }]} />
 
@@ -162,15 +162,15 @@ export default function ServicesPage() {
                     </div>
 
                     {/* Deliverables Box */}
-                    <div className="rounded-2xl border border-orange-100 bg-orange-50/40 p-6 space-y-3 shadow-2xs">
-                      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-orange-800 font-bold">
-                        <CheckCircle2 className="w-4 h-4 text-orange-600" />
+                    <div className="rounded-2xl border border-orange-100 dark:border-orange-900/50 bg-orange-50/40 dark:bg-orange-950/25 p-6 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-orange-800 dark:text-orange-400 font-bold">
+                        <CheckCircle2 className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                         <span>Typical Concrete Deliverables</span>
                       </div>
-                      <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700">
+                      <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                         {service.typicalDeliverables.map((deliv, dIdx) => (
                           <li key={dIdx} className="flex items-start gap-2.5">
-                            <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-4 h-4 text-orange-600 dark:text-orange-400 shrink-0 mt-0.5" />
                             <span className="leading-relaxed">{deliv}</span>
                           </li>
                         ))}

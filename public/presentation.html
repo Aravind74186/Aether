@@ -31,6 +31,7 @@
       height: 100vh;
       height: 100dvh;
       overflow: hidden;
+      -webkit-user-select: none;
       user-select: none;
       display: flex;
       flex-direction: column;
@@ -70,6 +71,7 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
       background: rgba(5, 8, 17, 0.7);
+      -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
     }
 
@@ -201,6 +203,7 @@
       justify-content: space-between;
       border-top: 1px solid var(--border);
       background: rgba(5, 8, 17, 0.7);
+      -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
       font-family: var(--font-mono);
       font-size: 0.8rem;
@@ -248,12 +251,99 @@
       background: var(--blue);
       width: 40px;
     }
+
+    .glow-sphere-tl {
+      top: -100px;
+      left: -100px;
+    }
+
+    .glow-sphere-br {
+      bottom: -100px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    }
+
+    #slide-counter {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    #slide-counter strong {
+      color: white;
+    }
+
+    .hero-desc {
+      max-width: 700px;
+      margin-bottom: 2rem;
+    }
+
+    .nav-hint {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-hint kbd {
+      background: #1e293b;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .card-title-red {
+      color: #f87171;
+    }
+
+    .card-title-yellow {
+      color: #fbbf24;
+    }
+
+    .card-title-gray {
+      color: #94a3b8;
+    }
+
+    .card-title-blue {
+      color: #60a5fa;
+    }
+
+    .card-title-green {
+      color: #34d399;
+    }
+
+    .card-title-purple {
+      color: #a78bfa;
+    }
+
+    .slide-center {
+      text-align: center;
+    }
+
+    .cta-desc {
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+    }
+
+    .contact-banner {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--blue);
+    }
+
+    .nav-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .nav-btn-next {
+      background: var(--blue);
+      color: white;
+    }
   </style>
 </head>
 <body>
   <div class="grid-bg"></div>
-  <div class="glow-sphere" style="top: -100px; left: -100px;"></div>
-  <div class="glow-sphere" style="bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);"></div>
+  <div class="glow-sphere glow-sphere-tl"></div>
+  <div class="glow-sphere glow-sphere-br"></div>
 
   <!-- Header -->
   <header>
@@ -261,8 +351,8 @@
       <div class="brand-icon">&gt;_</div>
       <span>Aether Technologies • Capabilities Deck</span>
     </div>
-    <div id="slide-counter" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
-      Slide <strong style="color: white;">1</strong> / 5
+    <div id="slide-counter">
+      Slide <strong>1</strong> / 5
     </div>
   </header>
 
@@ -272,11 +362,11 @@
     <div class="slide active">
       <div class="tag">Enterprise Technology Startup</div>
       <h1>Building Practical Software for the Next Generation.</h1>
-      <p style="max-width: 700px; margin-bottom: 2rem;">
+      <p class="hero-desc">
         Custom-engineered full-stack platforms for Schools, Colleges, Startups, and SMEs with 100% source code ownership and zero monthly per-user license fees.
       </p>
-      <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
-        Use <kbd style="background: #1e293b; padding: 2px 6px; border-radius: 4px;">Space</kbd> or <kbd style="background: #1e293b; padding: 2px 6px; border-radius: 4px;">→</kbd> to navigate
+      <div class="nav-hint">
+        Use <kbd>Space</kbd> or <kbd>→</kbd> to navigate
       </div>
     </div>
 
@@ -287,15 +377,15 @@
       <p>Organizations are trapped between rigid SaaS monopolies and fragile spreadsheets.</p>
       <div class="grid-3">
         <div class="card">
-          <h3 style="color: #f87171;">Bloated $15k/yr ERPs</h3>
+          <h3 class="card-title-red">Bloated $15k/yr ERPs</h3>
           <p>Over-designed systems with dozens of unused features and punitive recurring per-student subscription renewals.</p>
         </div>
         <div class="card">
-          <h3 style="color: #fbbf24;">Spreadsheet Desync</h3>
+          <h3 class="card-title-yellow">Spreadsheet Desync</h3>
           <p>Critical attendance, marks, and inventory stored in disconnected Excel files with zero concurrency protection.</p>
         </div>
         <div class="card">
-          <h3 style="color: #94a3b8;">Vulnerable Legacy Code</h3>
+          <h3 class="card-title-gray">Vulnerable Legacy Code</h3>
           <p>Unmaintained PHP/WordPress plugins prone to security vulnerabilities and slow morning login load times.</p>
         </div>
       </div>
@@ -308,15 +398,15 @@
       <p>Clean, modern, and reliable architectures built on modern web standards.</p>
       <div class="grid-3">
         <div class="card">
-          <h3 style="color: #60a5fa;">100% Code Ownership</h3>
+          <h3 class="card-title-blue">100% Code Ownership</h3>
           <p>You own all source code, PostgreSQL schemas, and Docker runbooks with zero vendor lock-in.</p>
         </div>
         <div class="card">
-          <h3 style="color: #34d399;">Sub-Second Speed</h3>
+          <h3 class="card-title-green">Sub-Second Speed</h3>
           <p>Next.js 14 server-rendered interfaces that load in milliseconds on mobile classroom devices.</p>
         </div>
         <div class="card">
-          <h3 style="color: #a78bfa;">ACID Integrity</h3>
+          <h3 class="card-title-purple">ACID Integrity</h3>
           <p>PostgreSQL transactional guarantees ensure financial receipts and student grades never corrupt.</p>
         </div>
       </div>
@@ -344,13 +434,13 @@
     </div>
 
     <!-- Slide 5: Next Steps -->
-    <div class="slide" style="text-align: center;">
+    <div class="slide slide-center">
       <div class="tag">Sprint 01 Kickoff</div>
       <h2>Let's Build Your Platform Together.</h2>
-      <p style="max-width: 600px; margin: 0 auto 2rem auto;">
+      <p class="cta-desc">
         Schedule a technical scoping session with our lead architects to review your requirements and milestone timeline.
       </p>
-      <div style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--blue);">
+      <div class="contact-banner">
         contact@aethertech.example.com • aethertech.example.com
       </div>
     </div>
@@ -359,9 +449,9 @@
   <!-- Footer Navigation -->
   <footer>
     <div class="progress-track" id="progress-dots"></div>
-    <div style="display: flex; gap: 0.5rem;">
+    <div class="nav-controls">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()">← Prev</button>
-      <button class="nav-btn" id="next-btn" onclick="nextSlide()" style="background: var(--blue); color: white;">Next →</button>
+      <button class="nav-btn nav-btn-next" id="next-btn" onclick="nextSlide()">Next →</button>
     </div>
   </footer>
 
@@ -389,7 +479,7 @@
       document.querySelectorAll('.progress-dot').forEach((d, idx) => {
         d.classList.toggle('active', idx === currentSlide);
       });
-      counter.innerHTML = `Slide <strong style="color: white;">${currentSlide + 1}</strong> / ${totalSlides}`;
+      counter.innerHTML = `Slide <strong>${currentSlide + 1}</strong> / ${totalSlides}`;
       prevBtn.disabled = currentSlide === 0;
       nextBtn.disabled = currentSlide === totalSlides - 1;
     }

@@ -13,37 +13,37 @@ export default async function AdminSettingsPage() {
 
   return (
     <div className="space-y-8 max-w-4xl">
-      <div className="pb-6 border-b border-slate-850">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+      <div className="pb-6 border-b border-stone-200">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-950">
           System & Security Settings
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 font-mono mt-1">
+        <p className="text-xs sm:text-sm text-stone-500 font-mono mt-1">
           Server-side authentication state, session parameters, and operational integrity
         </p>
       </div>
 
       <div className="space-y-6">
         {/* Active Admin Profile Card */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+        <div className="rounded-3xl border border-stone-200 bg-white p-6 space-y-5 shadow-xs">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-orange-950/80 border border-orange-800/40 flex items-center justify-center text-orange-400">
+            <div className="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-600 shadow-2xs">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-white">Active Administrator Identity</h2>
-              <p className="text-xs text-slate-400 font-mono">Authenticated via server-side session</p>
+              <h2 className="text-sm font-bold text-stone-900">Active Administrator Identity</h2>
+              <p className="text-xs text-stone-500 font-mono">Authenticated via server-side session</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-xs font-mono">
-            <div className="p-3 rounded-xl bg-slate-950 border border-slate-850">
-              <div className="text-slate-500">Email Address:</div>
-              <div className="text-white font-semibold mt-1">{user.email}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 text-xs font-mono">
+            <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+              <div className="text-stone-500 font-medium">Email Address:</div>
+              <div className="text-stone-950 font-bold mt-1 text-sm">{user.email}</div>
             </div>
-            <div className="p-3 rounded-xl bg-slate-950 border border-slate-850">
-              <div className="text-slate-500">Authorization Level:</div>
-              <div className="text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+            <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+              <div className="text-stone-500 font-medium">Authorization Level:</div>
+              <div className="text-emerald-700 font-bold mt-1 text-sm flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>{user.role} Role Granted</span>
               </div>
             </div>
@@ -51,33 +51,33 @@ export default async function AdminSettingsPage() {
         </div>
 
         {/* Security Parameters Overview */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
+        <div className="rounded-3xl border border-stone-200 bg-white p-6 space-y-5 shadow-xs">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-orange-950/80 border border-orange-800/40 flex items-center justify-center text-orange-400">
+            <div className="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-600 shadow-2xs">
               <Lock className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-white">Cryptographic Standards</h2>
-              <p className="text-xs text-slate-400 font-mono">Server-enforced security protocols</p>
+              <h2 className="text-sm font-bold text-stone-900">Cryptographic Standards</h2>
+              <p className="text-xs text-stone-500 font-mono">Server-enforced security protocols</p>
             </div>
           </div>
 
-          <div className="space-y-3 pt-2 text-xs font-mono text-slate-300">
-            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-850">
-              <span className="text-slate-400">Password Hashing Algorithm:</span>
-              <span className="text-orange-400 font-semibold">bcrypt (10 Salt Rounds)</span>
+          <div className="space-y-3 pt-1 text-xs font-mono">
+            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+              <span className="text-stone-600 font-medium">Password Hashing Algorithm:</span>
+              <span className="text-orange-700 font-bold font-mono">bcrypt (10 Salt Rounds)</span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-850">
-              <span className="text-slate-400">Cookie Security Policy:</span>
-              <span className="text-emerald-400 font-semibold">HttpOnly, SameSite=Lax</span>
+            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+              <span className="text-stone-600 font-medium">Cookie Security Policy:</span>
+              <span className="text-emerald-700 font-bold font-mono">HttpOnly, SameSite=Lax</span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-850">
-              <span className="text-slate-400">Brute Force Mitigation:</span>
-              <span className="text-emerald-400 font-semibold">Active (5 requests / 60s per IP)</span>
+            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+              <span className="text-stone-600 font-medium">Brute Force Mitigation:</span>
+              <span className="text-emerald-700 font-bold font-mono">Active (5 requests / 60s per IP)</span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-850">
-              <span className="text-slate-400">Search Engine Indexing:</span>
-              <span className="text-amber-400 font-semibold">Blocked (noindex, nofollow)</span>
+            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-stone-50 border border-stone-200 shadow-2xs">
+              <span className="text-stone-600 font-medium">Search Engine Indexing:</span>
+              <span className="text-amber-700 font-bold font-mono">Blocked (noindex, nofollow)</span>
             </div>
           </div>
         </div>

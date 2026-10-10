@@ -263,27 +263,28 @@ export function Technology3D({
         ctx.arc(p.screenX, p.screenY, nodeRadius * 2.8, 0, Math.PI * 2);
         ctx.fill();
 
+        const isDarkMode = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
+
         // Node core
         ctx.beginPath();
         ctx.arc(p.screenX, p.screenY, nodeRadius, 0, Math.PI * 2);
         ctx.fillStyle = p.baseColor;
         ctx.fill();
-        ctx.strokeStyle = "#ffffff";
+        ctx.strokeStyle = isDarkMode ? "#090d16" : "#ffffff";
         ctx.lineWidth = 1.5 * p.scale;
         ctx.stroke();
 
         // Node Label (show labels for prominent front nodes)
         if (p.depth > -radius * 0.2 && p.label) {
           ctx.font = `600 ${Math.max(9, Math.round(10.5 * p.scale))}px ui-monospace, SFMono-Regular, monospace`;
-          ctx.fillStyle = `rgba(15, 23, 42, ${Math.min(0.9, depthAlpha + 0.15)})`;
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";
 
           // Label pill background
           const textMetrics = ctx.measureText(p.label);
           const bgPad = 3.5;
-          ctx.fillStyle = "rgba(255, 255, 255, 0.88)";
-          ctx.strokeStyle = "rgba(226, 232, 240, 0.9)";
+          ctx.fillStyle = isDarkMode ? "rgba(15, 23, 42, 0.9)" : "rgba(255, 255, 255, 0.88)";
+          ctx.strokeStyle = isDarkMode ? "rgba(51, 65, 85, 0.8)" : "rgba(226, 232, 240, 0.9)";
           ctx.lineWidth = 0.8;
           ctx.beginPath();
           ctx.roundRect(
@@ -297,7 +298,7 @@ export function Technology3D({
           ctx.stroke();
 
           // Text
-          ctx.fillStyle = "#0f172a";
+          ctx.fillStyle = isDarkMode ? "#f8fafc" : "#0f172a";
           ctx.fillText(p.label, p.screenX + nodeRadius + 4 + bgPad, p.screenY);
         }
       }
@@ -329,7 +330,7 @@ export function Technology3D({
         className="w-full h-full cursor-grab active:cursor-grabbing"
       />
       {/* Micro-interaction interactive cue */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full bg-white/90 border border-slate-200 text-[10px] font-mono text-slate-500 shadow-2xs pointer-events-none flex items-center gap-1.5 backdrop-blur-xs">
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-[10px] font-mono text-slate-500 dark:text-slate-400 shadow-2xs pointer-events-none flex items-center gap-1.5 backdrop-blur-xs">
         <span className="w-1.5 h-1.5 rounded-full bg-orange-600 animate-pulse" />
         <span>Interactive 3D Network • Move Cursor</span>
       </div>

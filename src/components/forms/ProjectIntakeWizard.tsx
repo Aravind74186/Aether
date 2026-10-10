@@ -10,6 +10,11 @@ import {
   DollarSign,
   Send,
   AlertCircle,
+  Plus,
+  X,
+  IndianRupee,
+  Layers,
+  Sparkles,
 } from "lucide-react";
 
 interface WizardData {
@@ -32,6 +37,15 @@ export function ProjectIntakeWizard() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [stepError, setStepError] = useState<string | null>(null);
 
+  const [currency, setCurrency] = useState<"USD" | "INR">("USD");
+  const [customStageText, setCustomStageText] = useState("");
+  const [customCategories, setCustomCategories] = useState<string[]>([]);
+  const [newCategoryInput, setNewCategoryInput] = useState("");
+  const [showCategoryInput, setShowCategoryInput] = useState(false);
+  const [customTimelineText, setCustomTimelineText] = useState("");
+  const [isCustomBudget, setIsCustomBudget] = useState(false);
+  const [customBudgetValue, setCustomBudgetValue] = useState("");
+
   const [formData, setFormData] = useState<WizardData>({
     projectGoal: "",
     problemToSolve: "",
@@ -52,9 +66,10 @@ export function ProjectIntakeWizard() {
     { id: "MVP", label: "Building First MVP", desc: "Ready to engineer production product." },
     { id: "Existing Product", label: "Existing Software", desc: "Need new features or performance upgrades." },
     { id: "Modernization", label: "Legacy Modernization", desc: "Replacing outdated software/spreadsheets." },
+    { id: "Custom", label: "Custom / Other", desc: "Unique architecture, specific stage, or bespoke requirements." },
   ];
 
-  const projectTypes = [
+  const defaultProjectTypes = [
     "Web Application",
     "School / College ERP",
     "AI / RAG Pipeline",
@@ -70,15 +85,77 @@ export function ProjectIntakeWizard() {
     "1-3 months",
     "3-6 months",
     "Long-term Partner (6+ months)",
+    "Custom Timeline",
   ];
 
-  const budgets = [
-    "Under $2,500 (Discovery / Prototype)",
-    "Small Project ($2,500 - $5,000)",
-    "MVP ($5,000 - $10,000)",
-    "Institutional ($10,000+)",
-    "Flexible / Undecided",
+  const budgetTiers = [
+    {
+      id: "discovery",
+      usd: "Under $2,500",
+      inr: "Under ₹2,00,000",
+      usdSub: "≈ Under ₹2 Lakhs",
+      inrSub: "≈ Under $2,500",
+      desc: "Discovery / Prototype",
+    },
+    {
+      id: "small",
+      usd: "$2,500 - $5,000",
+      inr: "₹2,00,000 - ₹4,00,000",
+      usdSub: "≈ ₹2L - ₹4L",
+      inrSub: "≈ $2,500 - $5,000",
+      desc: "Small Project / Portal",
+    },
+    {
+      id: "mvp",
+      usd: "$5,000 - $10,000",
+      inr: "₹4,00,000 - ₹8,00,000",
+      usdSub: "≈ ₹4L - ₹8L",
+      inrSub: "≈ $5,000 - $10,000",
+      desc: "Full MVP / Product Build",
+    },
+    {
+      id: "institutional",
+      usd: "$10,000+",
+      inr: "₹8,00,000+",
+      usdSub: "≈ ₹8 Lakhs+",
+      inrSub: "≈ $10,000+",
+      desc: "Institutional / Enterprise Platform",
+    },
+    {
+      id: "flexible",
+      usd: "Flexible / Undecided",
+      inr: "Flexible / Undecided",
+      usdSub: "Scope-driven quotation",
+      inrSub: "Scope-driven quotation",
+      desc: "Need advisory before setting budget",
+    },
   ];
+
+  const handleCurrencyChange = (newCurr: "USD" | "INR") => {
+    setCurrency(newCurr);
+    if (isCustomBudget) {
+      if (customBudgetValue) {
+        setFormData({
+          ...formData,
+          budget: `${newCurr === "INR" ? "₹" : "$"}${customBudgetValue} (Custom)`,
+        });
+      }
+    } else {
+      // Find matching tier
+      const activeTier = budgetTiers.find(
+        (t) =>
+          formData.budget.includes(t.usd) ||
+          formData.budget.includes(t.inr) ||
+          formData.budget.includes(t.desc)
+      );
+      if (activeTier) {
+        setFormData({
+          ...formData,
+          budget: `${newCurr === "INR" ? activeTier.inr : activeTier.usd} (${activeTier.desc})`,
+        });
+      }
+    }
+  };
 
   const handleTypeToggle = (type: string) => {
     if (formData.projectType.includes(type)) {
@@ -94,6 +171,29 @@ export function ProjectIntakeWizard() {
         projectType: [...formData.projectType, type],
       });
     }
+  };
+
+  const handleAddCustomCategory = () => {
+    const trimmed = newCategoryInput.trim();
+    if (trimmed) {
+      if (!formData.projectType.includes(trimmed)) {
+        setCustomCategories((prev) => [...prev, trimmed]);
+        setFormData({
+          ...formData,
+          projectType: [...formData.projectType, trimmed],
+        });
+      }
+      setNewCategoryInput("");
+      setShowCategoryInput(false);
+    }
+  };
+
+  const handleRemoveCustomCategory = (cat: string) => {
+    setCustomCategories((prev) => prev.filter((c) => c !== cat));
+    setFormData({
+      ...formData,
+      projectType: formData.projectType.filter((t) => t !== cat),
+    });
   };
 
   const validateStep = (step: number): boolean => {
@@ -194,6 +294,7 @@ export function ProjectIntakeWizard() {
           <div>• Stage: {formData.projectStage}</div>
           <div>• Timeline: {formData.timeline}</div>
           <div>• Budget: {formData.budget}</div>
+          <div>• Scope: {formData.projectType.join(", ")}</div>
         </div>
 
         <p className="text-xs text-slate-500">
@@ -313,38 +414,85 @@ export function ProjectIntakeWizard() {
               What stage is the project at?
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {stages.map((stage) => (
-                <button
-                  type="button"
-                  key={stage.id}
-                  onClick={() => setFormData({ ...formData, projectStage: stage.id })}
-                  className={`p-3.5 rounded-2xl border text-left transition-all ${
-                    formData.projectStage === stage.id
-                      ? "border-orange-600 bg-orange-50/80 shadow-xs text-slate-900"
-                      : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700"
-                  }`}
-                >
-                  <div className="text-sm font-bold text-slate-900">{stage.label}</div>
-                  <div className="text-xs text-slate-500 mt-0.5">{stage.desc}</div>
-                </button>
-              ))}
+              {stages.map((stage) => {
+                const isSelected =
+                  formData.projectStage === stage.id ||
+                  (stage.id === "Custom" && formData.projectStage.startsWith("Custom"));
+
+                return (
+                  <button
+                    type="button"
+                    key={stage.id}
+                    onClick={() => {
+                      if (stage.id === "Custom") {
+                        setFormData({
+                          ...formData,
+                          projectStage: customStageText ? `Custom: ${customStageText}` : "Custom",
+                        });
+                      } else {
+                        setFormData({ ...formData, projectStage: stage.id });
+                      }
+                    }}
+                    className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                      isSelected
+                        ? "border-orange-600 bg-orange-50/80 shadow-xs text-slate-900"
+                        : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700"
+                    }`}
+                  >
+                    <div className="text-sm font-bold text-slate-900">{stage.label}</div>
+                    <div className="text-xs text-slate-500 mt-0.5">{stage.desc}</div>
+
+                    {stage.id === "Custom" && isSelected && (
+                      <div className="mt-2.5" onClick={(e) => e.stopPropagation()}>
+                        <input
+                          type="text"
+                          placeholder="Describe your current stage or architecture state..."
+                          value={customStageText}
+                          onChange={(e) => {
+                            setCustomStageText(e.target.value);
+                            setFormData({
+                              ...formData,
+                              projectStage: e.target.value ? `Custom: ${e.target.value}` : "Custom",
+                            });
+                          }}
+                          className="w-full px-3 py-1.5 rounded-xl bg-white border border-orange-300 text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none focus:border-orange-500 shadow-2xs"
+                        />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Project Types */}
           <div className="space-y-2 pt-2">
-            <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 font-bold">
-              Select all relevant project categories:
-            </label>
+            <div className="flex items-center justify-between">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 font-bold">
+                Select all relevant project categories:
+              </label>
+              {!showCategoryInput && (
+                <button
+                  type="button"
+                  onClick={() => setShowCategoryInput(true)}
+                  className="text-xs font-mono text-orange-600 hover:text-orange-700 font-semibold inline-flex items-center gap-1 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Custom Category</span>
+                </button>
+              )}
+            </div>
+
             <div className="flex flex-wrap gap-2">
-              {projectTypes.map((type) => {
+              {/* Default Categories */}
+              {defaultProjectTypes.map((type) => {
                 const isSelected = formData.projectType.includes(type);
                 return (
                   <button
                     type="button"
                     key={type}
                     onClick={() => handleTypeToggle(type)}
-                    className={`px-3 py-2 rounded-xl text-xs font-mono transition-all ${
+                    className={`px-3 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
                       isSelected
                         ? "bg-orange-600 text-white font-semibold shadow-xs"
                         : "bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100"
@@ -355,7 +503,73 @@ export function ProjectIntakeWizard() {
                   </button>
                 );
               })}
+
+              {/* Custom Added Categories */}
+              {customCategories.map((customCat) => {
+                const isSelected = formData.projectType.includes(customCat);
+                return (
+                  <div
+                    key={customCat}
+                    className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-mono transition-all ${
+                      isSelected
+                        ? "bg-orange-600 text-white font-semibold shadow-xs"
+                        : "bg-slate-100 border border-slate-300 text-slate-700"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => handleTypeToggle(customCat)}
+                      className="cursor-pointer"
+                    >
+                      {isSelected ? "✓ " : "+ "}
+                      {customCat}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveCustomCategory(customCat)}
+                      className="ml-1 p-0.5 rounded-full hover:bg-black/10 cursor-pointer"
+                      title="Remove category"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                );
+              })}
             </div>
+
+            {/* Inline Custom Category Adder */}
+            {showCategoryInput && (
+              <div className="flex items-center gap-2 pt-2 animate-in fade-in duration-150">
+                <input
+                  type="text"
+                  placeholder="Enter custom category (e.g. IoT Telemetry, Chrome Extension, Fintech)..."
+                  value={newCategoryInput}
+                  onChange={(e) => setNewCategoryInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleAddCustomCategory();
+                    }
+                  }}
+                  className="flex-grow px-3.5 py-2 rounded-xl bg-slate-50 border border-orange-300 text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white shadow-2xs"
+                  autoFocus
+                />
+                <Button size="sm" variant="primary" type="button" onClick={handleAddCustomCategory}>
+                  <span>Add</span>
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  type="button"
+                  onClick={() => {
+                    setNewCategoryInput("");
+                    setShowCategoryInput(false);
+                  }}
+                >
+                  <span>Cancel</span>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -377,44 +591,184 @@ export function ProjectIntakeWizard() {
               <span>Target Delivery Window</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {timelines.map((tl) => (
-                <button
-                  type="button"
-                  key={tl}
-                  onClick={() => setFormData({ ...formData, timeline: tl })}
-                  className={`p-3.5 rounded-2xl border text-left text-xs font-mono transition-all ${
-                    formData.timeline === tl
-                      ? "border-orange-600 bg-orange-50/80 text-orange-700 font-bold shadow-xs"
-                      : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
-                  }`}
-                >
-                  {tl}
-                </button>
-              ))}
+              {timelines.map((tl) => {
+                const isSelected =
+                  formData.timeline === tl ||
+                  (tl === "Custom Timeline" && formData.timeline.startsWith("Custom"));
+
+                return (
+                  <button
+                    type="button"
+                    key={tl}
+                    onClick={() => {
+                      if (tl === "Custom Timeline") {
+                        setFormData({
+                          ...formData,
+                          timeline: customTimelineText ? `Custom: ${customTimelineText}` : "Custom Timeline",
+                        });
+                      } else {
+                        setFormData({ ...formData, timeline: tl });
+                      }
+                    }}
+                    className={`p-3.5 rounded-2xl border text-left text-xs font-mono transition-all cursor-pointer ${
+                      isSelected
+                        ? "border-orange-600 bg-orange-50/80 text-orange-700 font-bold shadow-xs"
+                        : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                    }`}
+                  >
+                    <div>{tl}</div>
+                    {tl === "Custom Timeline" && isSelected && (
+                      <div className="mt-2" onClick={(e) => e.stopPropagation()}>
+                        <input
+                          type="text"
+                          placeholder="e.g. 2 weeks urgent, Q4 launch, or milestone-based"
+                          value={customTimelineText}
+                          onChange={(e) => {
+                            setCustomTimelineText(e.target.value);
+                            setFormData({
+                              ...formData,
+                              timeline: e.target.value ? `Custom: ${e.target.value}` : "Custom Timeline",
+                            });
+                          }}
+                          className="w-full px-3 py-1.5 rounded-xl bg-white border border-orange-300 text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none focus:border-orange-500 shadow-2xs font-normal"
+                        />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Budget */}
-          <div className="space-y-2 pt-2">
-            <label className="text-xs font-mono uppercase tracking-wider text-slate-700 font-bold flex items-center gap-1.5">
-              <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Estimated Budget Allocation</span>
-            </label>
-            <div className="space-y-2">
-              {budgets.map((b) => (
+          {/* Budget Allocation with INR and USD */}
+          <div className="space-y-3 pt-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <label className="text-xs font-mono uppercase tracking-wider text-slate-700 font-bold flex items-center gap-1.5">
+                {currency === "INR" ? (
+                  <IndianRupee className="w-3.5 h-3.5 text-emerald-600" />
+                ) : (
+                  <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                )}
+                <span>Estimated Budget Allocation</span>
+              </label>
+
+              {/* Currency Toggle Switch */}
+              <div className="inline-flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-mono">
                 <button
                   type="button"
-                  key={b}
-                  onClick={() => setFormData({ ...formData, budget: b })}
-                  className={`w-full p-3 rounded-2xl border text-left text-xs font-mono transition-all ${
-                    formData.budget === b
-                      ? "border-emerald-600 bg-emerald-50/80 text-emerald-800 font-bold shadow-xs"
-                      : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                  onClick={() => handleCurrencyChange("USD")}
+                  className={`px-3 py-1 rounded-lg transition-all font-semibold cursor-pointer ${
+                    currency === "USD"
+                      ? "bg-white text-slate-900 shadow-2xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
-                  {b}
+                  USD ($)
                 </button>
-              ))}
+                <button
+                  type="button"
+                  onClick={() => handleCurrencyChange("INR")}
+                  className={`px-3 py-1 rounded-lg transition-all font-semibold cursor-pointer ${
+                    currency === "INR"
+                      ? "bg-white text-slate-900 shadow-2xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  INR (₹)
+                </button>
+              </div>
+            </div>
+
+            {/* Tiered Budget Options */}
+            <div className="space-y-2">
+              {budgetTiers.map((tier) => {
+                const primaryAmount = currency === "INR" ? tier.inr : tier.usd;
+                const secondaryEquiv = currency === "INR" ? tier.inrSub : tier.usdSub;
+                const formattedValue = `${primaryAmount} (${tier.desc})`;
+                const isSelected = !isCustomBudget && (formData.budget === formattedValue || formData.budget.includes(tier.desc));
+
+                return (
+                  <button
+                    type="button"
+                    key={tier.id}
+                    onClick={() => {
+                      setIsCustomBudget(false);
+                      setFormData({ ...formData, budget: formattedValue });
+                    }}
+                    className={`w-full p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                      isSelected
+                        ? "border-emerald-600 bg-emerald-50/80 text-emerald-950 font-bold shadow-xs"
+                        : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                    }`}
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono font-bold text-slate-900">
+                          {primaryAmount}
+                        </span>
+                        <span className="text-[11px] font-mono text-slate-500 font-normal">
+                          • {tier.desc}
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-mono text-slate-400">
+                        {secondaryEquiv}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+
+              {/* Custom Budget Allocation */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsCustomBudget(true);
+                  setFormData({
+                    ...formData,
+                    budget: customBudgetValue
+                      ? `${currency === "INR" ? "₹" : "$"}${customBudgetValue} (Custom)`
+                      : `Custom Budget (${currency})`,
+                  });
+                }}
+                className={`w-full p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                  isCustomBudget
+                    ? "border-emerald-600 bg-emerald-50/80 shadow-xs"
+                    : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className={`text-xs font-mono font-bold ${isCustomBudget ? "text-emerald-950" : "text-slate-900"}`}>
+                    Custom Budget Allocation
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-500">
+                    Specify custom amount in {currency === "INR" ? "INR (₹)" : "USD ($)"}
+                  </span>
+                </div>
+
+                {isCustomBudget && (
+                  <div className="mt-2.5 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                    <span className="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-mono font-bold text-slate-800 shadow-2xs">
+                      {currency === "INR" ? "₹ INR" : "$ USD"}
+                    </span>
+                    <input
+                      type="text"
+                      placeholder={currency === "INR" ? "e.g. 3,50,000 or 15 Lakhs" : "e.g. 3,500 or 25,000"}
+                      value={customBudgetValue}
+                      onChange={(e) => {
+                        setCustomBudgetValue(e.target.value);
+                        setFormData({
+                          ...formData,
+                          budget: e.target.value
+                            ? `${currency === "INR" ? "₹" : "$"}${e.target.value} (Custom)`
+                            : `Custom Budget (${currency})`,
+                        });
+                      }}
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-emerald-300 text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 shadow-2xs font-normal"
+                      autoFocus
+                    />
+                  </div>
+                )}
+              </button>
             </div>
           </div>
         </div>
@@ -488,6 +842,7 @@ export function ProjectIntakeWizard() {
             <div className="text-slate-900 font-bold">Summary Preview:</div>
             <div>• Goal: {formData.projectGoal || "Not specified"}</div>
             <div>• Stage: {formData.projectStage} • Timeline: {formData.timeline}</div>
+            <div>• Budget: {formData.budget}</div>
             <div>• Scope: {formData.projectType.join(", ")}</div>
           </div>
         </form>

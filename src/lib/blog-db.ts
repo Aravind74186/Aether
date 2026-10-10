@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
+import { supabaseAdmin } from "@/lib/supabase";
 import { insightsData } from "@/data/insights";
 import { insightCategories } from "@/data/insight-categories";
 
@@ -235,7 +236,44 @@ export function getBlogDatabase(): BlogDatabaseSchema {
   }
 }
 
-// Atomic database write
+// Asynchronously sync posts to Supabase table
+export async function syncPostsToSupabase(posts: BlogPostRecord[]): Promise<void> {
+  if (!supabaseAdmin || !posts || posts.length === 0) return;
+  try {
+    const records = posts.map((p) => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      excerpt: p.excerpt || "",
+      content: p.content,
+      cover_image: p.coverImage || null,
+      author_name: p.authorName,
+      author_role: p.authorRole,
+      category_id: p.categoryId,
+      category_name: p.categoryName,
+      category_slug: p.categorySlug,
+      tags: p.tags || [],
+      status: p.status,
+      reading_time: p.readingTime || "5 min",
+      seo_title: p.seoTitle || null,
+      seo_description: p.seoDescription || null,
+      published_at: p.publishedAt ? new Date(p.publishedAt).toISOString() : null,
+      created_at: p.createdAt ? new Date(p.createdAt).toISOString() : new Date().toISOString(),
+      updated_at: p.updatedAt ? new Date(p.updatedAt).toISOString() : new Date().toISOString(),
+    }));
+
+    const { error } = await supabaseAdmin.from("posts").upsert(records, { onConflict: "id" });
+    if (error) {
+      console.warn("[supabase] Failed syncing posts to Supabase:", error.message);
+    } else {
+      console.log("[supabase] Successfully synced posts to Supabase:", records.length);
+    }
+  } catch (err) {
+    console.warn("[supabase] Exception syncing posts:", err);
+  }
+}
+
+// Atomic database write with Supabase sync
 export function saveBlogDatabase(db: BlogDatabaseSchema): void {
   try {
     if (!fs.existsSync(DATA_DIR)) {
@@ -244,6 +282,11 @@ export function saveBlogDatabase(db: BlogDatabaseSchema): void {
     const tempFile = `${DB_FILE}.${Date.now()}.tmp`;
     fs.writeFileSync(tempFile, JSON.stringify(db, null, 2), "utf-8");
     fs.renameSync(tempFile, DB_FILE);
+
+    // Asynchronously sync posts to Supabase
+    if (db.posts && db.posts.length > 0) {
+      syncPostsToSupabase(db.posts);
+    }
   } catch (err) {
     console.error("[BLOG DB WRITE ERROR]:", err);
   }

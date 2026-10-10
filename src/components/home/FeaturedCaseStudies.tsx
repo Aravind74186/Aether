@@ -10,7 +10,7 @@ export function FeaturedCaseStudies() {
   const featured = caseStudiesData.slice(0, 3);
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-transparent">
       <Container size="xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <SectionHeader
@@ -37,41 +37,50 @@ export function FeaturedCaseStudies() {
             >
               <div className="space-y-5">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-mono text-stone-500 font-medium">
-                    {study.industry}
-                  </span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-xs font-mono text-stone-500 dark:text-slate-400 font-medium">
+                      {study.industry}
+                    </span>
+                    <span className="text-slate-300 dark:text-slate-700">•</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-orange-50 dark:bg-orange-950/40 text-orange-800 dark:text-orange-300 border border-orange-200 dark:border-orange-900/50">
+                      {study.projectType}
+                    </span>
+                  </div>
                   <Badge variant={study.isDemonstration ? "demo" : "success"}>
                     {study.status}
                   </Badge>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold text-stone-950 tracking-tight leading-snug group-hover:text-orange-600 transition-colors">
+                  <h3 className="text-xl font-bold text-stone-950 dark:text-white tracking-tight leading-snug group-hover:text-orange-600 transition-colors">
                     <Link href={`/case-studies/${study.slug}`}>{study.title}</Link>
                   </h3>
-                  <p className="mt-2 text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
+                  <div className="text-[11px] font-mono text-orange-700 dark:text-orange-400 mt-1">
+                    Role: {study.myRole}
+                  </div>
+                  <p className="mt-2 text-xs sm:text-sm text-stone-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                     {study.summary}
                   </p>
                 </div>
 
                 {/* Challenge Callout */}
-                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200/80 space-y-1">
-                  <div className="text-[11px] font-mono text-stone-700 font-semibold flex items-center gap-1.5">
-                    <ShieldAlert className="w-3.5 h-3.5 text-stone-500" />
+                <div className="p-3.5 rounded-xl bg-stone-50 dark:bg-slate-950/60 border border-stone-200/80 dark:border-slate-800 space-y-1">
+                  <div className="text-[11px] font-mono text-stone-700 dark:text-slate-300 font-semibold flex items-center gap-1.5">
+                    <ShieldAlert className="w-3.5 h-3.5 text-stone-500 dark:text-slate-400" />
                     <span>Problem Solved:</span>
                   </div>
-                  <p className="text-xs text-stone-600 line-clamp-2">
+                  <p className="text-xs text-stone-600 dark:text-slate-400 line-clamp-2">
                     {study.challenge}
                   </p>
                 </div>
 
                 {/* Verified Outcome */}
-                <div className="p-3.5 rounded-xl bg-orange-50/70 border border-orange-200/80 space-y-1">
-                  <div className="text-[11px] font-mono text-orange-800 font-semibold flex items-center gap-1.5">
+                <div className="p-3.5 rounded-xl bg-orange-50/70 dark:bg-orange-950/40 border border-orange-200/80 dark:border-orange-900/50 space-y-1">
+                  <div className="text-[11px] font-mono text-orange-800 dark:text-orange-300 font-semibold flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-orange-600" />
                     <span>Verified Result:</span>
                   </div>
-                  <p className="text-xs text-orange-950 font-medium line-clamp-2">
+                  <p className="text-xs text-orange-950 dark:text-orange-200 font-medium line-clamp-2">
                     {study.verifiedOutcomes[0]}
                   </p>
                 </div>
@@ -81,7 +90,7 @@ export function FeaturedCaseStudies() {
                   {study.technologies.slice(0, 3).map((item, idx) => (
                     <span
                       key={idx}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-stone-50 text-stone-600 border border-stone-200/80 group-hover:border-orange-200 transition-colors"
+                      className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-stone-50 dark:bg-slate-800 text-stone-600 dark:text-slate-300 border border-stone-200/80 dark:border-slate-700 group-hover:border-orange-200 transition-colors"
                     >
                       {item}
                     </span>
@@ -89,7 +98,7 @@ export function FeaturedCaseStudies() {
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-stone-100 flex items-center justify-between">
+              <div className="pt-6 mt-6 border-t border-stone-100 dark:border-slate-800 flex items-center justify-between">
                 <Link
                   href={`/case-studies/${study.slug}`}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-orange-600 hover:text-orange-700"
@@ -97,7 +106,7 @@ export function FeaturedCaseStudies() {
                   <span>Read Full Architecture</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <span className="text-[11px] font-mono text-stone-600">
+                <span className="text-[11px] font-mono text-stone-600 dark:text-slate-400">
                   {study.timeline}
                 </span>
               </div>
